@@ -159,6 +159,9 @@
     <ClInclude Include="Structs.h">
       <Filter>Stabulum Base Files\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Stabulum Extended Files\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stabulum.cpp">
@@ -262,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>Stabulum Extended Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Stabulum Extended Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

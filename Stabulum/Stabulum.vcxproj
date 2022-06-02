@@ -203,6 +203,7 @@
     <ClInclude Include="BoxColliderComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="ContactListener.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="BaseCommand.h" />
     <ClInclude Include="Controller.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="BoxColliderComponent.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="BaseCommand.cpp" />
     <ClCompile Include="Controller.cpp" />
