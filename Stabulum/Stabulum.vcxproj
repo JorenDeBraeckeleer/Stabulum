@@ -210,7 +210,7 @@
     <ClInclude Include="Observer.h" />
     <ClInclude Include="BaseCommand.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="ControllerButtons.h" />
+    <ClInclude Include="ButtonMapping.h" />
     <ClInclude Include="ControllerImplementation.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FpsComponent.h" />

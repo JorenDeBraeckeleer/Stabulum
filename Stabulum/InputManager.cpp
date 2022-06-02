@@ -6,6 +6,7 @@
 InputManager::InputManager()
 	: m_ControllerCount{ 4 }
 	, m_Controllers{}
+	, m_pKeyboard{ new Keyboard{} }
 {
 	for (int id{}; id < m_ControllerCount; ++id)
 	{
@@ -15,6 +16,9 @@ InputManager::InputManager()
 
 InputManager::~InputManager()
 {
+	delete m_pKeyboard;
+	m_pKeyboard = nullptr;
+
 	for (Controller* pController : m_Controllers)
 	{
 		delete pController;
@@ -29,6 +33,8 @@ bool InputManager::ProcessInput()
 		return false;
 	}
 
+	m_pKeyboard->ProcessInput();
+
 	for (Controller* pController : m_Controllers)
 	{
 		pController->ProcessInput();
@@ -39,12 +45,6 @@ bool InputManager::ProcessInput()
 		if (e.type == SDL_QUIT) {
 			return false;
 		}
-		if (e.type == SDL_KEYDOWN) {
-
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-
-		}
 	}
 
 	return true;
@@ -52,6 +52,47 @@ bool InputManager::ProcessInput()
 
 void InputManager::HandleInput() const
 {
+	//Keyboard
+	auto keyboardCommands{ m_pKeyboard->GetConsoleCommands() };
+
+	std::set<unsigned int> coveredKeyboardButtons{};
+
+	for (const auto& command : *keyboardCommands)
+	{
+		if (coveredKeyboardButtons.contains(command.Button))
+		{
+			continue;
+		}
+
+		coveredKeyboardButtons.insert(command.Button);
+
+		switch (command.InputState)
+		{
+		case InputState::Down:
+			if (m_pKeyboard->IsDownThisFrame(command.Button))
+			{
+				HandleCommandExecution(keyboardCommands, command.Button);
+			}
+			break;
+		case InputState::Up:
+			if (m_pKeyboard->IsUpThisFrame(command.Button))
+			{
+				HandleCommandExecution(keyboardCommands, command.Button);
+			}
+			break;
+		case InputState::Pressed:
+			if (m_pKeyboard->IsPressed(command.Button))
+			{
+				HandleCommandExecution(keyboardCommands, command.Button);
+			}
+			break;
+		default:
+			std::cout << "Wrong input mode." << std::endl;
+			break;
+		}
+	}
+
+	//Controllers
 	for (Controller* pController : m_Controllers)
 	{
 		if (!pController->IsConnected())
@@ -59,37 +100,37 @@ void InputManager::HandleInput() const
 			continue;
 		}
 
-		auto commands{ pController->GetConsoleCommands() };
+		auto controllerCommands{ pController->GetConsoleCommands() };
 
-		std::set<unsigned int> coveredButtons{};
+		std::set<unsigned int> coveredControllerButtons{};
 
-		for (const auto& command : *commands)
+		for (const auto& command : *controllerCommands)
 		{
-			if (coveredButtons.contains(command.Button))
+			if (coveredControllerButtons.contains(command.Button))
 			{
 				continue;
 			}
 
-			coveredButtons.insert(command.Button);
+			coveredControllerButtons.insert(command.Button);
 
 			switch (command.InputState)
 			{
 			case InputState::Down:
 				if (pController->IsDownThisFrame(command.Button))
 				{
-					HandleCommandExecution(commands, command.Button);
+					HandleCommandExecution(controllerCommands, command.Button);
 				}
 				break;
 			case InputState::Up:
 				if (pController->IsUpThisFrame(command.Button))
 				{
-					HandleCommandExecution(commands, command.Button);
+					HandleCommandExecution(controllerCommands, command.Button);
 				}
 				break;
 			case InputState::Pressed:
 				if (pController->IsPressed(command.Button))
 				{
-					HandleCommandExecution(commands, command.Button);
+					HandleCommandExecution(controllerCommands, command.Button);
 				}
 				break;
 			default:
@@ -100,7 +141,7 @@ void InputManager::HandleInput() const
 	}
 }
 
-void InputManager::HandleCommandExecution(std::vector<Controller::ControllerCommand>* pCommands, const unsigned int button) const
+void InputManager::HandleCommandExecution(std::vector<InputCommand>* pCommands, const unsigned int button) const
 {
 	for (const auto& command : *pCommands)
 	{
@@ -119,6 +160,16 @@ void InputManager::HandleCommandExecution(std::vector<Controller::ControllerComm
 			return;
 		}
 	}
+}
+
+void InputManager::AddBindingToKeyboard(std::shared_ptr<BaseCommand> spCommand, ApplicationKeyboard button, InputState inputState)
+{
+	m_pKeyboard->AddConsoleCommand(spCommand, button, inputState);
+}
+
+void InputManager::RemoveBindingFromKeyboard(ApplicationKeyboard button)
+{
+	m_pKeyboard->RemoveConsoleCommand(button);
 }
 
 void InputManager::AddBindingToController(std::shared_ptr<BaseCommand> spCommand, ApplicationController button, InputState inputState)

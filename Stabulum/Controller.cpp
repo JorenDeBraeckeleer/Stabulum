@@ -79,7 +79,7 @@ void Controller::AddConsoleCommand(std::shared_ptr<BaseCommand> spCommand, Appli
 		}
 	}
 
-	ControllerCommand controllerCommand{};
+	InputCommand controllerCommand{};
 	controllerCommand.Button = convertedButton;
 	controllerCommand.InputState = inputState;
 	controllerCommand.spCommands.push_back(spCommand);

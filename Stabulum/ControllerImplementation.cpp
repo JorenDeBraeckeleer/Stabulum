@@ -24,7 +24,7 @@ public:
 	{
 		std::swap(m_PreviousState, m_CurrentState);
 		ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
-		XInputGetState(m_ControllerIndex, &m_CurrentState);
+		//XInputGetState(m_ControllerIndex, &m_CurrentState);
 		DWORD result{ XInputGetState(m_ControllerIndex, &m_CurrentState) };
 
 		int buttonChanges = m_CurrentState.Gamepad.wButtons ^ m_PreviousState.Gamepad.wButtons;

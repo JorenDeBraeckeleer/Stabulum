@@ -1,5 +1,5 @@
 #pragma once
-#include "ControllerButtons.h"
+#include "ButtonMapping.h"
 
 class ControllerImplementation final
 {

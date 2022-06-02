@@ -1,6 +1,5 @@
 #pragma once
-#include "BaseCommand.h"
-#include "ControllerButtons.h"
+#include "ButtonMapping.h"
 
 //This is not the real pImpl, this class can be foward declared here
 class ControllerImplementation;
@@ -16,22 +15,13 @@ public:
 	Controller& operator=(const Controller& other) = delete;
 	Controller& operator=(Controller&& other) = delete;
 
-	using XInputController = unsigned int;
-
-	struct ControllerCommand
-	{
-	public:
-		XInputController Button{};
-		InputState InputState{};
-		std::vector<BaseCommand*> pCommands{};
-		std::vector<std::shared_ptr<BaseCommand>> spCommands{};
-	};
-
-	std::vector<ControllerCommand>* GetConsoleCommands() { return &m_ConsoleCommands; }
+	std::vector<InputCommand>* GetConsoleCommands() { return &m_ConsoleCommands; }
 
 	void ProcessInput();
 
 	bool IsConnected() const;
+
+	using XInputController = unsigned int;
 
 	bool IsPressed(XInputController button) const;
 	bool IsDownThisFrame(XInputController button) const;
@@ -59,7 +49,7 @@ private:
 
 	ControllerImplementation* m_pImpl;
 
-	std::vector<ControllerCommand> m_ConsoleCommands{};
+	std::vector<InputCommand> m_ConsoleCommands{};
 	int m_ControllerIndex;
 	ConnectionState m_CurrentConnectionState, m_PreviousConnectionState;
 };
@@ -78,7 +68,7 @@ inline void Controller::AddConsoleCommand(ApplicationController button, InputSta
 		}
 	}
 
-	ControllerCommand controllerCommand{};
+	InputCommand controllerCommand{};
 	controllerCommand.Button = convertedButton;
 	controllerCommand.InputState = inputState;
 	controllerCommand.pCommands.push_back(new myType());

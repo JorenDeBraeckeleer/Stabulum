@@ -1,6 +1,7 @@
 #pragma once
 #include "Singleton.h"
 #include "Controller.h"
+#include "Keyboard.h"
 
 class InputManager final : public Singleton<InputManager>
 {
@@ -17,12 +18,23 @@ public:
 	void HandleInput() const;
 
 private:
-	void HandleCommandExecution(std::vector<Controller::ControllerCommand>* pCommands, const unsigned int command) const;
+	void HandleCommandExecution(std::vector<InputCommand>* pCommands, const unsigned int command) const;
 
 	const int m_ControllerCount;
 	std::vector<Controller*> m_Controllers;
+	Keyboard* m_pKeyboard;
 
 public:
+	template<typename myType>
+	void AddBindingToKeyboard(ApplicationKeyboard button, InputState inputState);
+
+	void AddBindingToKeyboard(std::shared_ptr<BaseCommand> spCommand, ApplicationKeyboard button, InputState inputState);
+
+	template<typename myType>
+	void RemoveBindingFromKeyboard(ApplicationKeyboard button);
+
+	void RemoveBindingFromKeyboard(ApplicationKeyboard button);
+
 	template<typename myType>
 	void AddBindingToController(PS4Controller button, InputState inputState);
 	template<typename myType>
@@ -84,6 +96,18 @@ private:
 	ApplicationController ConvertButton(XBoxController button);
 	ApplicationController ConvertButton(SwitchController button);
 };
+
+template<typename myType>
+inline void InputManager::AddBindingToKeyboard(ApplicationKeyboard button, InputState inputState)
+{
+	m_pKeyboard->AddConsoleCommand<myType>(button, inputState);
+}
+
+template<typename myType>
+inline void InputManager::RemoveBindingFromKeyboard(ApplicationKeyboard button)
+{
+	m_pKeyboard->AddConsoleCommand<myType>(button);
+}
 
 template<typename myType>
 inline void InputManager::AddBindingToController(ApplicationController button, InputState inputState)

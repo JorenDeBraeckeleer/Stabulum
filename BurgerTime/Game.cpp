@@ -350,7 +350,16 @@ void Game::LoadLevel1() const
 	inputManager.AddBindingToController(std::make_shared<MoveLeftCommand>(spPeterPepperSprite.get()), PS4Controller::DPadLeft, InputState::Pressed);
 	inputManager.AddBindingToController(std::make_shared<MoveRightCommand>(spPeterPepperSprite.get()), PS4Controller::DPadRight, InputState::Pressed);
 
+	inputManager.AddBindingToKeyboard(std::make_shared<MoveUpCommand>(spPeterPepperSprite.get()), ApplicationKeyboard::ArrowUp, InputState::Pressed);
+	inputManager.AddBindingToKeyboard(std::make_shared<MoveDownCommand>(spPeterPepperSprite.get()), ApplicationKeyboard::ArrowDown, InputState::Pressed);
+	inputManager.AddBindingToKeyboard(std::make_shared<MoveLeftCommand>(spPeterPepperSprite.get()), ApplicationKeyboard::ArrowLeft, InputState::Pressed);
+	inputManager.AddBindingToKeyboard(std::make_shared<MoveRightCommand>(spPeterPepperSprite.get()), ApplicationKeyboard::ArrowRight, InputState::Pressed);
+
 	inputManager.AddBindingToController(std::make_shared<LoseLifeCommand>(spSoundTest.get()), PS4Controller::Cross, InputState::Down);
 
+	inputManager.AddBindingToKeyboard(std::make_shared<LoseLifeCommand>(spSoundTest.get()), ApplicationKeyboard::Space, InputState::Down);
+
 	inputManager.AddBindingToController<QuitCommand>(PS4Controller::Triangle, InputState::Up);
+	
+	inputManager.AddBindingToKeyboard<QuitCommand>(ApplicationKeyboard::Escape, InputState::Up);
 }
