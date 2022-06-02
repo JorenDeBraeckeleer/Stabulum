@@ -18,7 +18,7 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
+#*.dll
 
 # Fortran module files
 *.mod
@@ -28,7 +28,7 @@
 *.lai
 *.la
 *.a
-*.lib
+#*.lib
 
 # Executables
 *.exe
@@ -435,3 +435,12 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,visualstudio
+
+# Keep entire 3rdParty folder
+!3rdParty/**/x64
+!3rdParty/**/x86
+!3rdParty/**/Win32
+!3rdParty/**/[Dd]ebug/
+!3rdParty/**/[Dd]ebugPublic/
+!3rdParty/**/[Rr]elease/
+!3rdParty/**/[Rr]eleases/
