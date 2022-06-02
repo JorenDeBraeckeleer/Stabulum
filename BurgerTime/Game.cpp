@@ -211,6 +211,10 @@ void Game::LoadTestScene() const
 	inputManager.AddBindingToController(std::make_shared<BurgerDroppedCommand>(spBurger1.get()), PS4Controller::R1, InputState::Down, 0);
 	inputManager.AddBindingToController(std::make_shared<EnemyDiedCommand>(spEnemy1.get()), PS4Controller::L1, InputState::Pressed, 0);
 
+	//inputManager.AddBindingToKeyboard(std::make_shared<LoseLifeCommand>(spPeterPepper2.get()), ApplicationKeyboard::Space, InputState::Down);
+	//inputManager.AddBindingToKeyboard(std::make_shared<BurgerDroppedCommand>(spBurger2.get()), ApplicationKeyboard::Q, InputState::Down);
+	//inputManager.AddBindingToKeyboard(std::make_shared<EnemyDiedCommand>(spEnemy2.get()), ApplicationKeyboard::E, InputState::Pressed);
+
 	inputManager.AddBindingToController(std::make_shared<LoseLifeCommand>(spPeterPepper2.get()), PS4Controller::Cross, InputState::Down, 1);
 	inputManager.AddBindingToController(std::make_shared<BurgerDroppedCommand>(spBurger2.get()), PS4Controller::R1, InputState::Down, 1);
 	inputManager.AddBindingToController(std::make_shared<EnemyDiedCommand>(spEnemy2.get()), PS4Controller::L1, InputState::Pressed, 1);
