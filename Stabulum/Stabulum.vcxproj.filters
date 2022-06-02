@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Stabulum Base Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Stabulum Base Files\PCH">
+      <UniqueIdentifier>{5f3c97d3-650a-446b-922d-1043b2fac266}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stabulum Extended Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Stabulum Extended Files\Components">
+      <UniqueIdentifier>{b8d376e5-7d9d-496b-afe6-6b6ee46859d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stabulum Extended Files\Input">
+      <UniqueIdentifier>{858d84a9-7820-4f7b-851b-29e51c188ac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stabulum Extended Files\Objects">
+      <UniqueIdentifier>{9e55bf11-d748-4f60-b9f0-caf71c298466}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stabulum Extended Files\Scene">
+      <UniqueIdentifier>{7d7e79b6-09ca-4bc2-82e7-6959ff9f44b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stabulum Base Files\Helpers">
+      <UniqueIdentifier>{649ce327-c864-4c51-87c3-751d4627ae52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stabulum Base Files\Rendering">
+      <UniqueIdentifier>{57c9e5e1-2369-494c-94b9-ad86a5e25e7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stabulum Extended Files\Commands">
+      <UniqueIdentifier>{493c1ab0-b049-4c93-bb49-9e6c58265267}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stabulum Extended Files\ObserverPattern">
+      <UniqueIdentifier>{2e0ea6b6-50a3-47f5-8949-3093a8cfe3d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stabulum Extended Files\Sound">
+      <UniqueIdentifier>{c984ab87-c79b-42d2-ac9b-919d7b7428b8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StabulumPCH.h">
+      <Filter>Stabulum Base Files\PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Stabulum Base Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Stabulum Base Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Stabulum Base Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>Stabulum Base Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Stabulum.h">
+      <Filter>Stabulum Extended Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Stabulum Extended Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Stabulum Extended Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObject.h">
+      <Filter>Stabulum Extended Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Stabulum Extended Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Stabulum Extended Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Stabulum Base Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Stabulum Base Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FpsComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Stabulum Base Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerButtons.h">
+      <Filter>Stabulum Extended Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerImplementation.h">
+      <Filter>Stabulum Extended Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Stabulum Extended Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Stabulum Extended Files\ObserverPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Stabulum Extended Files\ObserverPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Stabulum Base Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="QuitCommand.h">
+      <Filter>Stabulum Extended Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCommand.h">
+      <Filter>Stabulum Extended Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureTransformComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxColliderComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ContactListener.h">
+      <Filter>Stabulum Base Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Stabulum Extended Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundImplementation.h">
+      <Filter>Stabulum Extended Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>Stabulum Extended Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Structs.h">
+      <Filter>Stabulum Base Files\Helpers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Stabulum.cpp">
+      <Filter>Stabulum Extended Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StabulumPCH.cpp">
+      <Filter>Stabulum Base Files\PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Stabulum Base Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Stabulum Base Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Stabulum Base Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>Stabulum Base Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Stabulum Extended Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Stabulum Extended Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Stabulum Extended Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Stabulum Extended Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Stabulum Base Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Stabulum Base Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerImplementation.cpp">
+      <Filter>Stabulum Extended Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Stabulum Extended Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Stabulum Extended Files\ObserverPattern</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Stabulum Extended Files\ObserverPattern</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Stabulum Base Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="QuitCommand.cpp">
+      <Filter>Stabulum Extended Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCommand.cpp">
+      <Filter>Stabulum Extended Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureTransformComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxColliderComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ContactListener.cpp">
+      <Filter>Stabulum Base Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Stabulum Extended Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundImplementation.cpp">
+      <Filter>Stabulum Extended Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocator.cpp">
+      <Filter>Stabulum Extended Files\Sound</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="GameFiles">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="BurgerTime">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="BurgerTime\Commands">
+      <UniqueIdentifier>{fe8da787-ba8e-425e-8844-bca5c33dda6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BurgerTime\Components">
+      <UniqueIdentifier>{ff92b0df-31ce-4fe8-ace9-5f2ac7bc87a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BurgerTime\PCH">
+      <UniqueIdentifier>{9cc5ee78-ba49-4a0d-89de-377fd583823a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="BurgerTime.cpp">
+      <Filter>BurgerTime</Filter>
+    </ClCompile>
+    <ClCompile Include="BurgerComponent.cpp">
+      <Filter>BurgerTime\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BurgerDroppedCommand.cpp">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyComponent.cpp">
+      <Filter>BurgerTime\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>BurgerTime\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>BurgerTime\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PeterPepperComponent.cpp">
+      <Filter>BurgerTime\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreComponent.cpp">
+      <Filter>BurgerTime\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyDiedCommand.cpp">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="LoseLifeCommand.cpp">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCommand.cpp">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BurgerTimePCH.cpp">
+      <Filter>BurgerTime\PCH</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>GameFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEvent.h">
+      <Filter>GameFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="BurgerComponent.h">
+      <Filter>BurgerTime\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BurgerDroppedCommand.h">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyComponent.h">
+      <Filter>BurgerTime\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>BurgerTime\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>BurgerTime\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PeterPepperComponent.h">
+      <Filter>BurgerTime\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>BurgerTime\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyDiedCommand.h">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="LoseLifeCommand.h">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommand.h">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BurgerTimePCH.h">
+      <Filter>BurgerTime\PCH</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
