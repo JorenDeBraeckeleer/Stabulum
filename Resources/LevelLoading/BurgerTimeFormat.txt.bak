@@ -1,0 +1,62 @@
+#== BURGER TIME FORMAT ==#
+
+#= Tiles =#
+#############################################################################
+#	Name		Width	Stair?	Ingredient?		Start?	Middle?	End?	Tag	#
+#===========================================================================#
+#	void		1		false	false			false	false	false	160	#
+#	void		2		false	false			false	false	false	260	#
+#	platform	1		false	false			false	false	false	100	#
+#	platform	1		true	false			false	false	false	110	#
+#	platform	2		false	false			false	false	false	200	#
+#	platform	2		false	true			false	false	false	209	#
+#	platform	2		true	false			false	false	false	210	#
+#	platform	2		true	true			false	false	false	219	#
+#	plate		2		false	false			false	false	false	300	#
+#	plate		1		false	false			true	false	false	304	#
+#	plate		1		false	false			false	true	false	305	#
+#	plate		1		false	false			false	false	true	306	#
+#	floating	1		true	false			false	false	false	710	#
+#	floating	2		true	false			false	false	false	810	#
+#	floating	1		true	false			true	false	false	714	#
+#	floating	1		true	false			false	true	false	715	#
+#	floating	1		true	false			false	false	true	716	#
+#############################################################################
+
+#= Allignment =#
+#'i' signals ingredients being read, only one line of ingredients for one level.
+#'l' signals the level is being read.
+#Level starts at the top left, you read from left to right and a new line is new row in level.
+#A tile is 32px * 32px or 2 baseUnits * 2 baseUnits.
+#The line of ingredients has to be assignend in order of tiles with ingredients you read.
+#(Example: you read your first tile with **9 which means it contains an ingredient,
+#	you then assign the first ingredient your read to this tile.
+#	The second ingredient with the second tile containing an ingredient, etc.)
+
+#= Ingredients =#
+#####################
+#	Name		Tag	#
+#===================#
+#	Bun Bottom	0	#
+#	Bun Top		1	#
+#	Cheese		2	#
+#	Lettuce		3	#
+#	Meat		4	#
+#	Tomato		5	#
+#####################
+
+#Level 1
+i 1 1 1 1 3 3 3 4 3 4 0 4 4 0 0 0
+l 100 200 100 209 100 209 100 209 100
+l 710 260 710 810 710 260 710 260 710
+l 110 209 110 810 110 209 110 209 110
+l 160 810 110 210 110 810 710 260 710
+l 100 219 110 260 710 810 110 209 110
+l 710 810 110 209 110 219 110 810 160
+l 710 810 710 260 710 260 110 219 100
+l 110 219 110 209 110 200 110 810 710
+l 710 260 710 260 710 260 710 810 710
+l 110 209 110 209 110 209 110 210 110
+l 160 260 160 260 160 260 160 260 160
+l 160 260 160 260 160 260 160 260 160
+l 304 300 305 300 305 300 305 300 306

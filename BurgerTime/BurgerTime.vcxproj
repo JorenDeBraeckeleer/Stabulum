@@ -178,6 +178,7 @@
     <ClCompile Include="BurgerComponent.cpp" />
     <ClCompile Include="BurgerDroppedCommand.cpp" />
     <ClCompile Include="BurgerTime.cpp" />
+    <ClCompile Include="BurgerTimeParser.cpp" />
     <ClCompile Include="BurgerTimePCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -197,6 +198,7 @@
   <ItemGroup>
     <ClInclude Include="BurgerComponent.h" />
     <ClInclude Include="BurgerDroppedCommand.h" />
+    <ClInclude Include="BurgerTimeParser.h" />
     <ClInclude Include="BurgerTimePCH.h" />
     <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="EnemyDiedCommand.h" />

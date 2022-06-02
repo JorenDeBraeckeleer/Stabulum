@@ -22,6 +22,9 @@
     <Filter Include="BurgerTime\PCH">
       <UniqueIdentifier>{9cc5ee78-ba49-4a0d-89de-377fd583823a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BurgerTime\CustomParser">
+      <UniqueIdentifier>{807534a0-0739-434c-8d8d-4b8d7e6e93d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -63,6 +66,9 @@
     <ClCompile Include="BurgerTimePCH.cpp">
       <Filter>BurgerTime\PCH</Filter>
     </ClCompile>
+    <ClCompile Include="BurgerTimeParser.cpp">
+      <Filter>BurgerTime\CustomParser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -103,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="BurgerTimePCH.h">
       <Filter>BurgerTime\PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="BurgerTimeParser.h">
+      <Filter>BurgerTime\CustomParser</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
