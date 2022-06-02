@@ -27,6 +27,7 @@ public:
 
 	void UpdatePosition();
 	void UpdateLinearVelocity(float velocityX, float velocityY);
+	void UpdateLinearVelocity(const FVec2& velocity);
 
 	float GetAngle() { return m_Angle; }
 
@@ -35,7 +36,8 @@ public:
 	bool GetHasFixedRotation() { return m_HasFixedRotation; }
 
 	void SetLinearVelocity(float velocityX, float velocityY) { m_LinearVelocity.x = velocityX; m_LinearVelocity.y = velocityY; }
-	glm::vec2 GetLinearVelocity() { return m_LinearVelocity; }
+	void SetLinearVelocity(const FVec2& velocity) { m_LinearVelocity = velocity; }
+	FVec2 GetLinearVelocity() { return m_LinearVelocity; }
 
 	void SetAngularVelocity(float velocity) { m_AngularVelocity = velocity; }
 	float GetAngularVelocity() { return m_AngularVelocity; }
@@ -64,7 +66,7 @@ public:
 	void SetPhysicsBody(b2Body* pBody) { m_pPhysicsBody = pBody; }
 
 private:
-	glm::vec2 m_LinearVelocity;
+	FVec2 m_LinearVelocity;
 	float m_Angle, m_AngularVelocity, m_LinearDamping, m_AngularDamping, m_GravityScale;
 	bool m_AllowSleep, m_IsAwake, m_HasFixedRotation, m_IsBullet, m_IsEnabled;
 

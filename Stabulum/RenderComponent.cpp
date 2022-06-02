@@ -33,7 +33,7 @@ void RenderComponent::Render() const
 {
 	if (m_spTexture)
 	{
-		const auto& pos = m_pTransformComponent->GetTransform()->GetPosition();
+		const auto& pos = m_pTransformComponent->GetPixelPosition();
 		
 		//Use TextureTransformComponent if available
 		if (m_pTextureTransformComponent)

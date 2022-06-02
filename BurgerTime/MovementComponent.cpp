@@ -99,7 +99,7 @@ void MovementComponent::Update()
 
 	if (m_IsMoving)
 	{
-		glm::vec2 direction{};
+		FVec2 direction{};
 
 		switch (m_MoveDirection)
 		{
@@ -119,8 +119,8 @@ void MovementComponent::Update()
 			break;
 		}
 
-		float speed{ 10.f };
-		m_pRigidBodyComponent->UpdateLinearVelocity(direction.x * speed, direction.y * speed);
+		FVec2 speed{ 4.f, 3.f };
+		m_pRigidBodyComponent->UpdateLinearVelocity(direction * speed);
 	}
 	else
 	{

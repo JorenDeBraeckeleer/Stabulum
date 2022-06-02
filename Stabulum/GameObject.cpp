@@ -92,8 +92,8 @@ void GameObject::AddChild(GameObject* pGameObject)
 	TransformComponent* transformCompChild{ pGameObject->GetComponent<TransformComponent>() };
 	if (transformCompParent && transformCompChild)
 	{
-		auto relativeChildTransform{ transformCompParent->GetTransform()->GetPosition() + transformCompChild->GetTransform()->GetPosition() };
-		transformCompChild->SetPosition(relativeChildTransform.x, relativeChildTransform.y);
+		auto relativeChildTransform{ transformCompParent->GetUnitPosition() + transformCompChild->GetUnitPosition() };
+		transformCompChild->SetUnitPosition(relativeChildTransform.x, relativeChildTransform.y);
 	}
 }
 

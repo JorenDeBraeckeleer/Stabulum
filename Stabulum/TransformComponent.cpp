@@ -2,24 +2,49 @@
 #include "TransformComponent.h"
 
 TransformComponent::TransformComponent(float x, float y)
-	: m_pTransform{ new Transform{} }
+	: m_FVec2Pos{ FVec2{ x, y } }
+	, m_PixelsPerUnit{ 16 }
 {
-	m_pTransform->SetPosition(x, y, 0.f);
+	m_FVec2Pos = m_FVec2Pos / m_PixelsPerUnit;
 }
 
-TransformComponent::~TransformComponent()
+TransformComponent::TransformComponent(const FVec2& pos)
+	: TransformComponent{ pos.x, pos.y }
 {
-	delete m_pTransform;
-	m_pTransform = nullptr;
 }
 
 void TransformComponent::Update()
 {
 }
 
-TransformComponent* TransformComponent::SetPosition(float x, float y)
+void TransformComponent::SetPixelPosition(float x, float y)
 {
-	m_pTransform->SetPosition(x, y, 0.0f);
+	m_FVec2Pos.x = x / m_PixelsPerUnit;
+	m_FVec2Pos.y = y / m_PixelsPerUnit;
+}
 
-	return this;
+void TransformComponent::SetPixelPosition(const FVec2& pos)
+{
+	m_FVec2Pos = pos / m_PixelsPerUnit;
+}
+
+FVec2 TransformComponent::GetPixelPosition()
+{
+	return m_FVec2Pos * m_PixelsPerUnit;
+}
+
+void TransformComponent::SetUnitPosition(float x, float y)
+{
+	m_FVec2Pos.x = x;
+	m_FVec2Pos.y = y;
+}
+
+void TransformComponent::SetUnitPosition(const FVec2& pos)
+{
+	m_FVec2Pos = pos;
+}
+
+FVec2 TransformComponent::GetUnitPosition()
+{
+	return m_FVec2Pos;
 }

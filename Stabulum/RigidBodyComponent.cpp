@@ -41,11 +41,16 @@ void RigidBodyComponent::Update()
 
 void RigidBodyComponent::UpdatePosition()
 {
-	m_pTransformComponent->SetPosition(m_pPhysicsBody->GetPosition().x, m_pPhysicsBody->GetPosition().y);
+	m_pTransformComponent->SetUnitPosition(m_pPhysicsBody->GetPosition().x, m_pPhysicsBody->GetPosition().y);
 	//std::cout << m_pPhysicsBody->GetPosition().x << ", " << m_pPhysicsBody->GetPosition().y << std::endl;
 }
 
 void RigidBodyComponent::UpdateLinearVelocity(float velocityX, float velocityY)
 {
 	m_pPhysicsBody->SetLinearVelocity(b2Vec2{ velocityX, velocityY });
+}
+
+void RigidBodyComponent::UpdateLinearVelocity(const FVec2& velocity)
+{
+	m_pPhysicsBody->SetLinearVelocity(b2Vec2{ velocity.x, velocity.y });
 }

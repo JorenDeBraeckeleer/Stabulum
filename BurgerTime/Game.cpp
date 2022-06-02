@@ -238,12 +238,14 @@ void Game::LoadLevel1() const
 	std::cout << "\n===\nTo play a sound, press face button south. (To test this sound, it is bound to losing a life.)\n===\n" << std::endl;
 
 	//--- Components ---//
-	TextureTransformComponent* pTtmComp{};
-	TransformComponent* pTfmComp{};
-	RenderComponent* pRdrComp{};
-	TextComponent* pTxtComp{};
-	SpriteComponent* pSprComp{};
-	MovementComponent* pMvmComp{};
+	TextureTransformComponent*	pTtmComp{};
+	TransformComponent*			pTfmComp{};
+	RenderComponent*			pRdrComp{};
+	TextComponent*				pTxtComp{};
+	SpriteComponent*			pSprComp{};
+	MovementComponent*			pMvmComp{};
+	RigidBodyComponent*			pRbyComp{};
+	BoxColliderComponent*		pBcdComp{};
 
 	//### World
 	auto spWorld = std::make_shared<GameObject>();
@@ -332,12 +334,44 @@ void Game::LoadLevel1() const
 	pRdrComp = spPeterPepperSprite->AddComponent<RenderComponent>(pTfmComp, "Textures/Characters/PeterPepper/Move.png");
 	pTtmComp = spPeterPepperSprite->AddComponent<TextureTransformComponent>(0, 0, 0, 0);
 	pSprComp = spPeterPepperSprite->AddComponent<SpriteComponent>(pRdrComp, pTtmComp, 4, 3);
-	auto pTest = spPeterPepperSprite->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Dynamic);
-	pMvmComp = spPeterPepperSprite->AddComponent<MovementComponent>(pSprComp, pTest);
+	pRbyComp = spPeterPepperSprite->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Dynamic);
+	pBcdComp = spPeterPepperSprite->AddComponent<BoxColliderComponent>(pRbyComp, 2.f, 2.f, 1.f, 1.f);
+	pMvmComp = spPeterPepperSprite->AddComponent<MovementComponent>(pSprComp, pRbyComp);
 
 	spPeterPepperSprite->SetParent(spWorld.get());
 
 	scene.Add(spPeterPepperSprite);
+
+	//### Blockage test
+	auto spWall = std::make_shared<GameObject>();
+
+	pTfmComp = spWall->AddComponent<TransformComponent>(widthReal / 2.f - 24.f, heightReal - 120.f);
+	pRbyComp = spWall->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
+	pBcdComp = spWall->AddComponent<BoxColliderComponent>(pRbyComp, 3.f, 3.f, 1.5f, 1.5f);
+
+	spWall->SetParent(spWorld.get());
+
+	scene.Add(spWall);
+
+	auto spWall1 = std::make_shared<GameObject>();
+
+	pTfmComp = spWall1->AddComponent<TransformComponent>(widthReal / 2.f + 24.f, heightReal - 120.f);
+	pRbyComp = spWall1->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
+	pBcdComp = spWall1->AddComponent<BoxColliderComponent>(pRbyComp, 3.f, 3.f, 1.5f, 1.5f);
+
+	spWall1->SetParent(spWorld.get());
+
+	scene.Add(spWall1);
+
+	auto spWall2 = std::make_shared<GameObject>();
+
+	pTfmComp = spWall2->AddComponent<TransformComponent>(widthReal / 2.f - 72.f, heightReal - 120.f);
+	pRbyComp = spWall2->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
+	pBcdComp = spWall2->AddComponent<BoxColliderComponent>(pRbyComp, 3.f, 3.f, 1.5f, 1.5f);
+
+	spWall2->SetParent(spWorld.get());
+
+	scene.Add(spWall2);
 
 	//### Sound Test
 	auto spSoundTest = std::make_shared<GameObject>();

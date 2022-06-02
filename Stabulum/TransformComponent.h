@@ -7,8 +7,9 @@ class TransformComponent final : public BaseComponent
 {
 public:
 	TransformComponent(float x = 0.f, float y = 0.f);
+	TransformComponent(const FVec2& pos);
 
-	virtual ~TransformComponent();
+	virtual ~TransformComponent() = default;
 	TransformComponent(const TransformComponent& other) = delete;
 	TransformComponent(TransformComponent&& other) = delete;
 	TransformComponent& operator=(const TransformComponent& other) = delete;
@@ -16,9 +17,17 @@ public:
 
 	virtual void Update() override;
 
-	TransformComponent* SetPosition(float x, float y);
-	Transform* GetTransform() { return m_pTransform; }
+	void SetPixelPosition(float x, float y);
+	void SetPixelPosition(const FVec2& pos);
+	FVec2 GetPixelPosition();
+
+	void SetUnitPosition(float x, float y);
+	void SetUnitPosition(const FVec2& pos);
+	FVec2 GetUnitPosition();
+
+	void SetUnit(int pixelsPerUnit) { m_PixelsPerUnit = pixelsPerUnit; }
 
 private:
-	Transform* m_pTransform;
+	FVec2 m_FVec2Pos;
+	int m_PixelsPerUnit;
 };
