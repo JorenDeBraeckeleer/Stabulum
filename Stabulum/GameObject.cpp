@@ -28,6 +28,11 @@ void GameObject::Update()
 	{
 		pComp->Update();
 	}
+
+	for (GameObject* pObj : m_pChildren)
+	{
+		pObj->Update();
+	}
 }
 
 void GameObject::FixedUpdate()
@@ -35,6 +40,11 @@ void GameObject::FixedUpdate()
 	for (BaseComponent* pComp : m_pComponents)
 	{
 		pComp->FixedUpdate();
+	}
+
+	for (GameObject* pObj : m_pChildren)
+	{
+		pObj->FixedUpdate();
 	}
 }
 
@@ -46,6 +56,11 @@ void GameObject::Render() const
 		{
 			pComp->Render();
 		}
+	}
+
+	for (GameObject* pObj : m_pChildren)
+	{
+		pObj->Render();
 	}
 }
 

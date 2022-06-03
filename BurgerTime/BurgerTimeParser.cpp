@@ -3,10 +3,13 @@
 
 #include <fstream>
 
-bool BurgerTimeParser::Parse(std::vector<Tile>& level)
+#include "TileComponent.h"
+#include "TilePrefab.h"
+
+bool BurgerTimeParser::Parse(const std::string& filePath, std::vector<TilePrefab*>& levelTiles)
 {
 	//Open file
-	std::ifstream file(m_FilePath);
+	std::ifstream file(filePath);
 
 	if (!file.is_open())
 	{
@@ -53,16 +56,16 @@ bool BurgerTimeParser::Parse(std::vector<Tile>& level)
 					int name{ int(command[idx] - '0') * 100 }, stair{ int(command[idx + 1] - '0') * 10 }, ingredient{ int(command[idx + 2] - '0') };
 					int nr{ name + stair + ingredient };
 
-					Tile tile{};
-					tile.Name = static_cast<TileNames>(nr);
+					TilePrefab* pTile{ new TilePrefab{} };
+					pTile->SetName(static_cast<TileName>(nr));
 
 					if (ingredient == 9)
 					{
-						tile.Ingredient = static_cast<Ingredients>(ingredients.back());
+						pTile->SetIngredient(static_cast<Ingredient>(ingredients.back()));
 						ingredients.pop_back();
 					}
 
-					level.emplace_back(tile);
+					levelTiles.emplace_back(pTile);
 
 					idx += 2;
 				}

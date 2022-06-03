@@ -30,6 +30,7 @@
 #include "WorldComponent.h"
 #include "RigidBodyComponent.h"
 #include "BoxColliderComponent.h"
+#include "LevelComponent.h"
 
 //Observers
 #include "Observer.h"
@@ -53,8 +54,8 @@ void Game::Initialize()
 
 void Game::LoadGame() const
 {
-	//LoadTestScene();
-	LoadLevel1();
+	LoadTestScene();
+	//LoadLevel1();
 }
 
 void Game::Cleanup()
@@ -211,9 +212,9 @@ void Game::LoadTestScene() const
 	inputManager.AddBindingToController(std::make_shared<BurgerDroppedCommand>(spBurger1.get()), PS4Controller::R1, InputState::Down, 0);
 	inputManager.AddBindingToController(std::make_shared<EnemyDiedCommand>(spEnemy1.get()), PS4Controller::L1, InputState::Pressed, 0);
 
-	//inputManager.AddBindingToKeyboard(std::make_shared<LoseLifeCommand>(spPeterPepper2.get()), ApplicationKeyboard::Space, InputState::Down);
-	//inputManager.AddBindingToKeyboard(std::make_shared<BurgerDroppedCommand>(spBurger2.get()), ApplicationKeyboard::Q, InputState::Down);
-	//inputManager.AddBindingToKeyboard(std::make_shared<EnemyDiedCommand>(spEnemy2.get()), ApplicationKeyboard::E, InputState::Pressed);
+	inputManager.AddBindingToKeyboard(std::make_shared<LoseLifeCommand>(spPeterPepper2.get()), ApplicationKeyboard::Space, InputState::Down);
+	inputManager.AddBindingToKeyboard(std::make_shared<BurgerDroppedCommand>(spBurger2.get()), ApplicationKeyboard::Q, InputState::Down);
+	inputManager.AddBindingToKeyboard(std::make_shared<EnemyDiedCommand>(spEnemy2.get()), ApplicationKeyboard::E, InputState::Pressed);
 
 	inputManager.AddBindingToController(std::make_shared<LoseLifeCommand>(spPeterPepper2.get()), PS4Controller::Cross, InputState::Down, 1);
 	inputManager.AddBindingToController(std::make_shared<BurgerDroppedCommand>(spBurger2.get()), PS4Controller::R1, InputState::Down, 1);
@@ -225,8 +226,7 @@ void Game::LoadTestScene() const
 void Game::LoadLevel1() const
 {
 	/* Adjust window to level */
-	//const FVec2 levelSize{ 416.f, 400.f };
-	const glm::vec2 levelSize{ 416.f, 400.f };
+	const FVec2 levelSize{ 416.f, 400.f };
 	const float hudHeight{ 64.f }, border{ 16.f }, widthReal{ levelSize.x + border * 2.f }, heightReal{ levelSize.y + hudHeight };
 	const float scale{ 1.5f }, widthScaled{ widthReal * scale }, heightScaled{ heightReal * scale };
 	SDL_RenderSetScale(Renderer::GetInstance().GetSDLRenderer(), scale, scale);
@@ -254,13 +254,20 @@ void Game::LoadLevel1() const
 
 	scene.Add(spWorld);
 
-	//### Background
-	auto spBackground = std::make_shared<GameObject>();
+	//### Level
+	auto spLevel = std::make_shared<GameObject>();
 
-	pTfmComp = spBackground->AddComponent<TransformComponent>(border, hudHeight);
-	pRdrComp = spBackground->AddComponent<RenderComponent>(pTfmComp, "Textures/Levels/Level1/Background.png");
+	spLevel->AddComponent<TransformComponent>(8.f, 32.f);
+	spLevel->AddComponent<LevelComponent>("../Resources/Level/Level1.txt");
 
-	scene.Add(spBackground);
+	scene.Add(spLevel);
+
+	//auto spBackground = std::make_shared<GameObject>();
+
+	//pTfmComp = spBackground->AddComponent<TransformComponent>(border, hudHeight);
+	//pRdrComp = spBackground->AddComponent<RenderComponent>(pTfmComp, "Textures/Levels/Level1/Background.png");
+
+	//scene.Add(spBackground);
 
 	//### High score
 	auto spFont16 = ResourceManager::GetInstance().LoadFont("Fonts/PressStartK-EX89.otf", 16);

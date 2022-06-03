@@ -189,11 +189,14 @@
     <ClCompile Include="EnemyDiedCommand.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="LevelComponent.cpp" />
     <ClCompile Include="LoseLifeCommand.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PeterPepperComponent.cpp" />
     <ClCompile Include="ScoreComponent.cpp" />
+    <ClCompile Include="TileComponent.cpp" />
+    <ClCompile Include="TilePrefab.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerComponent.h" />
@@ -205,11 +208,14 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameEvent.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="LevelComponent.h" />
     <ClInclude Include="LoseLifeCommand.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PeterPepperComponent.h" />
     <ClInclude Include="ScoreComponent.h" />
+    <ClInclude Include="TileComponent.h" />
+    <ClInclude Include="TilePrefab.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
