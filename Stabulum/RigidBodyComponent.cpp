@@ -37,6 +37,8 @@ void RigidBodyComponent::Update()
 			m_IsUpdateNeeded = false;
 		}
 	}
+
+	//std::cout << m_pTransformComponent->GetPixelPosition().x << ", " << m_pTransformComponent->GetPixelPosition().y << std::endl;
 }
 
 void RigidBodyComponent::UpdatePosition()
