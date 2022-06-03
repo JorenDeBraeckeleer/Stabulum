@@ -3,10 +3,10 @@
 
 #include <fstream>
 
+#include "GameObject.h"
 #include "TileComponent.h"
-#include "TilePrefab.h"
 
-bool BurgerTimeParser::Parse(const std::string& filePath, std::vector<TilePrefab*>& levelTiles)
+bool BurgerTimeParser::Parse(const std::string& filePath, std::vector<GameObject*>& levelTiles)
 {
 	//Open file
 	std::ifstream file(filePath);
@@ -56,12 +56,14 @@ bool BurgerTimeParser::Parse(const std::string& filePath, std::vector<TilePrefab
 					int name{ int(command[idx] - '0') * 100 }, stair{ int(command[idx + 1] - '0') * 10 }, ingredient{ int(command[idx + 2] - '0') };
 					int nr{ name + stair + ingredient };
 
-					TilePrefab* pTile{ new TilePrefab{} };
-					pTile->SetName(static_cast<TileName>(nr));
+					GameObject* pTile{ new GameObject{} };
+					TileComponent* pComp = pTile->AddComponent<TileComponent>();
+					
+					pComp->SetName(static_cast<TileName>(nr));					
 
 					if (ingredient == 9)
 					{
-						pTile->SetIngredient(static_cast<Ingredient>(ingredients.back()));
+						pComp->SetIngredient(static_cast<Ingredient>(ingredients.back()));
 						ingredients.pop_back();
 					}
 

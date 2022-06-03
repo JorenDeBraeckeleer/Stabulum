@@ -6,7 +6,7 @@
 class BaseComponent;
 class Texture2D;
 
-class GameObject : public SceneObject
+class GameObject final : public SceneObject
 {
 public:
 	GameObject();

@@ -5,7 +5,6 @@
 #include "TextureTransformComponent.h"
 #include "TransformComponent.h"
 #include "RenderComponent.h"
-#include "TilePrefab.h"
 
 LevelComponent::LevelComponent(const std::string& filePath)
 	: m_pTiles{}
@@ -22,7 +21,7 @@ LevelComponent::LevelComponent(const std::string& filePath)
 
 LevelComponent::~LevelComponent()
 {
-	for (TilePrefab* pTile : m_pTiles)
+	for (GameObject* pTile : m_pTiles)
 	{
 		delete pTile;
 		pTile = nullptr;
@@ -39,7 +38,7 @@ void LevelComponent::Update()
 
 void LevelComponent::InitializeLevel()
 {
-    const std::string normalSpriteSheet{ "Textures/Level/Tiles.png" };
+    const std::string normalSpriteSheet{ "Textures/BurgerTime/Level/Tiles.png" };
     //const std::string alphaSpriteSheet{ "Textures/Level/AlphaTiles.png" };
 
     int tileSize{ 32 };
@@ -64,7 +63,7 @@ void LevelComponent::InitializeLevel()
         tilePos.x = startOffset.x + xOffset + (idx % 9) * tileSize;
         tilePos.y = startOffset.y + (idx / 9) * tileSize;
 
-        switch (m_pTiles[idx]->GetName())
+        switch (m_pTiles[idx]->GetComponent<TileComponent>()->GetName())
         {
         case TileName::VoidSingle:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(0, 0, tileSize, tileSize);
@@ -187,7 +186,7 @@ void LevelComponent::InitializeLevel()
             break;
         }
 
-        switch (m_pTiles[idx]->GetIngredient())
+        switch (m_pTiles[idx]->GetComponent<TileComponent>()->GetIngredient())
         {
         case Ingredient::None:
             //Do nothing

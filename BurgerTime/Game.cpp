@@ -96,7 +96,7 @@ void Game::LoadTestScene() const
 	auto spBackground = std::make_shared<GameObject>();
 
 	pTfmComp = spBackground->AddComponent<TransformComponent>();
-	pRdrComp = spBackground->AddComponent<RenderComponent>(pTfmComp, "background.jpg");
+	pRdrComp = spBackground->AddComponent<RenderComponent>(pTfmComp, "Textures/Minigin/background.jpg");
 
 	scene.Add(spBackground);
 
@@ -104,12 +104,12 @@ void Game::LoadTestScene() const
 	auto spLogo = std::make_shared<GameObject>();
 
 	pTfmComp = spLogo->AddComponent<TransformComponent>(216.f, 180.f);
-	pRdrComp = spLogo->AddComponent<RenderComponent>(pTfmComp, "logo.png");
+	pRdrComp = spLogo->AddComponent<RenderComponent>(pTfmComp, "Textures/Minigin/logo.png");
 
 	scene.Add(spLogo);
 
 	//Title
-	auto spFont = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	auto spFont = ResourceManager::GetInstance().LoadFont("Fonts/Lingua.otf", 36);
 	auto spTitle = std::make_shared<GameObject>();
 
 	pTfmComp = spTitle->AddComponent<TransformComponent>(80.f, 20.f);
@@ -123,7 +123,7 @@ void Game::LoadTestScene() const
 
 	pTfmComp = fps->AddComponent<TransformComponent>(10.f, 10.f);
 	pRdrComp = fps->AddComponent<RenderComponent>(pTfmComp);
-	pTxtComp = fps->AddComponent<TextComponent>(pRdrComp, "Lingua.otf", 20, RGBColor{ 0, 150, 0 });
+	pTxtComp = fps->AddComponent<TextComponent>(pRdrComp, "Fonts/Lingua.otf", 20, RGBColor{ 0, 150, 0 });
 	pFpsComp = fps->AddComponent<FpsComponent>(pTxtComp);
 
 	scene.Add(fps);
@@ -248,14 +248,6 @@ void Game::LoadLevel1() const
 	RigidBodyComponent*			pRbyComp{};
 	BoxColliderComponent*		pBcdComp{};
 
-	//### World
-	auto spWorld = std::make_shared<GameObject>();
-
-	//spWorld->AddComponent<TransformComponent>();
-	spWorld->AddComponent<WorldComponent>();
-
-	scene.Add(spWorld);
-
 	//### Level
 	auto spLevel = std::make_shared<GameObject>();
 
@@ -264,12 +256,13 @@ void Game::LoadLevel1() const
 
 	scene.Add(spLevel);
 
-	//auto spBackground = std::make_shared<GameObject>();
+	//### World
+	auto spWorld = std::make_shared<GameObject>();
 
-	//pTfmComp = spBackground->AddComponent<TransformComponent>(border, hudHeight);
-	//pRdrComp = spBackground->AddComponent<RenderComponent>(pTfmComp, "Textures/Levels/Level1/Background.png");
+	//spWorld->AddComponent<TransformComponent>();
+	spWorld->AddComponent<WorldComponent>();
 
-	//scene.Add(spBackground);
+	scene.Add(spWorld);
 
 	//### High score
 	auto spFont16 = ResourceManager::GetInstance().LoadFont("Fonts/PressStartK-EX89.otf", 16);
@@ -321,7 +314,7 @@ void Game::LoadLevel1() const
 
 	pTtmComp = spPepperTexture->AddComponent<TextureTransformComponent>(32, 16, 48, 16);
 	pTfmComp = spPepperTexture->AddComponent<TransformComponent>(widthReal, 8.f);
-	pRdrComp = spPepperTexture->AddComponent<RenderComponent>(pTfmComp, "Textures/Icons/Icons.png");
+	pRdrComp = spPepperTexture->AddComponent<RenderComponent>(pTfmComp, "Textures/BurgerTime/Icons/Icons.png");
 	pRdrComp->SetAllignment(Renderer::Allign::TopRight);
 
 	scene.Add(spPepperTexture);
@@ -338,7 +331,7 @@ void Game::LoadLevel1() const
 
 	//### Peter Pepper Sprite
 	pTfmComp = m_pPeterPepper->AddComponent<TransformComponent>(widthReal / 2.f - 16.f, heightReal - 120.f);
-	pRdrComp = m_pPeterPepper->AddComponent<RenderComponent>(pTfmComp, "Textures/Characters/PeterPepper/Move.png");
+	pRdrComp = m_pPeterPepper->AddComponent<RenderComponent>(pTfmComp, "Textures/BurgerTime/Characters/PeterPepper/Move.png");
 	pTtmComp = m_pPeterPepper->AddComponent<TextureTransformComponent>(0, 0, 0, 0);
 	pSprComp = m_pPeterPepper->AddComponent<SpriteComponent>(pRdrComp, pTtmComp, 4, 3);
 	pRbyComp = m_pPeterPepper->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Dynamic);

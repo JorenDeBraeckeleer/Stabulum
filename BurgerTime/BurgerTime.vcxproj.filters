@@ -25,9 +25,6 @@
     <Filter Include="BurgerTime\CustomParser">
       <UniqueIdentifier>{807534a0-0739-434c-8d8d-4b8d7e6e93d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="BurgerTime\Prefabs">
-      <UniqueIdentifier>{9e320ad5-0cd5-43c7-94e7-21b23a85cc1d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -78,9 +75,6 @@
     <ClCompile Include="TileComponent.cpp">
       <Filter>BurgerTime\Components</Filter>
     </ClCompile>
-    <ClCompile Include="TilePrefab.cpp">
-      <Filter>BurgerTime\Prefabs</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -130,9 +124,6 @@
     </ClInclude>
     <ClInclude Include="TileComponent.h">
       <Filter>BurgerTime\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TilePrefab.h">
-      <Filter>BurgerTime\Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

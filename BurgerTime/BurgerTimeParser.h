@@ -2,8 +2,7 @@
 #include <string>
 #include <vector>
 
-class TileComponent;
-class TilePrefab;
+class GameObject;
 
 class BurgerTimeParser final
 {
@@ -16,7 +15,8 @@ public:
 	BurgerTimeParser& operator=(const BurgerTimeParser& other) = delete;
 	BurgerTimeParser& operator=(BurgerTimeParser&& other) = delete;
 
-	bool Parse(const std::string& filePath, std::vector<TilePrefab*>& levelTiles);
+	bool Parse(const std::string& filePath, std::vector<GameObject*>& levelTiles);
 
 private:
+
 };

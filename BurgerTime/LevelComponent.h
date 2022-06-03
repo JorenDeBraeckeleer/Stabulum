@@ -2,7 +2,6 @@
 #include "BaseComponent.h"
 
 class TileComponent;
-class TilePrefab;
 
 class LevelComponent final : public BaseComponent
 {
@@ -20,7 +19,7 @@ public:
 private:
 	void InitializeLevel();
 
-	std::vector<TilePrefab*> m_pTiles;
+	std::vector<GameObject*> m_pTiles;
 
 	bool m_IsUpdateNeeded;
 };

@@ -7,7 +7,7 @@ PeterPepperComponent::PeterPepperComponent(int nrLives)
 	, m_IsUpdateNeeded{ true }
 {
 	//Sound Test
-	ServiceLocator::GetSoundManager()->Load("TestSound.mp3", 1);
+	ServiceLocator::GetSoundManager()->Load("Sounds/TestSound.mp3", 1);
 
 	if (nrLives > 0)
 	{
