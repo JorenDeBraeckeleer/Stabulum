@@ -20,7 +20,7 @@ public:
 	float GetWidth() { return m_Width; }
 	float GetHeight() { return m_Height; }
 
-	glm::vec2 GetCenter() { return glm::vec2{ m_CenterX, m_CenterY }; }
+	FVec2 GetCenter() { return FVec2{ m_CenterX, m_CenterY }; }
 
 	float GetAngle() { return m_Angle; }
 

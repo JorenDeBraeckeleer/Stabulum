@@ -28,11 +28,16 @@ public:
 
 	void SetMoveDirection(const MoveDirection& moveDirection) { m_MoveDirection = moveDirection; m_HasUpdatedMovement = true; }
 
+	void CheckBlockDirection(const FVec2& characterPosition, const FVec2& otherPosition);
+	void CheckUnBlockDirection(const FVec2& characterPosition, const FVec2& otherPosition);
+	void BlockDirection(const MoveDirection& moveDirection, bool block = true);
+
 private:
 	MoveDirection m_MoveDirection;
 	SpriteComponent* m_pSpriteComponent;
 	RigidBodyComponent* m_pRigidBodyComponent;
 
+	bool m_CanWalkUp, m_CanWalkDown, m_CanWalkLeft, m_CanWalkRight;
 	bool m_IsOnLadder, m_IsMoving, m_HasUpdatedMovement;
 	MoveDirection m_LastInput;
 };

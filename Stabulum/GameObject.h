@@ -51,6 +51,21 @@ public:
 		return pComponent;
 	}
 
+	////Not tested yet
+	//template<typename myType>
+	//myType* GetComponentFromChildren() const
+	//{
+	//	//Search for existing component
+	//	myType* pComp{};
+
+	//	for (size_t idx{}; idx < m_pChildren.size() && !pComp; ++idx)
+	//	{
+	//		pComp = dynamic_cast<myType*>(m_pChildren[idx]->GetComponent<myType>());
+	//	}
+
+	//	return pComp;
+	//};
+
 	template<typename myType>
 	myType* GetComponent() const
 	{

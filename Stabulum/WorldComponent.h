@@ -33,6 +33,6 @@ private:
 	ContactListener* m_pContactListener;
 	std::vector<RigidBodyComponent*> m_pRigidBodyComponents;
 
-	b2Vec2 GetVecb2(glm::vec2 vec) { return b2Vec2{ vec.x, vec.y }; }
-	glm::vec2 GetVecglm(b2Vec2 vec) { return glm::vec2{ vec.x, vec.y }; }
+	b2Vec2 GetVecb2(FVec2 vec) { return b2Vec2{ vec.x, vec.y }; }
+	FVec2 GetFVec(b2Vec2 vec) { return FVec2{ vec.x, vec.y }; }
 };
