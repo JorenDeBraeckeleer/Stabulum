@@ -24,14 +24,18 @@ public:
 	RigidBodyComponent& operator=(RigidBodyComponent&& other) = delete;
 
 	virtual void Update() override;
+	virtual void FixedUpdate() override;
 
 	void UpdatePosition();
 	void SetBodyLinearVelocity(float velocityX, float velocityY);
 	void AddBodyForce(const FVec2& force);
 
+	void SetPosition(const FVec2& position);
+
 	float GetAngle() { return m_Angle; }
 
 	float GetGravityScale() { return m_GravityScale; }
+	void SetGravityScale(float scale);
 
 	bool GetHasFixedRotation() { return m_HasFixedRotation; }
 
@@ -75,6 +79,9 @@ private:
 	BodyType m_BodyType;
 
 	b2Body* m_pPhysicsBody;
+
+	bool m_ChangeTransform;
+	FVec2 m_NewPosition;
 
 	bool m_IsUpdateNeeded;
 };

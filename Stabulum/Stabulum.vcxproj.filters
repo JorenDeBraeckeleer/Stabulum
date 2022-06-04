@@ -165,6 +165,9 @@
     <ClInclude Include="CircleColliderComponent.h">
       <Filter>Stabulum Extended Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="TriggerComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stabulum.cpp">
@@ -273,6 +276,9 @@
       <Filter>Stabulum Extended Files\Input</Filter>
     </ClCompile>
     <ClCompile Include="CircleColliderComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TriggerComponent.cpp">
       <Filter>Stabulum Extended Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "TileComponent.h"
 
 class TransformComponent;
+class BurgerPartComponent;
 
 class BurgerComponent final : public BaseComponent, public Subject
 {
@@ -19,12 +20,17 @@ public:
 
 	void Dropped();
 
+	void ResetParts();
+
 private:
 	std::vector<GameObject*> m_pIngredientParts;
+	std::vector<BurgerPartComponent*> m_pBurgerParts;
 
 	TransformComponent* m_pTransformComponent;
 	Ingredient m_Ingredient;
 	const std::string m_SpriteSheet;
+
+	int m_BurgerAmount;
 
 	bool m_IsUpdateNeeded;
 };

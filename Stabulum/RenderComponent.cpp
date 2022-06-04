@@ -28,12 +28,19 @@ void RenderComponent::Update()
 		}
 	}
 }
-
+#include "../BurgerTime/BurgerPartComponent.h"
 void RenderComponent::Render() const
 {
 	if (m_spTexture)
 	{
 		const auto& pos = m_pTransformComponent->GetPixelPosition();
+
+		if (m_pTransformComponent->GetGameObject()->GetComponent<BurgerPartComponent>())
+		{
+			//FVec2 post = m_pTransformComponent->GetPixelPosition();
+			//m_pTransformComponent->SetPixelPosition(post.x, post.y - 1.f);
+			//std::cout << post.x << ", " << post.y << std::endl;
+		}
 		
 		//Use TextureTransformComponent if available
 		if (m_pTextureTransformComponent)

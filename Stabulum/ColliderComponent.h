@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
-
+#include <functional>
 class b2Fixture;
 
 class ColliderComponent : public BaseComponent
@@ -15,6 +15,9 @@ public:
 	ColliderComponent& operator=(ColliderComponent&& other) = delete;
 
 	virtual void Update() override = 0;
+
+	std::function<void(ColliderComponent*)> OnTriggerEnter;
+	std::function<void(ColliderComponent*)> OnTriggerExit;
 
 	void SetSensor(bool isSensor = true) { m_IsSensor = isSensor; }
 	bool GetIsSensor() { return m_IsSensor; }

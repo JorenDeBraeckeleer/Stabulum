@@ -75,6 +75,9 @@
     <ClCompile Include="TileComponent.cpp">
       <Filter>BurgerTime\Components</Filter>
     </ClCompile>
+    <ClCompile Include="BurgerPartComponent.cpp">
+      <Filter>BurgerTime\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -123,6 +126,9 @@
       <Filter>BurgerTime\Components</Filter>
     </ClInclude>
     <ClInclude Include="TileComponent.h">
+      <Filter>BurgerTime\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BurgerPartComponent.h">
       <Filter>BurgerTime\Components</Filter>
     </ClInclude>
   </ItemGroup>

@@ -249,6 +249,7 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransformComponent.h" />
+    <ClInclude Include="TriggerComponent.h" />
     <ClInclude Include="WorldComponent.h" />
   </ItemGroup>
   <ItemGroup>
@@ -296,6 +297,7 @@
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
+    <ClCompile Include="TriggerComponent.cpp" />
     <ClCompile Include="WorldComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

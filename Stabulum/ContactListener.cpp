@@ -17,6 +17,15 @@ void ContactListener::BeginContact(b2Contact* contact)
 	}
 
 	m_Contacts.emplace_back(Contact{ temp.Type, pContact1, pContact2 });
+
+	if (pContact1->OnTriggerEnter != nullptr)
+	{
+		pContact1->OnTriggerEnter(pContact2);
+	}
+	if (pContact2->OnTriggerEnter != nullptr)
+	{
+		pContact2->OnTriggerEnter(pContact1);
+	}
 }
 
 void ContactListener::EndContact(b2Contact* contact)

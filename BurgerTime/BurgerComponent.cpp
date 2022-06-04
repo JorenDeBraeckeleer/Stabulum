@@ -6,12 +6,15 @@
 #include "RenderComponent.h"
 #include "BoxColliderComponent.h"
 #include "RigidBodyComponent.h"
+#include "BurgerPartComponent.h"
 
 BurgerComponent::BurgerComponent(TransformComponent* pTransformComponent, const Ingredient& ingredient, const std::string& filename)
 	: m_pIngredientParts{}
+	, m_pBurgerParts{}
 	, m_pTransformComponent{ pTransformComponent }
 	, m_Ingredient{ ingredient }
 	, m_SpriteSheet{ filename }
+	, m_BurgerAmount{ 4 }
 	, m_IsUpdateNeeded{ true }
 {
 }
@@ -31,7 +34,7 @@ void BurgerComponent::Update()
 	{
 		int width{ 16 };
 
-		for (int idx{}; idx < 4; ++idx)
+		for (int idx{}; idx < m_BurgerAmount; ++idx)
 		{
 			GameObject* pGameObject{ new GameObject{} };
 			m_pIngredientParts.emplace_back(pGameObject);
@@ -60,20 +63,50 @@ void BurgerComponent::Update()
 				break;
 			}
 
-			FVec2 pos{ m_pTransformComponent->GetUnitPosition() };
 			TransformComponent* pTfc = pGameObject->AddComponent<TransformComponent>(16.f * idx, 0.f);
+			//RigidBodyComponent* pRdb = pGameObject->AddComponent<RigidBodyComponent>(pTfc, RigidBodyComponent::BodyType::Dynamic, 0.f, 1.f);
 			RigidBodyComponent* pRdb = pGameObject->AddComponent<RigidBodyComponent>(pTfc, RigidBodyComponent::BodyType::Dynamic);
-			pGameObject->AddComponent<BoxColliderComponent>(pRdb, 0.5f, 0.5f, 0.25f, 0.25f)->SetSensor();
+			BoxColliderComponent* pBcd = pGameObject->AddComponent<BoxColliderComponent>(pRdb, 0.5f, 0.5f, 0.25f, 0.25f);
 			pGameObject->AddComponent<RenderComponent>(pTfc, m_SpriteSheet);
+			BurgerPartComponent* pBrP = pGameObject->AddComponent<BurgerPartComponent>();
+			pBcd->SetSensor();
+			pBcd->OnTriggerEnter = std::bind(&BurgerPartComponent::OnTriggerEnter, pBrP, std::placeholders::_1);
+
+			m_pBurgerParts.emplace_back(pBrP);
 
 			GetGameObject()->AddChild(pGameObject);
 		}
 
 		m_IsUpdateNeeded = false;
 	}
+
+	for (int idx{}; idx < m_BurgerAmount; ++idx)
+	{
+		if (!m_pBurgerParts[idx]->IsHit())
+		{
+			return;
+		}
+
+		if (idx + 1 == m_BurgerAmount)
+		{
+			std::cout << "Fall!" << std::endl;
+
+			//Fall down...
+
+			ResetParts();
+		}
+	}
 }
 
 void BurgerComponent::Dropped()
 {
 	Notify(m_pGameObject, GameEvent::BurgerDropped);
+}
+
+void BurgerComponent::ResetParts()
+{
+	for (BurgerPartComponent* pComp : m_pBurgerParts)
+	{
+		pComp->ResetHit();
+	}
 }

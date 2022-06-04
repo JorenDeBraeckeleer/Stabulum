@@ -22,8 +22,20 @@ RigidBodyComponent::RigidBodyComponent(TransformComponent* pTransformComponent, 
 	, m_IsEnabled{ true }
 	, m_BodyType{ bodyType }
 	, m_pPhysicsBody{}
+	, m_ChangeTransform{}
+	, m_NewPosition{}
 	, m_IsUpdateNeeded{ true }
 {
+}
+
+void RigidBodyComponent::FixedUpdate()
+{
+	if (m_ChangeTransform)
+	{
+		m_pPhysicsBody->SetTransform({m_NewPosition.x, m_NewPosition.y }, 0.f);
+
+		m_ChangeTransform = false;
+	}
 }
 
 void RigidBodyComponent::Update()
@@ -54,4 +66,15 @@ void RigidBodyComponent::SetBodyLinearVelocity(float velocityX, float velocityY)
 void RigidBodyComponent::AddBodyForce(const FVec2& force)
 {
 	m_pPhysicsBody->ApplyForce(b2Vec2{ force.x, force.y }, m_pPhysicsBody->GetWorldCenter(), true);
+}
+
+void RigidBodyComponent::SetGravityScale(float scale)
+{
+	m_pPhysicsBody->SetGravityScale(scale);
+}
+
+void RigidBodyComponent::SetPosition(const FVec2& position)
+{
+	m_ChangeTransform = true;
+	m_NewPosition = position;
 }
