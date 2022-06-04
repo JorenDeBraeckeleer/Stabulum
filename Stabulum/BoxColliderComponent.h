@@ -2,7 +2,7 @@
 #include "ColliderComponent.h"
 
 class RigidBodyComponent;
-class b2Fixture;
+//class b2Fixture;
 
 class BoxColliderComponent final : public ColliderComponent
 {
@@ -24,35 +24,35 @@ public:
 
 	float GetAngle() { return m_Angle; }
 
-	void SetSensor(bool isSensor = true) { m_IsSensor = isSensor; }
-	bool GetIsSensor() { return m_IsSensor; }
+	//void SetSensor(bool isSensor = true) { m_IsSensor = isSensor; }
+	//bool GetIsSensor() { return m_IsSensor; }
 
-	void SetPhysicsMaterial(float friction = 0.2f, float restitution = 0.f, float restitutionTreshold = 1.f, float density = 0.f)
-									{ m_Friction = friction; m_Restitution = restitution; m_RestitutionTreshold = restitutionTreshold; m_Density = density; }
+	//void SetPhysicsMaterial(float friction = 0.2f, float restitution = 0.f, float restitutionTreshold = 1.f, float density = 0.f)
+	//								{ m_Friction = friction; m_Restitution = restitution; m_RestitutionTreshold = restitutionTreshold; m_Density = density; }
 
-	void SetFriction(float friction) { m_Friction = friction; }
-	float GetFriction() { return m_Friction; }
+	//void SetFriction(float friction) { m_Friction = friction; }
+	//float GetFriction() { return m_Friction; }
 
-	void SetRestitution(float restitution) { m_Restitution = restitution; }
-	float GetRestitution() { return m_Restitution; }
+	//void SetRestitution(float restitution) { m_Restitution = restitution; }
+	//float GetRestitution() { return m_Restitution; }
 
-	void SetRestitutionTreshold(float restitutionTreshold) { m_RestitutionTreshold = restitutionTreshold; }
-	float GetRestitutionTreshold() { return m_RestitutionTreshold; }
+	//void SetRestitutionTreshold(float restitutionTreshold) { m_RestitutionTreshold = restitutionTreshold; }
+	//float GetRestitutionTreshold() { return m_RestitutionTreshold; }
 
-	void SetDensity(float density) { m_Density = density; }
-	float GetDensity() { return m_Density; }
+	//void SetDensity(float density) { m_Density = density; }
+	//float GetDensity() { return m_Density; }
 
-	b2Fixture* GetPhysicsFixture() { return m_pPhysicsFixture; }
-	void SetPhysicsFixture(b2Fixture* pFixture) { m_pPhysicsFixture = pFixture; }
+	//b2Fixture* GetPhysicsFixture() { return m_pPhysicsFixture; }
+	//void SetPhysicsFixture(b2Fixture* pFixture) { m_pPhysicsFixture = pFixture; }
 
 private:
 	RigidBodyComponent* m_pRigidBodyComponent;
 
 	float m_Width, m_Height, m_CenterX, m_CenterY, m_Angle;
-	bool m_IsSensor;
-	float m_Friction, m_Restitution, m_RestitutionTreshold, m_Density;
+	//bool m_IsSensor;
+	//float m_Friction, m_Restitution, m_RestitutionTreshold, m_Density;
 
-	b2Fixture* m_pPhysicsFixture;
+	//b2Fixture* m_pPhysicsFixture;
 
-	bool m_IsUpdateNeeded;
+	//bool m_IsUpdateNeeded;
 };

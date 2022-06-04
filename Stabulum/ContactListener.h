@@ -2,7 +2,7 @@
 
 #include "b2_world.h"
 
-class BoxColliderComponent;
+class ColliderComponent;
 
 class ContactListener final : public b2ContactListener
 {
@@ -20,8 +20,8 @@ public:
 		};
 
 		Type Type;
-		BoxColliderComponent* pContact1;
-		BoxColliderComponent* pContact2;
+		ColliderComponent* pContact1;
+		ColliderComponent* pContact2;
 	};
 
 	virtual void BeginContact(b2Contact* contact) override;

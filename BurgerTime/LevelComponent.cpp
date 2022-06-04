@@ -97,8 +97,10 @@ void LevelComponent::InitializeLevel()
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 04.f / 16.f, 2.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 28.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 04.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 28.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 03.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 30.f / 16.f, 2.f / 16.f);
             break;
         case TileName::PlatformDouble:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(0, 32, tileSize * 2, tileSize);
@@ -120,16 +122,20 @@ void LevelComponent::InitializeLevel()
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 12.f / 16.f, 12.f / 16.f, 2.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 12.f / 16.f, 52.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 12.f / 16.f, 12.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 12.f / 16.f, 52.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 20.f / 16.f, 12.f / 16.f, 11.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 20.f / 16.f, 12.f / 16.f, 54.f / 16.f, 2.f / 16.f);
             break;
         case TileName::PlatformDoubleStairIngredient:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(0, 96, tileSize * 2, tileSize);
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 12.f / 16.f, 12.f / 16.f, 2.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 12.f / 16.f, 52.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 12.f / 16.f, 12.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 12.f / 16.f, 52.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 20.f / 16.f, 12.f / 16.f, 11.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 20.f / 16.f, 12.f / 16.f, 54.f / 16.f, 2.f / 16.f);
             //...
             break;
         case TileName::Plate:
@@ -161,24 +167,30 @@ void LevelComponent::InitializeLevel()
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 04.f / 16.f, 12.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 28.f / 16.f, 12.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 04.f / 16.f, 12.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 28.f / 16.f, 12.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 03.f / 16.f, 12.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 30.f / 16.f, 12.f / 16.f);
             break;
         case TileName::FloatingDoubleStair:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(0, 64, tileSize * 2, tileSize);
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 32.f / 16.f, 12.f / 16.f, 12.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 32.f / 16.f, 52.f / 16.f, 12.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 32.f / 16.f, 12.f / 16.f, 12.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 24.f / 16.f, 32.f / 16.f, 52.f / 16.f, 12.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 20.f / 16.f, 32.f / 16.f, 11.f / 16.f, 12.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 20.f / 16.f, 32.f / 16.f, 54.f / 16.f, 12.f / 16.f);
             break;
         case TileName::FloatingSingleStairStart:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(64, 32, tileSize, tileSize);
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 04.f / 16.f, 12.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 28.f / 16.f, 12.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 04.f / 16.f, 12.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 28.f / 16.f, 12.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 03.f / 16.f, 12.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 30.f / 16.f, 12.f / 16.f);
             //...
             break;
         case TileName::FloatingSingleStairMiddle:
@@ -186,8 +198,10 @@ void LevelComponent::InitializeLevel()
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 04.f / 16.f, 12.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 28.f / 16.f, 12.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 04.f / 16.f, 12.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 28.f / 16.f, 12.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 03.f / 16.f, 12.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 30.f / 16.f, 12.f / 16.f);
             //...
             break;
         case TileName::FloatingSingleStairEnd:
@@ -195,8 +209,10 @@ void LevelComponent::InitializeLevel()
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 04.f / 16.f, 12.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 28.f / 16.f, 12.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 04.f / 16.f, 12.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 32.f / 16.f, 28.f / 16.f, 12.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 03.f / 16.f, 12.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 30.f / 16.f, 12.f / 16.f);
             //...
             break;
         case TileName::PlatformSingleStart:
@@ -228,8 +244,10 @@ void LevelComponent::InitializeLevel()
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 04.f / 16.f, 2.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 28.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 04.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 28.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 03.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 30.f / 16.f, 2.f / 16.f);
             //...
             break;
         case TileName::PlatformSingleStairMiddle:
@@ -237,8 +255,10 @@ void LevelComponent::InitializeLevel()
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 04.f / 16.f, 2.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 28.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 04.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 28.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 03.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 30.f / 16.f, 2.f / 16.f);
             //...
             break;
         case TileName::PlatformSingleStairEnd:
@@ -246,8 +266,10 @@ void LevelComponent::InitializeLevel()
             pTfmComp = m_pTiles[idx]->AddComponent<TransformComponent>(tilePos.x, tilePos.y);
             m_pTiles[idx]->AddComponent<RenderComponent>(pTfmComp, normalSpriteSheet);
             pRbyComp = m_pTiles[idx]->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 04.f / 16.f, 2.f / 16.f);
-            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 28.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 04.f / 16.f, 2.f / 16.f);
+            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 8.f / 16.f, 12.f / 16.f, 28.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 03.f / 16.f, 2.f / 16.f);
+            m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 30.f / 16.f, 2.f / 16.f);
             //...
             break;
         default:

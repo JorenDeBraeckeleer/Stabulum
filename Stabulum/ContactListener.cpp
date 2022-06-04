@@ -2,12 +2,12 @@
 #include "ContactListener.h"
 
 #include "b2_contact.h"
-#include "BoxColliderComponent.h"
+#include "ColliderComponent.h"
 
 void ContactListener::BeginContact(b2Contact* contact)
 {
-	BoxColliderComponent* pContact1 = reinterpret_cast<BoxColliderComponent*>(contact->GetFixtureA()->GetUserData().pointer);
-	BoxColliderComponent* pContact2 = reinterpret_cast<BoxColliderComponent*>(contact->GetFixtureB()->GetUserData().pointer);
+	ColliderComponent* pContact1 = reinterpret_cast<ColliderComponent*>(contact->GetFixtureA()->GetUserData().pointer);
+	ColliderComponent* pContact2 = reinterpret_cast<ColliderComponent*>(contact->GetFixtureB()->GetUserData().pointer);
 
 	Contact temp{ Contact::Type::OnCollisionBegin };
 
@@ -16,13 +16,13 @@ void ContactListener::BeginContact(b2Contact* contact)
 		temp.Type = Contact::Type::OnSensorBegin;
 	}
 
-	m_Contacts.push_back(Contact{ temp.Type, pContact1, pContact2 });
+	m_Contacts.emplace_back(Contact{ temp.Type, pContact1, pContact2 });
 }
 
 void ContactListener::EndContact(b2Contact* contact)
 {
-	BoxColliderComponent* pContact1 = reinterpret_cast<BoxColliderComponent*>(contact->GetFixtureA()->GetUserData().pointer);
-	BoxColliderComponent* pContact2 = reinterpret_cast<BoxColliderComponent*>(contact->GetFixtureB()->GetUserData().pointer);
+	ColliderComponent* pContact1 = reinterpret_cast<ColliderComponent*>(contact->GetFixtureA()->GetUserData().pointer);
+	ColliderComponent* pContact2 = reinterpret_cast<ColliderComponent*>(contact->GetFixtureB()->GetUserData().pointer);
 
 	Contact temp{ Contact::Type::OnCollisionEnd };
 
@@ -31,5 +31,5 @@ void ContactListener::EndContact(b2Contact* contact)
 		temp.Type = Contact::Type::OnSensorEnd;
 	}
 
-	m_Contacts.push_back(Contact{ temp.Type, pContact1, pContact2 });
+	m_Contacts.emplace_back(Contact{ temp.Type, pContact1, pContact2 });
 }

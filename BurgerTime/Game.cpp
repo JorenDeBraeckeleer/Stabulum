@@ -29,6 +29,7 @@
 #include "WorldComponent.h"
 #include "RigidBodyComponent.h"
 #include "BoxColliderComponent.h"
+#include "CircleColliderComponent.h"
 #include "LevelComponent.h"
 
 //Observers
@@ -249,7 +250,8 @@ void Game::LoadLevel1() const
 	SpriteComponent*			pSprComp{};
 	MovementComponent*			pMvmComp{};
 	RigidBodyComponent*			pRbyComp{};
-	BoxColliderComponent*		pBcdComp{};
+	//BoxColliderComponent*		pBcdComp{};
+	CircleColliderComponent*	pCcdComp{};
 
 	//### World
 	auto spWorld = std::make_shared<GameObject>();
@@ -261,7 +263,7 @@ void Game::LoadLevel1() const
 
 	//### Level
 	m_pLevel->AddComponent<TransformComponent>(8.f, 32.f);
-	m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level2.txt");
+	m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level1.txt");
 
 	m_pLevel->SetParent(spWorld.get());
 
@@ -336,8 +338,8 @@ void Game::LoadLevel1() const
 	pTtmComp = m_pPeterPepper->AddComponent<TextureTransformComponent>(0, 0, 0, 0);
 	pSprComp = m_pPeterPepper->AddComponent<SpriteComponent>(pRdrComp, pTtmComp, 4, 3);
 	pRbyComp = m_pPeterPepper->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Dynamic);
-	pBcdComp = m_pPeterPepper->AddComponent<BoxColliderComponent>(pRbyComp, 0.5f, 1.f, 1.f, 1.5f);
-	pBcdComp->SetDensity(1.f);
+	//pBcdComp = m_pPeterPepper->AddComponent<BoxColliderComponent>(pRbyComp, 0.5f, 1.f, 1.f, 1.5f);
+	pCcdComp = m_pPeterPepper->AddComponent<CircleColliderComponent>(pRbyComp, 0.6f, FVec2{ 1.f, 1.5f });
 	pMvmComp = m_pPeterPepper->AddComponent<MovementComponent>(pSprComp, pRbyComp);
 
 	m_pPeterPepper->SetParent(spWorld.get());

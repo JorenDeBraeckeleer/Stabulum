@@ -1,7 +1,7 @@
 #include "StabulumPCH.h"
 #include "BoxColliderComponent.h"
 
-#include "b2_fixture.h"
+//#include "b2_fixture.h"
 
 #include "WorldComponent.h"
 
@@ -13,13 +13,6 @@ BoxColliderComponent::BoxColliderComponent(RigidBodyComponent* pRigidBodyCompone
 	, m_CenterX{ centerX }
 	, m_CenterY{ centerY }
 	, m_Angle{ angle }
-	, m_IsSensor{ false }
-	, m_Friction{ 0.2f }
-	, m_Restitution{ 0.f }
-	, m_RestitutionTreshold{ 1.f }
-	, m_Density{ 0.f }
-	, m_pPhysicsFixture{}
-	, m_IsUpdateNeeded{ true }
 {
 }
 

@@ -162,6 +162,9 @@
     <ClInclude Include="Keyboard.h">
       <Filter>Stabulum Extended Files\Input</Filter>
     </ClInclude>
+    <ClInclude Include="CircleColliderComponent.h">
+      <Filter>Stabulum Extended Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stabulum.cpp">
@@ -268,6 +271,9 @@
     </ClCompile>
     <ClCompile Include="Keyboard.cpp">
       <Filter>Stabulum Extended Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleColliderComponent.cpp">
+      <Filter>Stabulum Extended Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

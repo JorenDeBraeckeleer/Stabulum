@@ -7,12 +7,14 @@
 #include "RigidBodyComponent.h"
 #include "TransformComponent.h"
 #include "BoxColliderComponent.h"
+#include "CircleColliderComponent.h"
 #include "ContactListener.h"
 
 #include "b2_world.h"
 #include "b2_body.h"
 #include "b2_contact.h"
 #include "b2_polygon_shape.h"
+#include "b2_circle_shape.h"
 #include "b2_fixture.h"
 
 WorldComponent::WorldComponent()
@@ -72,7 +74,7 @@ void WorldComponent::FixedUpdate()
 
 void WorldComponent::AddBody(TransformComponent* pTransformComponent, RigidBodyComponent* pRigidBodyComponent)
 {
-	m_pRigidBodyComponents.push_back(pRigidBodyComponent);
+	m_pRigidBodyComponents.emplace_back(pRigidBodyComponent);
 
 	b2BodyDef bodyDefinition{};
 	bodyDefinition.position.Set(pTransformComponent->GetUnitPosition().x, pTransformComponent->GetUnitPosition().y);
@@ -106,23 +108,57 @@ void WorldComponent::AddToBodyColliderBox(RigidBodyComponent* pRigidBodyComponen
 {
 	b2PolygonShape boxShape{};
 	boxShape.SetAsBox(pBoxColliderComponent->GetWidth() / 2.f, pBoxColliderComponent->GetHeight() / 2.f, GetVecb2(pBoxColliderComponent->GetCenter()), pBoxColliderComponent->GetAngle());
-	
-	/*std::cout << "box: " << boxShape.m_centroid.x << ", " << boxShape.m_centroid.y << std::endl;
-	for (auto vert : boxShape.m_vertices)
-	{
-		std::cout << vert.x << ", " << vert.y << std::endl;
-	}*/
 
+	//b2FixtureDef fixtureDefinition{};
+	//fixtureDefinition.shape = &boxShape;
+	//fixtureDefinition.friction = pBoxColliderComponent->GetFriction();
+	//fixtureDefinition.restitution = pBoxColliderComponent->GetRestitution();
+	//fixtureDefinition.restitutionThreshold = pBoxColliderComponent->GetRestitutionTreshold();
+	//fixtureDefinition.density = pBoxColliderComponent->GetDensity();
+	//fixtureDefinition.isSensor = pBoxColliderComponent->GetIsSensor();
+	//fixtureDefinition.userData.pointer = reinterpret_cast<uintptr_t>(pBoxColliderComponent);
+
+	//b2Fixture* fixture{ pRigidBodyComponent->GetPhysicsBody()->CreateFixture(&fixtureDefinition) };
+
+	//pBoxColliderComponent->SetPhysicsFixture(fixture);
+
+	AddToBodyCollider(boxShape, pRigidBodyComponent, pBoxColliderComponent);
+}
+
+void WorldComponent::AddToBodyColliderCircle(RigidBodyComponent* pRigidBodyComponent, CircleColliderComponent* pCircleColliderComponent)
+{
+	b2CircleShape circleShape{};
+	circleShape.m_radius = pCircleColliderComponent->GetRadius();
+	circleShape.m_p = GetVecb2(pCircleColliderComponent->GetPoint());
+
+	//b2FixtureDef fixtureDefinition{};
+	//fixtureDefinition.shape = &circleShape;
+	//fixtureDefinition.friction = pCircleColliderComponent->GetFriction();
+	//fixtureDefinition.restitution = pCircleColliderComponent->GetRestitution();
+	//fixtureDefinition.restitutionThreshold = pCircleColliderComponent->GetRestitutionTreshold();
+	//fixtureDefinition.density = pCircleColliderComponent->GetDensity();
+	//fixtureDefinition.isSensor = pCircleColliderComponent->GetIsSensor();
+	//fixtureDefinition.userData.pointer = reinterpret_cast<uintptr_t>(pCircleColliderComponent);
+
+	//b2Fixture* fixture{ pRigidBodyComponent->GetPhysicsBody()->CreateFixture(&fixtureDefinition) };
+
+	//pCircleColliderComponent->SetPhysicsFixture(fixture);
+
+	AddToBodyCollider(circleShape, pRigidBodyComponent, pCircleColliderComponent);
+}
+
+void WorldComponent::AddToBodyCollider(const b2Shape& shape, RigidBodyComponent* pRigidBodyComponent, ColliderComponent* pColliderComponent)
+{
 	b2FixtureDef fixtureDefinition{};
-	fixtureDefinition.shape = &boxShape;
-	fixtureDefinition.friction = pBoxColliderComponent->GetFriction();
-	fixtureDefinition.restitution = pBoxColliderComponent->GetRestitution();
-	fixtureDefinition.restitutionThreshold = pBoxColliderComponent->GetRestitutionTreshold();
-	fixtureDefinition.density = pBoxColliderComponent->GetDensity();
-	fixtureDefinition.isSensor = pBoxColliderComponent->GetIsSensor();
-	fixtureDefinition.userData.pointer = reinterpret_cast<uintptr_t>(pBoxColliderComponent);
+	fixtureDefinition.shape = &shape;
+	fixtureDefinition.friction = pColliderComponent->GetFriction();
+	fixtureDefinition.restitution = pColliderComponent->GetRestitution();
+	fixtureDefinition.restitutionThreshold = pColliderComponent->GetRestitutionTreshold();
+	fixtureDefinition.density = pColliderComponent->GetDensity();
+	fixtureDefinition.isSensor = pColliderComponent->GetIsSensor();
+	fixtureDefinition.userData.pointer = reinterpret_cast<uintptr_t>(pColliderComponent);
 
 	b2Fixture* fixture{ pRigidBodyComponent->GetPhysicsBody()->CreateFixture(&fixtureDefinition) };
 
-	pBoxColliderComponent->SetPhysicsFixture(fixture);
+	pColliderComponent->SetPhysicsFixture(fixture);
 }

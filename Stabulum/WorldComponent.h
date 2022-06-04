@@ -3,11 +3,13 @@
 
 #include "b2_math.h"
 class b2World;
+class b2Shape;
 
 class ContactListener;
 class TransformComponent;
 class RigidBodyComponent;
 class BoxColliderComponent;
+class CircleColliderComponent;
 
 class WorldComponent final : public BaseComponent
 {
@@ -26,7 +28,9 @@ public:
 	void AddBody(TransformComponent* pTransformComponent, RigidBodyComponent* pRigidBodyComponent);
 	void RemoveBody(RigidBodyComponent* pRigidBodyComponent);
 
+	void AddToBodyCollider(const b2Shape& shape, RigidBodyComponent* pRigidBodyComponent, ColliderComponent* pColliderComponent);
 	void AddToBodyColliderBox(RigidBodyComponent* pRigidBodyComponent, BoxColliderComponent* pBoxColliderComponent);
+	void AddToBodyColliderCircle(RigidBodyComponent* pRigidBodyComponent, CircleColliderComponent* pCircleColliderComponent);
 
 private:
 	b2World* m_pWorld;
