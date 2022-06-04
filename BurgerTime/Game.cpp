@@ -263,7 +263,7 @@ void Game::LoadLevel1() const
 
 	//### Level
 	m_pLevel->AddComponent<TransformComponent>(8.f, 32.f);
-	m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level1.txt");
+	m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level5.txt");
 
 	m_pLevel->SetParent(spWorld.get());
 

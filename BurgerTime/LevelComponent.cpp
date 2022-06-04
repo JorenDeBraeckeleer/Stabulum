@@ -28,6 +28,12 @@ LevelComponent::~LevelComponent()
 		delete pTile;
 		pTile = nullptr;
 	}
+
+    for (GameObject* pIngredient : m_pIngredients)
+    {
+        delete pIngredient;
+        pIngredient = nullptr;
+    }
 }
 
 void LevelComponent::Update()
@@ -42,6 +48,7 @@ void LevelComponent::Update()
 
 void LevelComponent::InitializeLevel()
 {
+    const std::string ingredientSpriteSheet{ "Textures/BurgerTime/Items/Burger.png" };
     const std::string normalSpriteSheet{ "Textures/BurgerTime/Level/Tiles.png" };
     //const std::string alphaSpriteSheet{ "Textures/Level/AlphaTiles.png" };
 
@@ -276,33 +283,60 @@ void LevelComponent::InitializeLevel()
             break;
         }
 
-        switch (m_pTiles[idx]->GetComponent<TileComponent>()->GetIngredient())
+        GetGameObject()->AddChild(m_pTiles[idx]);
+
+        Ingredient ingredient{ m_pTiles[idx]->GetComponent<TileComponent>()->GetIngredient() };
+
+        if (ingredient == Ingredient::None)
         {
-        case Ingredient::None:
-            //Do nothing
-            break;
+            continue;
+        }
+
+        GameObject* pIngredient{ m_pIngredients.emplace_back(new GameObject{}) };
+        constexpr float ingredientOffset{ 16.f };
+
+        switch (ingredient)
+        {
         case Ingredient::BunBottom:
-            //...
+            pIngredient->AddComponent<TextureTransformComponent>(0, 16, 64, 16);
+            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
+            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
+            //m_pTiles[idx]->AddChild(pIngredient);
             break;
         case Ingredient::BunTop:
-            //...
+            pIngredient->AddComponent<TextureTransformComponent>(0, 0, 64, 16);
+            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
+            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
+            //m_pTiles[idx]->AddChild(pIngredient);
             break;
         case Ingredient::Cheese:
-            //...
+            pIngredient->AddComponent<TextureTransformComponent>(0, 32, 64, 16);
+            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
+            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
+            //m_pTiles[idx]->AddChild(pIngredient);
             break;
         case Ingredient::Lettuce:
-            //...
+            pIngredient->AddComponent<TextureTransformComponent>(0, 80, 64, 16);
+            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
+            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
+            //m_pTiles[idx]->AddChild(pIngredient);
             break;
         case Ingredient::Meat:
-            //...
+            pIngredient->AddComponent<TextureTransformComponent>(0, 48, 64, 16);
+            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
+            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
+            //m_pTiles[idx]->AddChild(pIngredient);
             break;
         case Ingredient::Tomato:
-            //...
+            pIngredient->AddComponent<TextureTransformComponent>(0, 64, 64, 16);
+            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
+            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
+            //m_pTiles[idx]->AddChild(pIngredient);
             break;
         default:
             break;
         }
 
-        GetGameObject()->AddChild(m_pTiles[idx]);
+        GetGameObject()->AddChild(pIngredient);
     }
 }

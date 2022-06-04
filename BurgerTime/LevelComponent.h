@@ -20,6 +20,7 @@ private:
 	void InitializeLevel();
 
 	std::vector<GameObject*> m_pTiles;
+	std::vector<GameObject*> m_pIngredients;
 
 	bool m_IsUpdateNeeded;
 };
