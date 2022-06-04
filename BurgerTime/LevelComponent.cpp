@@ -7,6 +7,7 @@
 #include "RenderComponent.h"
 #include "BoxColliderComponent.h"
 #include "RigidBodyComponent.h"
+#include "BurgerComponent.h"
 
 LevelComponent::LevelComponent(const std::string& filePath)
 	: m_pTiles{}
@@ -295,47 +296,8 @@ void LevelComponent::InitializeLevel()
         GameObject* pIngredient{ m_pIngredients.emplace_back(new GameObject{}) };
         constexpr float ingredientOffset{ 16.f };
 
-        switch (ingredient)
-        {
-        case Ingredient::BunBottom:
-            pIngredient->AddComponent<TextureTransformComponent>(0, 16, 64, 16);
-            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
-            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
-            //m_pTiles[idx]->AddChild(pIngredient);
-            break;
-        case Ingredient::BunTop:
-            pIngredient->AddComponent<TextureTransformComponent>(0, 0, 64, 16);
-            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
-            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
-            //m_pTiles[idx]->AddChild(pIngredient);
-            break;
-        case Ingredient::Cheese:
-            pIngredient->AddComponent<TextureTransformComponent>(0, 32, 64, 16);
-            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
-            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
-            //m_pTiles[idx]->AddChild(pIngredient);
-            break;
-        case Ingredient::Lettuce:
-            pIngredient->AddComponent<TextureTransformComponent>(0, 80, 64, 16);
-            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
-            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
-            //m_pTiles[idx]->AddChild(pIngredient);
-            break;
-        case Ingredient::Meat:
-            pIngredient->AddComponent<TextureTransformComponent>(0, 48, 64, 16);
-            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
-            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
-            //m_pTiles[idx]->AddChild(pIngredient);
-            break;
-        case Ingredient::Tomato:
-            pIngredient->AddComponent<TextureTransformComponent>(0, 64, 64, 16);
-            pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
-            pIngredient->AddComponent<RenderComponent>(pTfmComp, ingredientSpriteSheet);
-            //m_pTiles[idx]->AddChild(pIngredient);
-            break;
-        default:
-            break;
-        }
+        pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
+        pIngredient->AddComponent<BurgerComponent>(pTfmComp, ingredient, ingredientSpriteSheet);
 
         GetGameObject()->AddChild(pIngredient);
     }
