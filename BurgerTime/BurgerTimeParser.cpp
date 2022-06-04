@@ -47,6 +47,11 @@ bool BurgerTimeParser::Parse(const std::string& filePath, std::vector<GameObject
 		else if (command == "l")
 		{
 			//Level
+			GameObject* pStartTile{ new GameObject{} };
+			TileComponent* pStartComp = pStartTile->AddComponent<TileComponent>();
+			pStartComp->SetName(TileName::VoidSingle);
+			levelTiles.emplace_back(pStartTile);
+
 			std::getline(file, command);
 
 			for (size_t idx{}; idx < command.size() - 2; ++idx)
@@ -72,6 +77,11 @@ bool BurgerTimeParser::Parse(const std::string& filePath, std::vector<GameObject
 					idx += 2;
 				}
 			}
+
+			GameObject* pEndTile{ new GameObject{} };
+			TileComponent* pEndComp = pEndTile->AddComponent<TileComponent>();
+			pEndComp->SetName(TileName::VoidSingle);
+			levelTiles.emplace_back(pEndTile);
 		}
 	}
 

@@ -18,8 +18,4 @@ private:
 
 	GameObject* m_pPeterPepper{ new GameObject{} };
 	GameObject* m_pLevel{ new GameObject{} };
-	GameObject* m_pWall6{ new GameObject{} };
-	GameObject* m_pWall5{ new GameObject{} };
-	GameObject* m_pWall4{ new GameObject{} };
-	GameObject* m_pWall3{ new GameObject{} };
 };

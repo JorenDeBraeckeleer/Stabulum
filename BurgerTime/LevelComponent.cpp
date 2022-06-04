@@ -47,6 +47,7 @@ void LevelComponent::InitializeLevel()
 
     int tileSize{ 32 };
     FVec2 startOffset{ GetGameObject()->GetComponent<TransformComponent>()->GetPixelPosition() };
+    startOffset.x = startOffset.x - 32.f;
     int xOffset{};
     FVec2 tilePos{};
 
@@ -55,18 +56,18 @@ void LevelComponent::InitializeLevel()
 
     for (size_t idx{}; idx < m_pTiles.size(); ++idx)
     {
-        if (int nr{ idx % 9 }; nr % 2 == 0 && nr != 0)
+        if (int nr{ idx % 11 }; nr % 2 == 1 && nr != 0 && nr != 1)
         {
             xOffset += tileSize;
         }
 
-        if (idx % 9 == 0)
+        if (idx % 11 == 0)
         {
             xOffset = 0;
         }
 
-        tilePos.x = startOffset.x + xOffset + (idx % 9) * tileSize;
-        tilePos.y = startOffset.y + (idx / 9) * tileSize;
+        tilePos.x = startOffset.x + xOffset + (idx % 11) * tileSize;
+        tilePos.y = startOffset.y + (idx / 11) * tileSize;
 
         switch (m_pTiles[idx]->GetComponent<TileComponent>()->GetName())
         {
