@@ -2,8 +2,11 @@
 #include "Transform.h"
 #include "SceneObject.h"
 #include <type_traits>
+#include <typeinfo>
 
 class BaseComponent;
+class RigidBodyComponent;
+class ColliderComponent;
 class Texture2D;
 
 class GameObject final : public SceneObject
@@ -27,6 +30,7 @@ public:
 	void RemoveChild(GameObject* pGameObject, bool deleteGameObject = true);
 
 	//Maximum of 1 component per type, gives back the old component if one already exists.
+	//Exception for Collider components
 	template <typename myType, typename... myArgs>
 	myType* AddComponent(myArgs&&... args)
 	{
@@ -38,7 +42,7 @@ public:
 			pComp = dynamic_cast<myType*>(m_pComponents[idx]);
 		}
 
-		if (pComp)
+		if (pComp && !std::is_base_of_v<ColliderComponent, myType>)
 		{
 			return pComp;
 		}
@@ -53,7 +57,7 @@ public:
 
 	////Not tested yet
 	//template<typename myType>
-	//myType* GetComponentFromChildren() const
+	//myType* GetComponentInChildren() const
 	//{
 	//	//Search for existing component
 	//	myType* pComp{};
@@ -66,11 +70,29 @@ public:
 	//	return pComp;
 	//};
 
+	//Not tested yet
+	template<typename myType>
+	myType* GetComponentInParents() const
+	{
+		//Search for existing component
+		if (myType* pComp = GetComponent<myType>())
+		{
+			return pComp;
+		}
+
+		if (m_pParentObject)
+		{
+			return m_pParentObject->GetComponentInParents<myType>();
+		}
+
+		return nullptr;
+	};
+
 	template<typename myType>
 	myType* GetComponent() const
 	{
 		//Search for existing component
-		myType* pComp{};
+		myType* pComp{ nullptr };
 
 		for (size_t idx{}; idx < m_pComponents.size() && !pComp; ++idx)
 		{
@@ -78,6 +100,23 @@ public:
 		}
 
 		return pComp;
+	};
+
+	template<typename myType>
+	std::vector<myType*> GetComponents() const
+	{
+		//Search for existing component
+		std::vector<myType*> pComponents{};
+
+		for (myType* pC : m_pComponents)
+		{
+			if (myType* pComp = dynamic_cast<myType*>(pC))
+			{
+				pComponents.emplace_back(pComp);
+			}
+		}
+
+		return pComponents;
 	};
 
 	template <typename myType>

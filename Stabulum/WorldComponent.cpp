@@ -59,45 +59,10 @@ void WorldComponent::FixedUpdate()
 			std::cout << "OnSensorEnd" << std::endl;
 			break;
 		case ContactListener::Contact::Type::OnCollisionBegin:
-
-			//Initial way of knowing if this is the character
-			if (MovementComponent* moveComp = dynamic_cast<MovementComponent*>(contact.pContact1->GetGameObject()->GetComponent<MovementComponent>()))
-			{
-				auto pos = contact.pContact1->GetGameObject()->GetComponent<TransformComponent>()->GetPixelPosition();
-				auto center = contact.pContact1->GetGameObject()->GetComponent<BoxColliderComponent>()->GetCenter();
-
-				std::cout << pos.x + center.x * 16.f << ", " << pos.y + center.x * 16.f << std::endl;
-				std::cout << "OnCollisionBegin" << std::endl;
-
-				auto pos2 = contact.pContact2->GetGameObject()->GetComponent<TransformComponent>()->GetPixelPosition();
-				auto center2 = contact.pContact2->GetGameObject()->GetComponent<BoxColliderComponent>()->GetCenter();
-
-				std::cout << pos2.x + center2.x * 16.f << ", " << pos2.y + center2.x * 16.f << std::endl;
-				moveComp->CheckBlockDirection(pos + center * 16.f, pos2 + center2 * 16.f);
-				//moveComp->BlockDirection(MovementComponent::MoveDirection::Left);
-			}
-
+			std::cout << "OnCollisionBegin" << std::endl;
 			break;
 		case ContactListener::Contact::Type::OnCollisionEnd:
-
-			//Initial way of knowing if this is the character
-			if (MovementComponent* moveComp = dynamic_cast<MovementComponent*>(contact.pContact1->GetGameObject()->GetComponent<MovementComponent>()))
-			{
-				auto pos = contact.pContact1->GetGameObject()->GetComponent<TransformComponent>()->GetPixelPosition();
-				auto center = contact.pContact1->GetGameObject()->GetComponent<BoxColliderComponent>()->GetCenter();
-
-				std::cout << pos.x + center.x * 16.f << ", " << pos.y + center.x * 16.f << std::endl;
-				std::cout << "OnCollisionEnd" << std::endl;
-
-				auto pos2 = contact.pContact2->GetGameObject()->GetComponent<TransformComponent>()->GetPixelPosition();
-				auto center2 = contact.pContact2->GetGameObject()->GetComponent<BoxColliderComponent>()->GetCenter();
-
-				std::cout << pos2.x + center2.x * 16.f << ", " << pos2.y + center2.x * 16.f << std::endl;
-				moveComp->CheckUnBlockDirection(pos + center * 16.f, pos2 + center2 * 16.f);
-				//moveComp->BlockDirection(MovementComponent::MoveDirection::Left);
-			}
-
-
+			std::cout << "OnCollisionEnd" << std::endl;
 			break;
 		default:
 			break;
@@ -142,11 +107,11 @@ void WorldComponent::AddToBodyColliderBox(RigidBodyComponent* pRigidBodyComponen
 	b2PolygonShape boxShape{};
 	boxShape.SetAsBox(pBoxColliderComponent->GetWidth() / 2.f, pBoxColliderComponent->GetHeight() / 2.f, GetVecb2(pBoxColliderComponent->GetCenter()), pBoxColliderComponent->GetAngle());
 	
-	std::cout << "box: " << boxShape.m_centroid.x << ", " << boxShape.m_centroid.y << std::endl;
+	/*std::cout << "box: " << boxShape.m_centroid.x << ", " << boxShape.m_centroid.y << std::endl;
 	for (auto vert : boxShape.m_vertices)
 	{
 		std::cout << vert.x << ", " << vert.y << std::endl;
-	}
+	}*/
 
 	b2FixtureDef fixtureDefinition{};
 	fixtureDefinition.shape = &boxShape;

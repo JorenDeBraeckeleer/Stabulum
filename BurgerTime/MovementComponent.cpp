@@ -127,32 +127,38 @@ void MovementComponent::Update()
 
 	if (m_IsMoving)
 	{
-		FVec2 direction{};
+		FVec2 desiredVelocity{};
 
 		switch (m_MoveDirection)
 		{
 		case MovementComponent::MoveDirection::Up:
-			direction = { 0.f, -1.f };
+			desiredVelocity = { 0.f, -3.f };
 			break;
 		case MovementComponent::MoveDirection::Down:
-			direction = { 0.f, 1.f };
+			desiredVelocity = { 0.f, 3.f };
 			break;
 		case MovementComponent::MoveDirection::Left:
-			direction = { -1.f, 0.f };
+			desiredVelocity = { -4.f, 0.f };
 			break;
 		case MovementComponent::MoveDirection::Right:
-			direction = { 1.f, 0.f };
+			desiredVelocity = { 4.f, 0.f };
 			break;
 		default:
 			break;
 		}
 
-		FVec2 speed{ 4.f, 3.f };
-		m_pRigidBodyComponent->UpdateLinearVelocity(direction * speed);
+		//FVec2 force{};
+		//float velChangeX{ desiredVelocity.x - m_pRigidBodyComponent->GetLinearVelocity().x };
+		//float velChangeY{ desiredVelocity.y - m_pRigidBodyComponent->GetLinearVelocity().y };
+		//force.x = 0.5f * velChangeX / (1.f / 60.f);
+		//force.y = 0.5f * velChangeY / (1.f / 60.f);
+		//m_pRigidBodyComponent->AddBodyForce(force);
+
+		m_pRigidBodyComponent->SetBodyLinearVelocity(desiredVelocity.x, desiredVelocity.y);
 	}
 	else
 	{
-		m_pRigidBodyComponent->UpdateLinearVelocity(0.f, 0.f);
+		m_pRigidBodyComponent->SetBodyLinearVelocity(0.f, 0.f);
 	}
 
 	m_pSpriteComponent->SetIsMoving(m_IsMoving);

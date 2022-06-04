@@ -61,6 +61,18 @@ void Game::Cleanup()
 {
 	delete m_pPeterPepper;
 	m_pPeterPepper = nullptr;
+
+	delete m_pLevel;
+	m_pLevel = nullptr;
+
+	delete m_pWall3;
+	delete m_pWall4;
+	delete m_pWall5;
+	delete m_pWall6;
+	m_pWall3 = nullptr;
+	m_pWall4 = nullptr;
+	m_pWall5 = nullptr;
+	m_pWall6 = nullptr;
 }
 
 void Game::Run()
@@ -248,14 +260,6 @@ void Game::LoadLevel1() const
 	RigidBodyComponent*			pRbyComp{};
 	BoxColliderComponent*		pBcdComp{};
 
-	//### Level
-	auto spLevel = std::make_shared<GameObject>();
-
-	spLevel->AddComponent<TransformComponent>(8.f, 32.f);
-	spLevel->AddComponent<LevelComponent>("../Resources/Level/Level2.txt");
-
-	scene.Add(spLevel);
-
 	//### World
 	auto spWorld = std::make_shared<GameObject>();
 
@@ -263,6 +267,12 @@ void Game::LoadLevel1() const
 	spWorld->AddComponent<WorldComponent>();
 
 	scene.Add(spWorld);
+
+	//### Level
+	m_pLevel->AddComponent<TransformComponent>(8.f, 32.f);
+	m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level2.txt");
+
+	m_pLevel->SetParent(spWorld.get());
 
 	//### High score
 	auto spFont16 = ResourceManager::GetInstance().LoadFont("Fonts/PressStartK-EX89.otf", 16);
@@ -335,81 +345,60 @@ void Game::LoadLevel1() const
 	pTtmComp = m_pPeterPepper->AddComponent<TextureTransformComponent>(0, 0, 0, 0);
 	pSprComp = m_pPeterPepper->AddComponent<SpriteComponent>(pRdrComp, pTtmComp, 4, 3);
 	pRbyComp = m_pPeterPepper->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Dynamic);
-	pBcdComp = m_pPeterPepper->AddComponent<BoxColliderComponent>(pRbyComp, 0.5f, 2.f, 1.f, 1.f);
+	pBcdComp = m_pPeterPepper->AddComponent<BoxColliderComponent>(pRbyComp, 0.5f, 1.f, 1.f, 1.5f);
+	pBcdComp->SetDensity(1.f);
 	pMvmComp = m_pPeterPepper->AddComponent<MovementComponent>(pSprComp, pRbyComp);
 
 	m_pPeterPepper->SetParent(spWorld.get());
 
-	//### Blockage test
-	auto spWall = std::make_shared<GameObject>();
+	////### Blockage test
+	//auto spWall = std::make_shared<GameObject>();
 
-	pTfmComp = spWall->AddComponent<TransformComponent>(widthReal / 2.f - 24.f, heightReal - 120.f);
-	pRbyComp = spWall->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-	pBcdComp = spWall->AddComponent<BoxColliderComponent>(pRbyComp, 3.f, 3.f);
+	//pTfmComp = spWall->AddComponent<TransformComponent>(widthReal / 2.f - 24.f, heightReal - 120.f);
+	//pRbyComp = spWall->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
+	//pBcdComp = spWall->AddComponent<BoxColliderComponent>(pRbyComp, 3.f, 3.f);
 
-	spWall->SetParent(spWorld.get());
+	//spWall->SetParent(spWorld.get());
 
-	scene.Add(spWall);
+	//auto spWall1 = std::make_shared<GameObject>();
 
-	auto spWall1 = std::make_shared<GameObject>();
+	//pTfmComp = spWall1->AddComponent<TransformComponent>(widthReal / 2.f + 16.f, heightReal - 120.f);
+	//pRbyComp = spWall1->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
+	//pBcdComp = spWall1->AddComponent<BoxColliderComponent>(pRbyComp, 3.f, 3.f);
 
-	pTfmComp = spWall1->AddComponent<TransformComponent>(widthReal / 2.f + 16.f, heightReal - 120.f);
-	pRbyComp = spWall1->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-	pBcdComp = spWall1->AddComponent<BoxColliderComponent>(pRbyComp, 3.f, 3.f);
+	//spWall1->SetParent(spWorld.get());
 
-	spWall1->SetParent(spWorld.get());
+	//auto spWall2 = std::make_shared<GameObject>();
 
-	scene.Add(spWall1);
+	//pTfmComp = spWall2->AddComponent<TransformComponent>(widthReal / 2.f - 72.f, heightReal - 120.f);
+	//pRbyComp = spWall2->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
+	//pBcdComp = spWall2->AddComponent<BoxColliderComponent>(pRbyComp, 3.f, 3.f);
 
-	auto spWall2 = std::make_shared<GameObject>();
+	//spWall2->SetParent(spWorld.get());
 
-	pTfmComp = spWall2->AddComponent<TransformComponent>(widthReal / 2.f - 72.f, heightReal - 120.f);
-	pRbyComp = spWall2->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-	pBcdComp = spWall2->AddComponent<BoxColliderComponent>(pRbyComp, 3.f, 3.f);
+	pTfmComp = m_pWall3->AddComponent<TransformComponent>(0.f, 0.f);
+	pRbyComp = m_pWall3->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
+	pBcdComp = m_pWall3->AddComponent<BoxColliderComponent>(pRbyComp, 1 / 16.f, 4.f, 0.5f / 16.f, 2.f);
 
-	spWall2->SetParent(spWorld.get());
+	//m_pWall3->SetParent(spWorld.get());
 
-	scene.Add(spWall2);
+	pTfmComp = m_pWall4->AddComponent<TransformComponent>(0.f, 0.f);
+	pRbyComp = m_pWall4->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
+	pBcdComp = m_pWall4->AddComponent<BoxColliderComponent>(pRbyComp, 4.f, 1 / 16.f, 2.f, 0.5f / 16.f);
 
-	auto spWall3 = std::make_shared<GameObject>();
+	//m_pWall4->SetParent(spWorld.get());
 
-	pTfmComp = spWall3->AddComponent<TransformComponent>(0.f, 0.f);
-	pRbyComp = spWall3->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-	pBcdComp = spWall3->AddComponent<BoxColliderComponent>(pRbyComp, 1 / 16.f, 4.f, 0.5f / 16.f, 2.f);
+	pTfmComp = m_pWall5->AddComponent<TransformComponent>(0.f, 0.f);
+	pRbyComp = m_pWall5->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
+	pBcdComp = m_pWall5->AddComponent<BoxColliderComponent>(pRbyComp, 4.f, 1.f / 16.f, 2.f, 4.f);
 
-	spWall3->SetParent(spWorld.get());
+	//m_pWall5->SetParent(spWorld.get());
 
-	scene.Add(spWall3);
+	pTfmComp = m_pWall6->AddComponent<TransformComponent>(0.f, 0.f);
+	pRbyComp = m_pWall6->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
+	pBcdComp = m_pWall6->AddComponent<BoxColliderComponent>(pRbyComp, 1.f / 16.f, 4.f, 4.f, 2.f);
 
-	auto spWall4 = std::make_shared<GameObject>();
-
-	pTfmComp = spWall4->AddComponent<TransformComponent>(0.f, 0.f);
-	pRbyComp = spWall4->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-	pBcdComp = spWall4->AddComponent<BoxColliderComponent>(pRbyComp, 4.f, 1 / 16.f, 2.f, 0.5f / 16.f);
-
-	spWall4->SetParent(spWorld.get());
-
-	scene.Add(spWall4);
-
-	auto spWall5 = std::make_shared<GameObject>();
-
-	pTfmComp = spWall5->AddComponent<TransformComponent>(0.f, 0.f);
-	pRbyComp = spWall5->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-	pBcdComp = spWall5->AddComponent<BoxColliderComponent>(pRbyComp, 4.f, 1.f / 16.f, 2.f, 4.f);
-
-	spWall5->SetParent(spWorld.get());
-
-	scene.Add(spWall5);
-
-	auto spWall6 = std::make_shared<GameObject>();
-
-	pTfmComp = spWall6->AddComponent<TransformComponent>(0.f, 0.f);
-	pRbyComp = spWall6->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Static);
-	pBcdComp = spWall6->AddComponent<BoxColliderComponent>(pRbyComp, 1.f / 16.f, 4.f, 4.f, 2.f);
-
-	spWall6->SetParent(spWorld.get());
-
-	scene.Add(spWall6);
+	//m_pWall6->SetParent(spWorld.get());
 
 	//### Sound Test
 	auto spSoundTest = std::make_shared<GameObject>();

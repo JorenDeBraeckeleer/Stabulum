@@ -15,7 +15,7 @@ public:
 		Dynamic = 2,
 	};
 
-	RigidBodyComponent(TransformComponent* pTransformComponent, BodyType bodyType = BodyType::Static, float angle = 0.f, float gravityScale = 1.f, bool hasFixedRotation = false);
+	RigidBodyComponent(TransformComponent* pTransformComponent, BodyType bodyType = BodyType::Static, float angle = 0.f, float gravityScale = 0.f, bool hasFixedRotation = true);
 
 	virtual ~RigidBodyComponent() = default;
 	RigidBodyComponent(const RigidBodyComponent& other) = delete;
@@ -26,8 +26,8 @@ public:
 	virtual void Update() override;
 
 	void UpdatePosition();
-	void UpdateLinearVelocity(float velocityX, float velocityY);
-	void UpdateLinearVelocity(const FVec2& velocity);
+	void SetBodyLinearVelocity(float velocityX, float velocityY);
+	void AddBodyForce(const FVec2& force);
 
 	float GetAngle() { return m_Angle; }
 
