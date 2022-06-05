@@ -131,5 +131,8 @@
     <ClInclude Include="BurgerPartComponent.h">
       <Filter>BurgerTime\Components</Filter>
     </ClInclude>
+    <ClInclude Include="RenderOrder.h">
+      <Filter>GameFiles</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

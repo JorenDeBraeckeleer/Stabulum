@@ -18,4 +18,7 @@ private:
 
 	GameObject* m_pPeterPepper{ new GameObject{} };
 	GameObject* m_pLevel{ new GameObject{} };
+
+	FVec2 m_LevelSize{ 416.f, 400.f};
+	float m_Border{ 16.f };
 };

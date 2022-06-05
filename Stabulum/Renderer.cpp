@@ -33,13 +33,33 @@ void Renderer::Render() const
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(m_Renderer);
 
+	//Clear layers
+	for (Layer* pLayer : m_pLayers)
+	{
+		SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 0);
+		SDL_SetRenderTarget(m_Renderer, pLayer->GetTexture());
+		SDL_RenderFillRect(m_Renderer, nullptr);
+	}
+
 	SceneManager::GetInstance().Render();
 	
+	//Fill layers
+	for (Layer* pLayer : m_pLayers)
+	{
+		SDL_RenderCopy(m_Renderer, pLayer->GetTexture(), nullptr, nullptr);
+	}
+
 	SDL_RenderPresent(m_Renderer);
 }
 
 void Renderer::Destroy()
 {
+	for (Layer* pLayer : m_pLayers)
+	{
+		delete pLayer;
+		pLayer = nullptr;
+	}
+
 	if (m_Renderer != nullptr)
 	{
 		SDL_DestroyRenderer(m_Renderer);
@@ -47,7 +67,7 @@ void Renderer::Destroy()
 	}
 }
 
-void Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const Allign& allignment) const
+void Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const Allign& allignment, int layer) const
 {
 	SDL_Rect dst{};
 	dst.x = static_cast<int>(x);
@@ -59,10 +79,16 @@ void Renderer::RenderTexture(const Texture2D& texture, const float x, const floa
 		AllignmentCheck(texture, dst.x, dst.y, allignment);
 	}
 
+	//Set correct layer
+	SDL_SetRenderTarget(GetSDLRenderer(), m_pLayers[layer]->GetTexture());
+
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+
+	//Set layer back
+	SDL_SetRenderTarget(GetSDLRenderer(), nullptr);
 }
 
-void Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height, const Allign& allignment) const
+void Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height, const Allign& allignment, int layer) const
 {
 	SDL_Rect dst{};
 	dst.x = static_cast<int>(x);
@@ -75,10 +101,16 @@ void Renderer::RenderTexture(const Texture2D& texture, const float x, const floa
 		AllignmentCheck(texture, dst.x, dst.y, allignment);
 	}
 
+	//Set correct layer
+	SDL_SetRenderTarget(GetSDLRenderer(), m_pLayers[layer]->GetTexture());
+
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+
+	//Set layer back
+	SDL_SetRenderTarget(GetSDLRenderer(), nullptr);
 }
 
-void Renderer::RenderTexture(const Texture2D& texture, float srcX, float srcY, float srcWidth, float srcHeight, float dstX, float dstY, const Allign& allignment) const
+void Renderer::RenderTexture(const Texture2D& texture, float srcX, float srcY, float srcWidth, float srcHeight, float dstX, float dstY, const Allign& allignment, int layer) const
 {
 	SDL_Rect src{};
 	src.x = static_cast<int>(srcX);
@@ -97,10 +129,16 @@ void Renderer::RenderTexture(const Texture2D& texture, float srcX, float srcY, f
 		AllignmentCheck(texture, dst.x, dst.y, allignment, &src);
 	}
 
+	//Set correct layer
+	SDL_SetRenderTarget(GetSDLRenderer(), m_pLayers[layer]->GetTexture());
+
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst);
+
+	//Set layer back
+	SDL_SetRenderTarget(GetSDLRenderer(), nullptr);
 }
 
-void Renderer::RenderTexture(const Texture2D& texture, SDL_Rect* pSrcRect, float dstX, float dstY, const Allign& allignment) const
+void Renderer::RenderTexture(const Texture2D& texture, SDL_Rect* pSrcRect, float dstX, float dstY, const Allign& allignment, int layer) const
 {
 	SDL_Rect dst{};
 	dst.x = static_cast<int>(dstX);
@@ -113,7 +151,13 @@ void Renderer::RenderTexture(const Texture2D& texture, SDL_Rect* pSrcRect, float
 		AllignmentCheck(texture, dst.x, dst.y, allignment, pSrcRect);
 	}
 
+	//Set correct layer
+	SDL_SetRenderTarget(GetSDLRenderer(), m_pLayers[layer]->GetTexture());
+
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), pSrcRect, &dst);
+
+	//Set layer back
+	SDL_SetRenderTarget(GetSDLRenderer(), nullptr);
 }
 
 void Renderer::AllignmentCheck(const Texture2D& texture, int& dstX, int& dstY, const Allign& allignment, SDL_Rect* pSrcRect) const
@@ -145,4 +189,17 @@ void Renderer::AllignmentCheck(const Texture2D& texture, int& dstX, int& dstY, c
 	default:
 		break;
 	}
+}
+
+void Renderer::AddLayer()
+{
+	int width{}, height{};
+	SDL_GetWindowSize(m_Window, &width, &height);
+	float scaleX{}, scaleY{};
+	SDL_RenderGetScale(m_Renderer, &scaleX, &scaleY);
+
+	SDL_Texture* pLayer = SDL_CreateTexture(m_Renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, int(width / scaleX), int(height / scaleY));
+	SDL_SetTextureBlendMode(pLayer, SDL_BLENDMODE_BLEND);
+
+	m_pLayers.emplace_back(new Layer{ pLayer });
 }

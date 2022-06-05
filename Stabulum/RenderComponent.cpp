@@ -5,11 +5,12 @@
 #include "TransformComponent.h"
 #include "TextureTransformComponent.h"
 
-RenderComponent::RenderComponent(TransformComponent* pTransformComponent, const std::string& filename)
+RenderComponent::RenderComponent(TransformComponent* pTransformComponent, const int layer, const std::string& filename)
 	: m_pTransformComponent{ pTransformComponent }
 	, m_pTextureTransformComponent{ nullptr }
 	, m_spTexture{ nullptr }
 	, m_Allignment{ Renderer::Allign::TopLeft }
+	, m_Layer{ layer }
 {
 	if (!filename.empty())
 	{
@@ -34,22 +35,15 @@ void RenderComponent::Render() const
 	if (m_spTexture)
 	{
 		const auto& pos = m_pTransformComponent->GetPixelPosition();
-
-		if (m_pTransformComponent->GetGameObject()->GetComponent<BurgerPartComponent>())
-		{
-			//FVec2 post = m_pTransformComponent->GetPixelPosition();
-			//m_pTransformComponent->SetPixelPosition(post.x, post.y - 1.f);
-			//std::cout << post.x << ", " << post.y << std::endl;
-		}
 		
 		//Use TextureTransformComponent if available
 		if (m_pTextureTransformComponent)
 		{
-			Renderer::GetInstance().RenderTexture(*m_spTexture, m_pTextureTransformComponent->GetRect(), pos.x, pos.y, m_Allignment);
+			Renderer::GetInstance().RenderTexture(*m_spTexture, m_pTextureTransformComponent->GetRect(), pos.x, pos.y, m_Allignment, m_Layer);
 			return;
 		}
 
-		Renderer::GetInstance().RenderTexture(*m_spTexture, pos.x, pos.y, m_Allignment);
+		Renderer::GetInstance().RenderTexture(*m_spTexture, pos.x, pos.y, m_Allignment, m_Layer);
 	}
 }
 

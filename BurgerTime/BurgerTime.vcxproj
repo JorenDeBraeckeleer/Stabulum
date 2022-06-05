@@ -214,6 +214,7 @@
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PeterPepperComponent.h" />
+    <ClInclude Include="RenderOrder.h" />
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="TileComponent.h" />
   </ItemGroup>

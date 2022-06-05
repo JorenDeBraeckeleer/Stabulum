@@ -10,7 +10,7 @@ class TextureTransformComponent;
 class RenderComponent final : public BaseComponent
 {
 public:
-	RenderComponent(TransformComponent* pTransformComponent, const std::string& filename = "");
+	RenderComponent(TransformComponent* pTransformComponent, const int layer = 0, const std::string& filename = "");
 
 	virtual ~RenderComponent() = default;
 	RenderComponent(const RenderComponent& other) = delete;
@@ -35,4 +35,5 @@ private:
 	std::shared_ptr<Texture2D> m_spTexture{};
 
 	Renderer::Allign m_Allignment;
+	const int m_Layer;
 };

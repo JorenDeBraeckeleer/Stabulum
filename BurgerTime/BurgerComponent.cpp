@@ -7,6 +7,7 @@
 #include "BoxColliderComponent.h"
 #include "RigidBodyComponent.h"
 #include "BurgerPartComponent.h"
+#include "RenderOrder.h"
 
 BurgerComponent::BurgerComponent(TransformComponent* pTransformComponent, const Ingredient& ingredient, const std::string& filename)
 	: m_pIngredientParts{}
@@ -67,7 +68,7 @@ void BurgerComponent::Update()
 			//RigidBodyComponent* pRdb = pGameObject->AddComponent<RigidBodyComponent>(pTfc, RigidBodyComponent::BodyType::Dynamic, 0.f, 1.f);
 			RigidBodyComponent* pRdb = pGameObject->AddComponent<RigidBodyComponent>(pTfc, RigidBodyComponent::BodyType::Dynamic);
 			BoxColliderComponent* pBcd = pGameObject->AddComponent<BoxColliderComponent>(pRdb, 0.5f, 0.5f, 0.25f, 0.25f);
-			pGameObject->AddComponent<RenderComponent>(pTfc, m_SpriteSheet);
+			pGameObject->AddComponent<RenderComponent>(pTfc, static_cast<int>(RenderOrder::Burger), m_SpriteSheet);
 			BurgerPartComponent* pBrP = pGameObject->AddComponent<BurgerPartComponent>();
 			pBcd->SetSensor();
 			pBcd->OnTriggerEnter = std::bind(&BurgerPartComponent::OnTriggerEnter, pBrP, std::placeholders::_1);

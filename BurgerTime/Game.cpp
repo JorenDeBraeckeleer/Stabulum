@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "TimeManager.h"
 #include "Structs.h"
+#include "RenderOrder.h"
 
 //Services
 #include "ServiceLocator.h"
@@ -54,6 +55,21 @@ void Game::Initialize()
 
 void Game::LoadGame() const
 {
+	//Render
+	Renderer& renderer = Renderer::GetInstance();
+
+	/* Adjust window to level */
+	const float hudHeight{ 64.f }, widthReal{ m_LevelSize.x + m_Border * 2.f }, heightReal{ m_LevelSize.y + hudHeight };
+	const float scaleX{ 2.f }, scaleY{ 2.f }, widthScaled{ widthReal * scaleX }, heightScaled{ heightReal * scaleY };
+	SDL_RenderSetScale(renderer.GetSDLRenderer(), scaleX, scaleY);
+	SDL_SetWindowSize(m_Window, static_cast<int>(widthScaled), static_cast<int>(heightScaled));
+
+	//Layers
+	for (int idx{}; idx < static_cast<int>(RenderOrder::Amount); ++idx)
+	{
+		renderer.AddLayer();
+	}
+
 	//LoadTestScene();
 	LoadLevel1();
 }
@@ -100,7 +116,7 @@ void Game::LoadTestScene() const
 	auto spBackground = std::make_shared<GameObject>();
 
 	pTfmComp = spBackground->AddComponent<TransformComponent>();
-	pRdrComp = spBackground->AddComponent<RenderComponent>(pTfmComp, "Textures/Minigin/background.jpg");
+	pRdrComp = spBackground->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::Level), "Textures/Minigin/background.jpg");
 
 	scene.Add(spBackground);
 
@@ -108,7 +124,7 @@ void Game::LoadTestScene() const
 	auto spLogo = std::make_shared<GameObject>();
 
 	pTfmComp = spLogo->AddComponent<TransformComponent>(216.f, 180.f);
-	pRdrComp = spLogo->AddComponent<RenderComponent>(pTfmComp, "Textures/Minigin/logo.png");
+	pRdrComp = spLogo->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI), "Textures/Minigin/logo.png");
 
 	scene.Add(spLogo);
 
@@ -117,7 +133,7 @@ void Game::LoadTestScene() const
 	auto spTitle = std::make_shared<GameObject>();
 
 	pTfmComp = spTitle->AddComponent<TransformComponent>(80.f, 20.f);
-	pRdrComp = spTitle->AddComponent<RenderComponent>(pTfmComp);
+	pRdrComp = spTitle->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
 	pTxtComp = spTitle->AddComponent<TextComponent>(pRdrComp, spFont, RGBColor{ 255, 255, 255 }, "Programming 4 Assignment");
 
 	scene.Add(spTitle);
@@ -126,7 +142,7 @@ void Game::LoadTestScene() const
 	auto fps = std::make_shared<GameObject>();
 
 	pTfmComp = fps->AddComponent<TransformComponent>(10.f, 10.f);
-	pRdrComp = fps->AddComponent<RenderComponent>(pTfmComp);
+	pRdrComp = fps->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
 	pTxtComp = fps->AddComponent<TextComponent>(pRdrComp, "Fonts/Lingua.otf", 20, RGBColor{ 0, 150, 0 });
 	pFpsComp = fps->AddComponent<FpsComponent>(pTxtComp);
 
@@ -136,7 +152,7 @@ void Game::LoadTestScene() const
 	auto spHealthDisplay1 = std::make_shared<GameObject>();
 	pHltComp = spHealthDisplay1->AddComponent<HealthComponent>();
 	pTfmComp = spHealthDisplay1->AddComponent<TransformComponent>(10.f, 100.f);
-	pRdrComp = spHealthDisplay1->AddComponent<RenderComponent>(pTfmComp);
+	pRdrComp = spHealthDisplay1->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::HUD));
 	pTxtComp = spHealthDisplay1->AddComponent<TextComponent>(pRdrComp, spFont, RGBColor{ 255, 150, 0 });
 
 	scene.Add(spHealthDisplay1);
@@ -145,7 +161,7 @@ void Game::LoadTestScene() const
 	auto spScoreboard1 = std::make_shared<GameObject>();
 	pScrComp = spScoreboard1->AddComponent<ScoreComponent>();
 	pTfmComp = spScoreboard1->AddComponent<TransformComponent>(10.f, 200.f);
-	pRdrComp = spScoreboard1->AddComponent<RenderComponent>(pTfmComp);
+	pRdrComp = spScoreboard1->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::HUD));
 	pTxtComp = spScoreboard1->AddComponent<TextComponent>(pRdrComp, spFont, RGBColor{ 0, 150, 255 });
 
 	scene.Add(spScoreboard1);
@@ -175,7 +191,7 @@ void Game::LoadTestScene() const
 	auto spHealthDisplay2 = std::make_shared<GameObject>();
 	pHltComp = spHealthDisplay2->AddComponent<HealthComponent>();
 	pTfmComp = spHealthDisplay2->AddComponent<TransformComponent>(100.f, 100.f);
-	pRdrComp = spHealthDisplay2->AddComponent<RenderComponent>(pTfmComp);
+	pRdrComp = spHealthDisplay2->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::HUD));
 	pTxtComp = spHealthDisplay2->AddComponent<TextComponent>(pRdrComp, spFont, RGBColor{ 255, 150, 0 });
 
 	scene.Add(spHealthDisplay2);
@@ -184,7 +200,7 @@ void Game::LoadTestScene() const
 	auto spScoreboard2 = std::make_shared<GameObject>();
 	pScrComp = spScoreboard2->AddComponent<ScoreComponent>();
 	pTfmComp = spScoreboard2->AddComponent<TransformComponent>(100.f, 200.f);
-	pRdrComp = spScoreboard2->AddComponent<RenderComponent>(pTfmComp);
+	pRdrComp = spScoreboard2->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::HUD));
 	pTxtComp = spScoreboard2->AddComponent<TextComponent>(pRdrComp, spFont, RGBColor{ 0, 150, 255 });
 
 	scene.Add(spScoreboard2);
@@ -231,11 +247,7 @@ void Game::LoadTestScene() const
 void Game::LoadLevel1() const
 {
 	/* Adjust window to level */
-	const FVec2 levelSize{ 416.f, 400.f };
-	const float hudHeight{ 64.f }, border{ 16.f }, widthReal{ levelSize.x + border * 2.f }, heightReal{ levelSize.y + hudHeight };
-	const float scale{ 2.f }, widthScaled{ widthReal * scale }, heightScaled{ heightReal * scale };
-	SDL_RenderSetScale(Renderer::GetInstance().GetSDLRenderer(), scale, scale);
-	SDL_SetWindowSize(m_Window, static_cast<int>(widthScaled), static_cast<int>(heightScaled));
+	const float widthReal{ m_LevelSize.x + m_Border * 2.f };
 
 	//--- Scene ---//
 	Scene& scene = SceneManager::GetInstance().CreateScene("Level1");
@@ -275,8 +287,8 @@ void Game::LoadLevel1() const
 	//Text
 	auto spHighScoreText = std::make_shared<GameObject>();
 
-	pTfmComp = spHighScoreText->AddComponent<TransformComponent>(border + 96.f, 8.f);
-	pRdrComp = spHighScoreText->AddComponent<RenderComponent>(pTfmComp);
+	pTfmComp = spHighScoreText->AddComponent<TransformComponent>(m_Border + 96.f, 8.f);
+	pRdrComp = spHighScoreText->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
 	pTxtComp = spHighScoreText->AddComponent<TextComponent>(pRdrComp, spFont16, red, "HI_SCORE");
 
 	scene.Add(spHighScoreText);
@@ -284,8 +296,8 @@ void Game::LoadLevel1() const
 	//score
 	auto spHighScore = std::make_shared<GameObject>();
 
-	pTfmComp = spHighScore->AddComponent<TransformComponent>(border + 208.f, 28.f);
-	pRdrComp = spHighScore->AddComponent<RenderComponent>(pTfmComp);
+	pTfmComp = spHighScore->AddComponent<TransformComponent>(m_Border + 208.f, 28.f);
+	pRdrComp = spHighScore->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
 	pRdrComp->SetAllignment(Renderer::Allign::TopRight);
 	pTxtComp = spHighScore->AddComponent<TextComponent>(pRdrComp, spFont16, beige, "28000");
 
@@ -295,8 +307,8 @@ void Game::LoadLevel1() const
 	//Text
 	auto spScoreText = std::make_shared<GameObject>();
 
-	pTfmComp = spScoreText->AddComponent<TransformComponent>(border + 16.f, 8.f);
-	pRdrComp = spScoreText->AddComponent<RenderComponent>(pTfmComp);
+	pTfmComp = spScoreText->AddComponent<TransformComponent>(m_Border + 16.f, 8.f);
+	pRdrComp = spScoreText->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
 	pTxtComp = spScoreText->AddComponent<TextComponent>(pRdrComp, spFont16, red, "1UP");
 
 	scene.Add(spScoreText);
@@ -304,8 +316,8 @@ void Game::LoadLevel1() const
 	//score
 	auto spScore = std::make_shared<GameObject>();
 
-	pTfmComp = spScore->AddComponent<TransformComponent>(border + 80.f, 28.f);
-	pRdrComp = spScore->AddComponent<RenderComponent>(pTfmComp);
+	pTfmComp = spScore->AddComponent<TransformComponent>(m_Border + 80.f, 28.f);
+	pRdrComp = spScore->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
 	pRdrComp->SetAllignment(Renderer::Allign::TopRight);
 	pTxtComp = spScore->AddComponent<TextComponent>(pRdrComp, spFont16, beige, "200");
 
@@ -317,7 +329,7 @@ void Game::LoadLevel1() const
 
 	pTtmComp = spPepperTexture->AddComponent<TextureTransformComponent>(32, 16, 48, 16);
 	pTfmComp = spPepperTexture->AddComponent<TransformComponent>(widthReal, 8.f);
-	pRdrComp = spPepperTexture->AddComponent<RenderComponent>(pTfmComp, "Textures/BurgerTime/Icons/Icons.png");
+	pRdrComp = spPepperTexture->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI), "Textures/BurgerTime/Icons/Icons.png");
 	pRdrComp->SetAllignment(Renderer::Allign::TopRight);
 
 	scene.Add(spPepperTexture);
@@ -326,7 +338,7 @@ void Game::LoadLevel1() const
 	auto spPeppers = std::make_shared<GameObject>();
 
 	pTfmComp = spPeppers->AddComponent<TransformComponent>(widthReal, 28.f);
-	pRdrComp = spPeppers->AddComponent<RenderComponent>(pTfmComp);
+	pRdrComp = spPeppers->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
 	pRdrComp->SetAllignment(Renderer::Allign::TopRight);
 	pTxtComp = spPeppers->AddComponent<TextComponent>(pRdrComp, spFont16, beige, "5");
 
@@ -334,7 +346,7 @@ void Game::LoadLevel1() const
 
 	//### Peter Pepper Sprite
 	pTfmComp = m_pPeterPepper->AddComponent<TransformComponent>(8.f, 64.f);
-	pRdrComp = m_pPeterPepper->AddComponent<RenderComponent>(pTfmComp, "Textures/BurgerTime/Characters/PeterPepper/Move.png");
+	pRdrComp = m_pPeterPepper->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::Player), "Textures/BurgerTime/Characters/PeterPepper/Move.png");
 	pTtmComp = m_pPeterPepper->AddComponent<TextureTransformComponent>(0, 0, 0, 0);
 	pSprComp = m_pPeterPepper->AddComponent<SpriteComponent>(pRdrComp, pTtmComp, 4, 3);
 	pRbyComp = m_pPeterPepper->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Dynamic);
