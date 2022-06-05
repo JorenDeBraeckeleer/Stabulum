@@ -10,11 +10,15 @@
 #include "BurgerComponent.h"
 #include "BurgerPlatformComponent.h"
 #include "RenderOrder.h"
+#include "Scene.h"
+#include "ScoreComponent.h"
+#include "ServiceLocator.h"
 
 LevelComponent::LevelComponent(const std::string& filePath)
 	: m_pTiles{}
     , m_PlayerPosition{}
     , m_IsUpdateNeeded{ true }
+    , m_SoundIsPlaying{ false }
 {
 	BurgerTimeParser parser{};
 
@@ -47,6 +51,12 @@ void LevelComponent::Update()
         InitializeLevel();
 
         m_IsUpdateNeeded = false;
+    }
+
+    //Play background music
+    if (!m_SoundIsPlaying)
+    {
+        m_SoundIsPlaying = ServiceLocator::GetSoundManager()->Play(10, 5, true);
     }
 }
 
@@ -243,7 +253,18 @@ void LevelComponent::InitializeLevel()
         constexpr float ingredientOffset{ 16.f };
 
         pTfmComp = pIngredient->AddComponent<TransformComponent>(tilePos.x, tilePos.y + ingredientOffset);
-        pIngredient->AddComponent<BurgerComponent>(pTfmComp, ingredient, ingredientSpriteSheet);
+        BurgerComponent* BrgComp = pIngredient->AddComponent<BurgerComponent>(pTfmComp, ingredient, ingredientSpriteSheet);
+
+        if (GameObject* pGameObject = GetGameObject())
+        {
+            if (Scene* pScene = pGameObject->GetScene())
+            {
+                if (ScoreComponent* pScrComp = pScene->FindComponent<ScoreComponent>())
+                {
+                    BrgComp->AddObserver(pScrComp);
+                }
+            }
+        }
 
         GetGameObject()->AddChild(pIngredient);
     }

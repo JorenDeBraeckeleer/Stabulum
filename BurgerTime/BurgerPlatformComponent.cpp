@@ -18,8 +18,9 @@ void BurgerPlatformComponent::OnTriggerEnter(ColliderComponent* pCollider)
 
 void BurgerPlatformComponent::OnTriggerExit(ColliderComponent* pCollider)
 {
-	RigidBodyComponent* pBodyComp = pCollider->GetGameObject()->GetComponent<RigidBodyComponent>();
-	pBodyComp->UpdateGravityScale(1.f);
+	//RigidBodyComponent* pBodyComp = pCollider->GetGameObject()->GetComponent<RigidBodyComponent>();
+	//pBodyComp->UpdateGravityScale(1.f);
 	BurgerComponent* pBurgerComp = pCollider->GetGameObject()->GetComponent<BurgerComponent>();
-	pBurgerComp->ResetParts();
+	//pBurgerComp->ResetParts();
+	pBurgerComp->Dropped();
 }

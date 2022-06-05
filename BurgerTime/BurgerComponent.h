@@ -19,7 +19,7 @@ public:
 
 	virtual void Update() override;
 
-	void Dropped();
+	void Dropped(bool givePoints = true);
 
 	void ResetParts();
 

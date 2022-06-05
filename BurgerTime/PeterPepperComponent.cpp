@@ -1,14 +1,10 @@
 #include "BurgerTimePCH.h"
 #include "PeterPepperComponent.h"
-#include "ServiceLocator.h"
 
 PeterPepperComponent::PeterPepperComponent(int nrLives)
 	: m_NrLives{ nrLives }
 	, m_IsUpdateNeeded{ true }
 {
-	//Sound Test
-	ServiceLocator::GetSoundManager()->Load("Sounds/TestSound.mp3", 1);
-
 	if (nrLives > 0)
 	{
 		m_IsDead = false;
@@ -38,9 +34,6 @@ void PeterPepperComponent::Update()
 
 void PeterPepperComponent::LostLife()
 {
-	//Sound Test
-	ServiceLocator::GetSoundManager()->Play(1, 10);
-
 	if (m_IsDead)
 	{
 		return;

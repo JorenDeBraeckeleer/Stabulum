@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneManager.h"
+#include "GameObject.h"
 
 class SceneObject;
 
@@ -19,6 +20,41 @@ public:
 	Scene(Scene&& other) = delete;
 	Scene& operator=(const Scene& other) = delete;
 	Scene& operator=(Scene&& other) = delete;
+
+	template<typename myType>
+	myType* FindComponent() const
+	{
+		//Search for existing component
+		myType* pComp{ nullptr };
+
+		for (size_t idx{}; idx < m_Objects.size() && !pComp; ++idx)
+		{
+			if (GameObject* pGameObject = dynamic_cast<GameObject*>(m_Objects[idx].get()))
+			{
+				pComp = pGameObject->GetComponent<myType>();
+			}
+		}
+
+		return pComp;
+	}
+
+	template<typename myType>
+	std::vector<myType*> FindComponents() const
+	{
+		//Search for existing component
+		std::vector<myType*> pComponents{};
+
+		for (std::shared_ptr<SceneObject> pObj : m_Objects)
+		{
+			if (GameObject* pGameObject = dynamic_cast<GameObject*>(pObj.get()))
+			{
+				std::vector<myType*> pComps = pGameObject->GetComponents<myType>();
+				pComponents.insert(pComponents.end(), pComps.begin(), pComps.end());
+			}
+		}
+
+		return pComponents;
+	}
 
 private: 
 	explicit Scene(const std::string& name);

@@ -18,7 +18,7 @@ public:
 
     void Init(const std::string& dataPath);
 
-    virtual bool Play(SoundId id, const int volume = 1) = 0;
+    virtual bool Play(SoundId id, const int volume = 1, bool doesLoop = false) = 0;
     virtual void Load(const std::string& filePath, SoundId id) = 0;
 
 protected:
@@ -31,7 +31,7 @@ public:
     NullSoundManager() = default;
     virtual ~NullSoundManager() override = default;
 
-    virtual bool Play(SoundId, const int) override { return false; }
+    virtual bool Play(SoundId, const int, bool) override { return false; }
     virtual void Load(const std::string&, SoundId) override {  }
 };
 
@@ -41,7 +41,7 @@ public:
     SDLSoundManager();
     virtual ~SDLSoundManager() override;
 
-    virtual bool Play(SoundId id, const int volume = 1) override;
+    virtual bool Play(SoundId id, const int volume = 1, bool doesLoop = false) override;
     virtual void Load(const std::string& filePath, SoundId id) override;
 
 private:
@@ -54,7 +54,7 @@ public:
     LoggingSoundManager(SoundManager* pSoundManager);
     virtual ~LoggingSoundManager() override;
 
-    virtual bool Play(SoundId id, const int volume = 1) override;
+    virtual bool Play(SoundId id, const int volume = 1, bool doesLoop = false) override;
     virtual void Load(const std::string& filePath, SoundId id) override;
 
     std::string GetPathTest() { return m_DataPath; }

@@ -25,9 +25,9 @@ SDLSoundManager::~SDLSoundManager()
 	m_pImpl = nullptr;
 }
 
-bool SDLSoundManager::Play(SoundId id, const int volume)
+bool SDLSoundManager::Play(SoundId id, const int volume, bool doesLoop)
 {
-	return m_pImpl->Play(id, volume);
+	return m_pImpl->Play(id, volume, doesLoop);
 }
 
 void SDLSoundManager::Load(const std::string& filePath, SoundId id)
@@ -47,9 +47,9 @@ LoggingSoundManager::~LoggingSoundManager()
 	m_pSoundManager = nullptr;
 }
 
-bool LoggingSoundManager::Play(SoundId id, const int volume)
+bool LoggingSoundManager::Play(SoundId id, const int volume, bool doesLoop)
 {
-	if (m_pSoundManager->Play(id, volume))
+	if (m_pSoundManager->Play(id, volume, doesLoop))
 	{
 		std::cout << "Playing sound." << std::endl;
 		return true;

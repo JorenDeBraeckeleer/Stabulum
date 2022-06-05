@@ -10,6 +10,7 @@ GameObject::GameObject()
 	: m_pComponents{}
 	, m_pParentObject{}
 	, m_pChildren{}
+	, m_pScene{}
 {
 }
 
@@ -99,6 +100,9 @@ void GameObject::AddChild(GameObject* pGameObject)
 	//Set new parent
 	pGameObject->m_pParentObject = this;
 
+	//Give scene
+	pGameObject->SetScene(m_pScene);
+
 	//Add to children
 	m_pChildren.push_back(pGameObject);
 
@@ -133,4 +137,14 @@ void GameObject::RemoveChild(GameObject* pGameObject, bool deleteGameObject)
 			pGameObject = nullptr;
 		}
 	}
+}
+
+void GameObject::SetScene(Scene* pScene)
+{
+	m_pScene = pScene;
+}
+
+Scene* GameObject::GetScene() const
+{
+	return m_pScene;
 }

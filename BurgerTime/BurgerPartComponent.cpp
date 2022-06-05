@@ -5,6 +5,7 @@
 #include "ColliderComponent.h"
 #include "BoxColliderComponent.h"
 #include "RigidBodyComponent.h"
+#include "ServiceLocator.h"
 
 BurgerPartComponent::BurgerPartComponent()
 	: m_IsHit{ false }
@@ -21,6 +22,8 @@ void BurgerPartComponent::OnTriggerEnter(ColliderComponent*)
 	{
 		RigidBodyComponent* pBodyComp = GetGameObject()->GetComponent<RigidBodyComponent>();
 		pBodyComp->SetPosition({ 0.f, 0.125f });
+
+		ServiceLocator::GetSoundManager()->Play(1, 20, false);
 
 		m_IsHit = true;
 	}

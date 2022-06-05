@@ -6,7 +6,7 @@ public:
 	SoundImplementation();
 	~SoundImplementation();
 
-	bool Play(unsigned short id, const int volume);
+	bool Play(unsigned short id, const int volume, bool doesLoop);
 	void Load(const std::string& filePath, unsigned short id);
 
 private:

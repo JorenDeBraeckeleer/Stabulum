@@ -27,4 +27,5 @@ private:
 	FVec2 m_PlayerPosition;
 
 	bool m_IsUpdateNeeded;
+	bool m_SoundIsPlaying;
 };

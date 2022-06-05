@@ -1,6 +1,5 @@
 #include "StabulumPCH.h"
 #include "Scene.h"
-#include "GameObject.h"
 
 unsigned int Scene::m_IdCounter = 0;
 
@@ -10,6 +9,11 @@ Scene::~Scene() = default;
 
 void Scene::Add(const std::shared_ptr<SceneObject>& object)
 {
+	if (GameObject* pGameObject = dynamic_cast<GameObject*>(object.get()))
+	{
+		pGameObject->SetScene(this);
+	}
+
 	m_Objects.push_back(object);
 }
 

@@ -60,7 +60,7 @@ void Game::LoadGame() const
 
 	/* Adjust window to level */
 	const float hudHeight{ 64.f }, widthReal{ m_LevelSize.x + m_Border * 2.f }, heightReal{ m_LevelSize.y + hudHeight };
-	const float scaleX{ 2.f }, scaleY{ 2.f }, widthScaled{ widthReal * scaleX }, heightScaled{ heightReal * scaleY };
+	const float scaleX{ 1.5f }, scaleY{ 2.f }, widthScaled{ widthReal * scaleX }, heightScaled{ heightReal * scaleY };
 	SDL_RenderSetScale(renderer.GetSDLRenderer(), scaleX, scaleY);
 	SDL_SetWindowSize(m_Window, static_cast<int>(widthScaled), static_cast<int>(heightScaled));
 	SDL_SetWindowPosition(m_Window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
@@ -70,6 +70,10 @@ void Game::LoadGame() const
 	{
 		renderer.AddLayer();
 	}
+
+	//Load sound
+	ServiceLocator::GetSoundManager()->Load("Sounds/GameMusic.mp3", 10);
+	ServiceLocator::GetSoundManager()->Load("Sounds/IngredientWalk.mp3", 1);
 
 	//LoadTestScene();
 	LoadLevel1();
@@ -253,8 +257,6 @@ void Game::LoadLevel1() const
 	//--- Scene ---//
 	Scene& scene = SceneManager::GetInstance().CreateScene("Level1");
 
-	std::cout << "\n===\nTo play a sound, press face button south. (To test this sound, it is bound to losing a life.)\n===\n" << std::endl;
-
 	//--- Components ---//
 	TextureTransformComponent*	pTtmComp{};
 	TransformComponent*			pTfmComp{};
@@ -265,6 +267,7 @@ void Game::LoadLevel1() const
 	RigidBodyComponent*			pRbyComp{};
 	LevelComponent*				pLvlComp{};
 	CircleColliderComponent*	pCcdComp{};
+	//ScoreComponent*				pScrComp{};
 
 	//### World
 	auto spWorld = std::make_shared<GameObject>();
@@ -276,7 +279,7 @@ void Game::LoadLevel1() const
 
 	//### Level
 	m_pLevel->AddComponent<TransformComponent>(-8.f, 32.f);
-	pLvlComp = m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level6.txt");
+	pLvlComp = m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level4.txt");
 
 	m_pLevel->SetParent(spWorld.get());
 
@@ -317,10 +320,12 @@ void Game::LoadLevel1() const
 	//score
 	auto spScore = std::make_shared<GameObject>();
 
+	spScore->AddComponent<ScoreComponent>();
 	pTfmComp = spScore->AddComponent<TransformComponent>(m_Border + 80.f, 28.f);
 	pRdrComp = spScore->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
 	pRdrComp->SetAllignment(Renderer::Allign::TopRight);
-	pTxtComp = spScore->AddComponent<TextComponent>(pRdrComp, spFont16, beige, "200");
+	//pTxtComp = spScore->AddComponent<TextComponent>(pRdrComp, spFont16, beige, "200");
+	pTxtComp = spScore->AddComponent<TextComponent>(pRdrComp, spFont16, beige, "0");
 
 	scene.Add(spScore);
 

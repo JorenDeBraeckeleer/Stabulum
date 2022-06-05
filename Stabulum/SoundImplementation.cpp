@@ -15,6 +15,7 @@ public:
         : m_FilePath{ filePath }
         , m_pChunk{ nullptr }
         , m_Id{ id }
+        , m_DoesLoop{ false }
     {
     }
 
@@ -38,7 +39,14 @@ public:
             return;
         }
 
-        Mix_PlayChannel(-1, m_pChunk, 0);
+        if (m_DoesLoop)
+        {
+            Mix_PlayChannel(-1, m_pChunk, -1);
+        }
+        else
+        {
+            Mix_PlayChannel(-1, m_pChunk, 0);
+        }
     }
 
     void SetVolume(int volume)
@@ -69,6 +77,11 @@ public:
         return m_pChunk != nullptr;
     }
 
+    void SetLooping(bool doesLoop = true)
+    {
+        m_DoesLoop = doesLoop;
+    }
+
     const unsigned short GetId() { return m_Id; }
     const std::string GetFilePath() { return m_FilePath; }
 
@@ -76,6 +89,7 @@ private:
     const std::string m_FilePath;
     Mix_Chunk* m_pChunk;
     unsigned short m_Id;
+    bool m_DoesLoop;
 };
 
 class SoundImplementation::Implementation final
@@ -122,7 +136,7 @@ public:
     Implementation& operator=(const Implementation& other) = delete;
     Implementation& operator=(Implementation&& other) noexcept = delete;
 
-    bool Play(unsigned short id, const int volume)
+    bool Play(unsigned short id, const int volume, bool doesLoop = false)
     {
         {
             //Lock queue
@@ -136,6 +150,7 @@ public:
                     if (pClip->GetId() == id)
                     {
                         pClip->SetVolume(volume);
+                        pClip->SetLooping(doesLoop);
                         m_pPlayQueue.push(pClip);
                     }
                 }
@@ -251,9 +266,9 @@ SoundImplementation::~SoundImplementation()
     m_pImpl = nullptr;
 }
 
-bool SoundImplementation::Play(unsigned short id, const int volume)
+bool SoundImplementation::Play(unsigned short id, const int volume, bool doesLoop)
 {
-    return m_pImpl->Play(id, volume);
+    return m_pImpl->Play(id, volume, doesLoop);
 }
 
 void SoundImplementation::Load(const std::string& filePath, unsigned short id)

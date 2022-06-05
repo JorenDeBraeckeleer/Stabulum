@@ -98,19 +98,21 @@ void BurgerComponent::Update()
 
 		if (idx + 1 == m_BurgerAmount)
 		{
-			std::cout << "Fall!" << std::endl;
-
-			//Fall down...
-			m_pRigidBodyComponent->UpdateGravityScale(1.f);
-
-			ResetParts();
+			Dropped(false);
 		}
 	}
 }
 
-void BurgerComponent::Dropped()
+void BurgerComponent::Dropped(bool givePoints)
 {
-	Notify(m_pGameObject, GameEvent::BurgerDropped);
+	if (givePoints)
+	{
+		Notify(m_pGameObject, GameEvent::BurgerDropped);
+	}
+
+	m_pRigidBodyComponent->UpdateGravityScale(1.f);
+
+	ResetParts();
 }
 
 void BurgerComponent::ResetParts()

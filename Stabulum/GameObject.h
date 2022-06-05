@@ -8,6 +8,7 @@ class BaseComponent;
 class RigidBodyComponent;
 class ColliderComponent;
 class Texture2D;
+class Scene;
 
 class GameObject final : public SceneObject
 {
@@ -29,6 +30,9 @@ public:
 	std::vector<GameObject*> GetChildren() { return m_pChildren; }
 	void AddChild(GameObject* pGameObject);
 	void RemoveChild(GameObject* pGameObject, bool deleteGameObject = true);
+
+	void SetScene(Scene* pScene);
+	Scene* GetScene() const;
 
 	//Maximum of 1 component per type, gives back the old component if one already exists.
 	//Exception for Collider components
@@ -109,7 +113,7 @@ public:
 		//Search for existing component
 		std::vector<myType*> pComponents{};
 
-		for (myType* pC : m_pComponents)
+		for (BaseComponent* pC : m_pComponents)
 		{
 			if (myType* pComp = dynamic_cast<myType*>(pC))
 			{
@@ -151,4 +155,6 @@ private:
 
 	GameObject* m_pParentObject;
 	std::vector<GameObject*> m_pChildren;
+
+	Scene* m_pScene;
 };
