@@ -168,6 +168,12 @@
     <ClInclude Include="TriggerComponent.h">
       <Filter>Stabulum Extended Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="NextSceneCommand.h">
+      <Filter>Stabulum Extended Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="PreviousSceneCommand.h">
+      <Filter>Stabulum Base Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stabulum.cpp">
@@ -280,6 +286,12 @@
     </ClCompile>
     <ClCompile Include="TriggerComponent.cpp">
       <Filter>Stabulum Extended Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="NextSceneCommand.cpp">
+      <Filter>Stabulum Extended Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="PreviousSceneCommand.cpp">
+      <Filter>Stabulum Extended Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

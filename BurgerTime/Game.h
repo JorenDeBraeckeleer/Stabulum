@@ -8,16 +8,18 @@ class Game final : public Stabulum
 {
 public:
 	void Initialize();
-	void LoadGame() const;
+	void LoadGame();
 	void Cleanup();
 	void Run();
 
 private:
 	void LoadTestScene() const;
-	void LoadLevel1() const;
+	void LoadLevel(const std::string& levelFile, const int levelIndex);
 
-	GameObject* m_pPeterPepper{ new GameObject{} };
-	GameObject* m_pLevel{ new GameObject{} };
+	std::vector<GameObject*> m_pPeterPeppers{};
+	//GameObject* m_pPeterPepper{ new GameObject{} };
+	std::vector<GameObject*> m_pLevels{};
+	//GameObject* m_pLevel{ new GameObject{} };
 
 	FVec2 m_LevelSize{ 416.f, 400.f};
 	float m_Border{ 16.f };

@@ -4,6 +4,7 @@
 #include "ColliderComponent.h"
 #include "RigidBodyComponent.h"
 #include "BurgerComponent.h"
+#include "ServiceLocator.h"
 
 void BurgerPlatformComponent::Update()
 {
@@ -18,9 +19,8 @@ void BurgerPlatformComponent::OnTriggerEnter(ColliderComponent* pCollider)
 
 void BurgerPlatformComponent::OnTriggerExit(ColliderComponent* pCollider)
 {
-	//RigidBodyComponent* pBodyComp = pCollider->GetGameObject()->GetComponent<RigidBodyComponent>();
-	//pBodyComp->UpdateGravityScale(1.f);
+	ServiceLocator::GetSoundManager()->Play(2, 5, false);
+
 	BurgerComponent* pBurgerComp = pCollider->GetGameObject()->GetComponent<BurgerComponent>();
-	//pBurgerComp->ResetParts();
 	pBurgerComp->Dropped();
 }

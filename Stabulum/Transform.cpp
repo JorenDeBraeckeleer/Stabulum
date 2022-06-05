@@ -53,25 +53,6 @@ void Transform::SetWorldPosition(const FVec2& pos, bool inPixels)
 	SetWorldPosition(pos.x, pos.y, inPixels);
 }
 
-//void Transform::AddWorldPosition(float x, float y, bool inPixels = true)
-//{
-//	if (inPixels)
-//	{
-//		m_WorldPosition.x = m_WorldPosition.x + x;
-//		m_WorldPosition.y = m_WorldPosition.y + y;
-//	}
-//	else
-//	{
-//		m_WorldPosition.x = m_WorldPosition.x + x * m_PixelsPerUnit;
-//		m_WorldPosition.y = m_WorldPosition.y + y * m_PixelsPerUnit;
-//	}
-//}
-//
-//void Transform::AddWorldPosition(const FVec2& pos, bool inPixels = true)
-//{
-//	AddWorldPosition(pos.x, pos.y, inPixels);
-//}
-
 void Transform::SetLocalPosition(const float x, const float y, bool inPixels)
 {
 	if (inPixels)

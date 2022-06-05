@@ -43,6 +43,8 @@
 #include "BurgerDroppedCommand.h"
 #include "EnemyDiedCommand.h"
 #include "MoveCommand.h"
+#include "NextSceneCommand.h"
+#include "PreviousSceneCommand.h"
 
 void Game::Initialize()
 {
@@ -53,7 +55,7 @@ void Game::Initialize()
 	ResourceManager::GetInstance().Init("../Resources/");
 }
 
-void Game::LoadGame() const
+void Game::LoadGame()
 {
 	//Render
 	Renderer& renderer = Renderer::GetInstance();
@@ -74,18 +76,47 @@ void Game::LoadGame() const
 	//Load sound
 	ServiceLocator::GetSoundManager()->Load("Sounds/GameMusic.mp3", 10);
 	ServiceLocator::GetSoundManager()->Load("Sounds/IngredientWalk.mp3", 1);
+	ServiceLocator::GetSoundManager()->Load("Sounds/Thud.mp3", 2);
 
 	//LoadTestScene();
-	LoadLevel1();
+	LoadLevel("../Resources/Level/Level1.txt", 1);
+	LoadLevel("../Resources/Level/Level2.txt", 2);
+	LoadLevel("../Resources/Level/Level3.txt", 3);
+	LoadLevel("../Resources/Level/Level4.txt", 4);
+	LoadLevel("../Resources/Level/Level5.txt", 5);
+	LoadLevel("../Resources/Level/Level6.txt", 6);
+
+	////--- General Input ---//
+	auto& inputManager = InputManager::GetInstance();
+
+	inputManager.AddBindingToController<QuitCommand>(PS4Controller::Triangle, InputState::Up);
+	inputManager.AddBindingToKeyboard<QuitCommand>(ApplicationKeyboard::Escape, InputState::Up);
+
+	inputManager.AddBindingToKeyboard<NextSceneCommand>(ApplicationKeyboard::F4, InputState::Up);
+	inputManager.AddBindingToKeyboard<PreviousSceneCommand>(ApplicationKeyboard::F3, InputState::Up);
 }
 
 void Game::Cleanup()
 {
-	delete m_pPeterPepper;
-	m_pPeterPepper = nullptr;
+	ServiceLocator::RegisterSoundManager(nullptr);
 
-	delete m_pLevel;
-	m_pLevel = nullptr;
+	//delete m_pPeterPepper;
+	//m_pPeterPepper = nullptr;
+
+	//delete m_pLevel;
+	//m_pLevel = nullptr;
+
+	for (GameObject* pGameObject : m_pPeterPeppers)
+	{
+		delete pGameObject;
+		pGameObject = nullptr;
+	}
+
+	//for (GameObject* pGameObject : m_pLevels)
+	//{
+	//	delete pGameObject;
+	//	pGameObject = nullptr;
+	//}
 }
 
 void Game::Run()
@@ -95,8 +126,6 @@ void Game::Run()
 	LoadGame();
 
 	Stabulum::Run();
-
-	ServiceLocator::RegisterSoundManager(nullptr);
 
 	Cleanup();
 }
@@ -249,13 +278,13 @@ void Game::LoadTestScene() const
 	inputManager.AddBindingToController<QuitCommand>(PS4Controller::Triangle, InputState::Up);
 }
 
-void Game::LoadLevel1() const
+void Game::LoadLevel(const std::string& levelFile, const int levelIndex)
 {
 	/* Adjust window to level */
 	const float widthReal{ m_LevelSize.x + m_Border * 2.f };
 
 	//--- Scene ---//
-	Scene& scene = SceneManager::GetInstance().CreateScene("Level1");
+	Scene& scene = SceneManager::GetInstance().CreateScene("BurgerTimeLevel" + std::to_string(levelIndex));
 
 	//--- Components ---//
 	TextureTransformComponent*	pTtmComp{};
@@ -267,7 +296,6 @@ void Game::LoadLevel1() const
 	RigidBodyComponent*			pRbyComp{};
 	LevelComponent*				pLvlComp{};
 	CircleColliderComponent*	pCcdComp{};
-	//ScoreComponent*				pScrComp{};
 
 	//### World
 	auto spWorld = std::make_shared<GameObject>();
@@ -278,10 +306,12 @@ void Game::LoadLevel1() const
 	scene.Add(spWorld);
 
 	//### Level
-	m_pLevel->AddComponent<TransformComponent>(-8.f, 32.f);
-	pLvlComp = m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level4.txt");
+	GameObject* pLevel{ new GameObject{} };
+	pLevel->AddComponent<TransformComponent>(-8.f, 32.f);
+	pLvlComp = pLevel->AddComponent<LevelComponent>(levelFile);
+	m_pLevels.emplace_back(pLevel);
 
-	m_pLevel->SetParent(spWorld.get());
+	pLevel->SetParent(spWorld.get());
 
 	//### High score
 	auto spFont16 = ResourceManager::GetInstance().LoadFont("Fonts/PressStartK-EX89.otf", 16);
@@ -324,7 +354,6 @@ void Game::LoadLevel1() const
 	pTfmComp = spScore->AddComponent<TransformComponent>(m_Border + 80.f, 28.f);
 	pRdrComp = spScore->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
 	pRdrComp->SetAllignment(Renderer::Allign::TopRight);
-	//pTxtComp = spScore->AddComponent<TextComponent>(pRdrComp, spFont16, beige, "200");
 	pTxtComp = spScore->AddComponent<TextComponent>(pRdrComp, spFont16, beige, "0");
 
 	scene.Add(spScore);
@@ -351,42 +380,35 @@ void Game::LoadLevel1() const
 	scene.Add(spPeppers);
 
 	//### Peter Pepper Sprite
-	pTfmComp = m_pPeterPepper->AddComponent<TransformComponent>(pLvlComp->GetPlayerPosition() + m_pLevel->GetComponent<TransformComponent>()->GetWorldPosition());
-	pRdrComp = m_pPeterPepper->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::Player), "Textures/BurgerTime/Characters/PeterPepper/Move.png");
-	pTtmComp = m_pPeterPepper->AddComponent<TextureTransformComponent>(0, 0, 0, 0);
-	pSprComp = m_pPeterPepper->AddComponent<SpriteComponent>(pRdrComp, pTtmComp, 4, 3);
-	pRbyComp = m_pPeterPepper->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Dynamic);
-	//pBcdComp = m_pPeterPepper->AddComponent<BoxColliderComponent>(pRbyComp, 0.5f, 1.f, 1.f, 1.5f);
-	pCcdComp = m_pPeterPepper->AddComponent<CircleColliderComponent>(pRbyComp, 0.6f, FVec2{ 1.f, 1.5f }, static_cast<int>(ColliderComponent::CollisionGroup::Level));
-	pMvmComp = m_pPeterPepper->AddComponent<MovementComponent>(pSprComp, pRbyComp);
+	GameObject* pPeterPepper{ new GameObject{} };
 
-	m_pPeterPepper->SetParent(spWorld.get());
+	pTfmComp = pPeterPepper->AddComponent<TransformComponent>(pLvlComp->GetPlayerPosition() + pLevel->GetComponent<TransformComponent>()->GetWorldPosition());
+	pRdrComp = pPeterPepper->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::Player), "Textures/BurgerTime/Characters/PeterPepper/Move.png");
+	pTtmComp = pPeterPepper->AddComponent<TextureTransformComponent>(0, 0, 0, 0);
+	pSprComp = pPeterPepper->AddComponent<SpriteComponent>(pRdrComp, pTtmComp, 4, 3);
+	pRbyComp = pPeterPepper->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Dynamic);
+	pCcdComp = pPeterPepper->AddComponent<CircleColliderComponent>(pRbyComp, 0.6f, FVec2{ 1.f, 1.5f }, static_cast<int>(ColliderComponent::CollisionGroup::Level));
+	pMvmComp = pPeterPepper->AddComponent<MovementComponent>(pSprComp, pRbyComp);
+	m_pPeterPeppers.emplace_back(pLevel);
 
-	//### Sound Test
-	auto spSoundTest = std::make_shared<GameObject>();
-
-	spSoundTest->AddComponent<PeterPepperComponent>();
-
-	scene.Add(spSoundTest);
+	pPeterPepper->SetParent(spWorld.get());
 
 	//--- Input ---//
 	auto& inputManager = InputManager::GetInstance();
 
-	inputManager.AddBindingToController(std::make_shared<MoveUpCommand>(m_pPeterPepper), PS4Controller::DPadUp, InputState::Pressed);
-	inputManager.AddBindingToController(std::make_shared<MoveDownCommand>(m_pPeterPepper), PS4Controller::DPadDown, InputState::Pressed);
-	inputManager.AddBindingToController(std::make_shared<MoveLeftCommand>(m_pPeterPepper), PS4Controller::DPadLeft, InputState::Pressed);
-	inputManager.AddBindingToController(std::make_shared<MoveRightCommand>(m_pPeterPepper), PS4Controller::DPadRight, InputState::Pressed);
+	inputManager.AddBindingToController(std::make_shared<MoveUpCommand>(pPeterPepper), PS4Controller::DPadUp, InputState::Pressed);
+	inputManager.AddBindingToController(std::make_shared<MoveDownCommand>(pPeterPepper), PS4Controller::DPadDown, InputState::Pressed);
+	inputManager.AddBindingToController(std::make_shared<MoveLeftCommand>(pPeterPepper), PS4Controller::DPadLeft, InputState::Pressed);
+	inputManager.AddBindingToController(std::make_shared<MoveRightCommand>(pPeterPepper), PS4Controller::DPadRight, InputState::Pressed);
 
-	inputManager.AddBindingToKeyboard(std::make_shared<MoveUpCommand>(m_pPeterPepper), ApplicationKeyboard::ArrowUp, InputState::Pressed);
-	inputManager.AddBindingToKeyboard(std::make_shared<MoveDownCommand>(m_pPeterPepper), ApplicationKeyboard::ArrowDown, InputState::Pressed);
-	inputManager.AddBindingToKeyboard(std::make_shared<MoveLeftCommand>(m_pPeterPepper), ApplicationKeyboard::ArrowLeft, InputState::Pressed);
-	inputManager.AddBindingToKeyboard(std::make_shared<MoveRightCommand>(m_pPeterPepper), ApplicationKeyboard::ArrowRight, InputState::Pressed);
+	inputManager.AddBindingToKeyboard(std::make_shared<MoveUpCommand>(pPeterPepper), ApplicationKeyboard::ArrowUp, InputState::Pressed);
+	inputManager.AddBindingToKeyboard(std::make_shared<MoveDownCommand>(pPeterPepper), ApplicationKeyboard::ArrowDown, InputState::Pressed);
+	inputManager.AddBindingToKeyboard(std::make_shared<MoveLeftCommand>(pPeterPepper), ApplicationKeyboard::ArrowLeft, InputState::Pressed);
+	inputManager.AddBindingToKeyboard(std::make_shared<MoveRightCommand>(pPeterPepper), ApplicationKeyboard::ArrowRight, InputState::Pressed);
 
-	inputManager.AddBindingToController(std::make_shared<LoseLifeCommand>(spSoundTest.get()), PS4Controller::Cross, InputState::Down);
+	//inputManager.AddBindingToController<QuitCommand>(PS4Controller::Triangle, InputState::Up);
+	//inputManager.AddBindingToKeyboard<QuitCommand>(ApplicationKeyboard::Escape, InputState::Up);
 
-	inputManager.AddBindingToKeyboard(std::make_shared<LoseLifeCommand>(spSoundTest.get()), ApplicationKeyboard::Space, InputState::Down);
-
-	inputManager.AddBindingToController<QuitCommand>(PS4Controller::Triangle, InputState::Up);
-	
-	inputManager.AddBindingToKeyboard<QuitCommand>(ApplicationKeyboard::Escape, InputState::Up);
+	//inputManager.AddBindingToKeyboard<NextSceneCommand>(ApplicationKeyboard::F4, InputState::Up);
+	//inputManager.AddBindingToKeyboard<PreviousSceneCommand>(ApplicationKeyboard::F3, InputState::Up);
 }

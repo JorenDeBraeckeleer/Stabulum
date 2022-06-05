@@ -221,6 +221,7 @@
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="NextSceneCommand.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="BaseCommand.h" />
     <ClInclude Include="Controller.h" />
@@ -230,6 +231,7 @@
     <ClInclude Include="FpsComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="PreviousSceneCommand.h" />
     <ClInclude Include="RigidBodyComponent.h" />
     <ClInclude Include="QuitCommand.h" />
     <ClInclude Include="RenderComponent.h" />
@@ -264,6 +266,7 @@
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="NextSceneCommand.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="BaseCommand.cpp" />
     <ClCompile Include="Controller.cpp" />
@@ -272,6 +275,7 @@
     <ClCompile Include="FpsComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="PreviousSceneCommand.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
     <ClCompile Include="QuitCommand.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
