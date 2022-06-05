@@ -27,6 +27,7 @@ public:
 	virtual void FixedUpdate() override;
 
 	void UpdatePosition();
+	void UpdateBodyPosition(const FVec2& bodyPosition, const FVec2& parentPosition);
 	void SetBodyLinearVelocity(float velocityX, float velocityY);
 	void AddBodyForce(const FVec2& force);
 

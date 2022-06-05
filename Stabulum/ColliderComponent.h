@@ -14,6 +14,13 @@ public:
 	ColliderComponent& operator=(const ColliderComponent& other) = delete;
 	ColliderComponent& operator=(ColliderComponent&& other) = delete;
 
+	enum class CollisionGroup
+	{
+		Default = 0,
+		Level = 1,
+		Burger = 2,
+	};
+
 	virtual void Update() override = 0;
 
 	std::function<void(ColliderComponent*)> OnTriggerEnter;

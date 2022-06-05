@@ -104,50 +104,24 @@ void WorldComponent::RemoveBody(RigidBodyComponent* pRigidBodyComponent)
 	m_pRigidBodyComponents.erase(std::remove(m_pRigidBodyComponents.begin(), m_pRigidBodyComponents.end(), pRigidBodyComponent));
 }
 
-void WorldComponent::AddToBodyColliderBox(RigidBodyComponent* pRigidBodyComponent, BoxColliderComponent* pBoxColliderComponent)
+void WorldComponent::AddToBodyColliderBox(RigidBodyComponent* pRigidBodyComponent, BoxColliderComponent* pBoxColliderComponent, int16 groupIndex)
 {
 	b2PolygonShape boxShape{};
 	boxShape.SetAsBox(pBoxColliderComponent->GetWidth() / 2.f, pBoxColliderComponent->GetHeight() / 2.f, GetVecb2(pBoxColliderComponent->GetCenter()), pBoxColliderComponent->GetAngle());
 
-	//b2FixtureDef fixtureDefinition{};
-	//fixtureDefinition.shape = &boxShape;
-	//fixtureDefinition.friction = pBoxColliderComponent->GetFriction();
-	//fixtureDefinition.restitution = pBoxColliderComponent->GetRestitution();
-	//fixtureDefinition.restitutionThreshold = pBoxColliderComponent->GetRestitutionTreshold();
-	//fixtureDefinition.density = pBoxColliderComponent->GetDensity();
-	//fixtureDefinition.isSensor = pBoxColliderComponent->GetIsSensor();
-	//fixtureDefinition.userData.pointer = reinterpret_cast<uintptr_t>(pBoxColliderComponent);
-
-	//b2Fixture* fixture{ pRigidBodyComponent->GetPhysicsBody()->CreateFixture(&fixtureDefinition) };
-
-	//pBoxColliderComponent->SetPhysicsFixture(fixture);
-
-	AddToBodyCollider(boxShape, pRigidBodyComponent, pBoxColliderComponent);
+	AddToBodyCollider(boxShape, pRigidBodyComponent, pBoxColliderComponent, groupIndex);
 }
 
-void WorldComponent::AddToBodyColliderCircle(RigidBodyComponent* pRigidBodyComponent, CircleColliderComponent* pCircleColliderComponent)
+void WorldComponent::AddToBodyColliderCircle(RigidBodyComponent* pRigidBodyComponent, CircleColliderComponent* pCircleColliderComponent, int16 groupIndex)
 {
 	b2CircleShape circleShape{};
 	circleShape.m_radius = pCircleColliderComponent->GetRadius();
 	circleShape.m_p = GetVecb2(pCircleColliderComponent->GetPoint());
 
-	//b2FixtureDef fixtureDefinition{};
-	//fixtureDefinition.shape = &circleShape;
-	//fixtureDefinition.friction = pCircleColliderComponent->GetFriction();
-	//fixtureDefinition.restitution = pCircleColliderComponent->GetRestitution();
-	//fixtureDefinition.restitutionThreshold = pCircleColliderComponent->GetRestitutionTreshold();
-	//fixtureDefinition.density = pCircleColliderComponent->GetDensity();
-	//fixtureDefinition.isSensor = pCircleColliderComponent->GetIsSensor();
-	//fixtureDefinition.userData.pointer = reinterpret_cast<uintptr_t>(pCircleColliderComponent);
-
-	//b2Fixture* fixture{ pRigidBodyComponent->GetPhysicsBody()->CreateFixture(&fixtureDefinition) };
-
-	//pCircleColliderComponent->SetPhysicsFixture(fixture);
-
-	AddToBodyCollider(circleShape, pRigidBodyComponent, pCircleColliderComponent);
+	AddToBodyCollider(circleShape, pRigidBodyComponent, pCircleColliderComponent, groupIndex);
 }
 
-void WorldComponent::AddToBodyCollider(const b2Shape& shape, RigidBodyComponent* pRigidBodyComponent, ColliderComponent* pColliderComponent)
+void WorldComponent::AddToBodyCollider(const b2Shape& shape, RigidBodyComponent* pRigidBodyComponent, ColliderComponent* pColliderComponent, int16 groupIndex)
 {
 	b2FixtureDef fixtureDefinition{};
 	fixtureDefinition.shape = &shape;
@@ -159,6 +133,12 @@ void WorldComponent::AddToBodyCollider(const b2Shape& shape, RigidBodyComponent*
 	fixtureDefinition.userData.pointer = reinterpret_cast<uintptr_t>(pColliderComponent);
 
 	b2Fixture* fixture{ pRigidBodyComponent->GetPhysicsBody()->CreateFixture(&fixtureDefinition) };
+	
+	b2Filter filter{};
+	filter.groupIndex = groupIndex;
+	filter.categoryBits = groupIndex;
+	filter.maskBits = groupIndex;
+	fixture->SetFilterData(filter);
 
 	pColliderComponent->SetPhysicsFixture(fixture);
 }

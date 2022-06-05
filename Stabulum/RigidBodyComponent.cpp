@@ -34,6 +34,8 @@ void RigidBodyComponent::FixedUpdate()
 	{
 		m_pPhysicsBody->SetTransform({m_NewPosition.x, m_NewPosition.y }, 0.f);
 
+		m_NewPosition = { 0.f, 0.f };
+
 		m_ChangeTransform = false;
 	}
 }
@@ -56,6 +58,24 @@ void RigidBodyComponent::Update()
 void RigidBodyComponent::UpdatePosition()
 {
 	m_pTransformComponent->SetUnitPosition(m_pPhysicsBody->GetPosition().x, m_pPhysicsBody->GetPosition().y);
+
+	//Update childrens position
+	for (GameObject* pChild : GetGameObject()->GetChildren())
+	{
+		if (RigidBodyComponent* pComp = pChild->GetComponent<RigidBodyComponent>())
+		{
+			pComp->UpdateBodyPosition({ m_pPhysicsBody->GetPosition().x, m_pPhysicsBody->GetPosition().y }, m_pTransformComponent->GetUnitPosition());
+		}
+	}
+}
+
+void RigidBodyComponent::UpdateBodyPosition(const FVec2&, const FVec2&)
+{
+	//m_ChangeTransform = true;
+	//float xOffset{ (m_pTransformComponent->GetUnitPosition() - parentPosition).x };
+	//FVec2 pos{ bodyPosition };
+	//pos.x = pos.x + xOffset;
+	//m_NewPosition = m_NewPosition + pos;
 }
 
 void RigidBodyComponent::SetBodyLinearVelocity(float velocityX, float velocityY)
@@ -76,5 +96,5 @@ void RigidBodyComponent::SetGravityScale(float scale)
 void RigidBodyComponent::SetPosition(const FVec2& position)
 {
 	m_ChangeTransform = true;
-	m_NewPosition = position;
+	m_NewPosition = m_NewPosition + position;
 }

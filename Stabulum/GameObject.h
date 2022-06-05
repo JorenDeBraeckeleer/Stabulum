@@ -26,6 +26,7 @@ public:
 
 	GameObject* GetParent() { return m_pParentObject; }
 	void SetParent(GameObject* pGameObject);
+	std::vector<GameObject*> GetChildren() { return m_pChildren; }
 	void AddChild(GameObject* pGameObject);
 	void RemoveChild(GameObject* pGameObject, bool deleteGameObject = true);
 

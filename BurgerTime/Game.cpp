@@ -63,6 +63,7 @@ void Game::LoadGame() const
 	const float scaleX{ 2.f }, scaleY{ 2.f }, widthScaled{ widthReal * scaleX }, heightScaled{ heightReal * scaleY };
 	SDL_RenderSetScale(renderer.GetSDLRenderer(), scaleX, scaleY);
 	SDL_SetWindowSize(m_Window, static_cast<int>(widthScaled), static_cast<int>(heightScaled));
+	SDL_SetWindowPosition(m_Window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
 	//Layers
 	for (int idx{}; idx < static_cast<int>(RenderOrder::Amount); ++idx)
@@ -275,7 +276,7 @@ void Game::LoadLevel1() const
 
 	//### Level
 	m_pLevel->AddComponent<TransformComponent>(8.f, 32.f);
-	m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level5.txt");
+	m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level3.txt");
 
 	m_pLevel->SetParent(spWorld.get());
 
@@ -351,7 +352,7 @@ void Game::LoadLevel1() const
 	pSprComp = m_pPeterPepper->AddComponent<SpriteComponent>(pRdrComp, pTtmComp, 4, 3);
 	pRbyComp = m_pPeterPepper->AddComponent<RigidBodyComponent>(pTfmComp, RigidBodyComponent::BodyType::Dynamic);
 	//pBcdComp = m_pPeterPepper->AddComponent<BoxColliderComponent>(pRbyComp, 0.5f, 1.f, 1.f, 1.5f);
-	pCcdComp = m_pPeterPepper->AddComponent<CircleColliderComponent>(pRbyComp, 0.6f, FVec2{ 1.f, 1.5f });
+	pCcdComp = m_pPeterPepper->AddComponent<CircleColliderComponent>(pRbyComp, 0.6f, FVec2{ 1.f, 1.5f }, static_cast<int>(ColliderComponent::CollisionGroup::Level));
 	pMvmComp = m_pPeterPepper->AddComponent<MovementComponent>(pSprComp, pRbyComp);
 
 	m_pPeterPepper->SetParent(spWorld.get());

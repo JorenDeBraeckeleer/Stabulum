@@ -33,6 +33,12 @@ void BurgerComponent::Update()
 {
 	if (m_IsUpdateNeeded)
 	{
+		//Create burger
+		TransformComponent* pTfcomp = GetGameObject()->AddComponent<TransformComponent>(0.f, 0.f);
+		RigidBodyComponent* pRdbcomp = GetGameObject()->AddComponent<RigidBodyComponent>(pTfcomp, RigidBodyComponent::BodyType::Dynamic, 0.f, 0.1f);
+		GetGameObject()->AddComponent<BoxColliderComponent>(pRdbcomp, 4.f, 1.f, 2.f, -0.25f, 0.f, static_cast<int>(ColliderComponent::CollisionGroup::Burger));
+
+		//Create burger parts
 		int width{ 16 };
 
 		for (int idx{}; idx < m_BurgerAmount; ++idx)
@@ -65,9 +71,9 @@ void BurgerComponent::Update()
 			}
 
 			TransformComponent* pTfc = pGameObject->AddComponent<TransformComponent>(16.f * idx, 0.f);
-			//RigidBodyComponent* pRdb = pGameObject->AddComponent<RigidBodyComponent>(pTfc, RigidBodyComponent::BodyType::Dynamic, 0.f, 1.f);
-			RigidBodyComponent* pRdb = pGameObject->AddComponent<RigidBodyComponent>(pTfc, RigidBodyComponent::BodyType::Dynamic);
-			BoxColliderComponent* pBcd = pGameObject->AddComponent<BoxColliderComponent>(pRdb, 0.5f, 0.5f, 0.25f, 0.25f);
+			//RigidBodyComponent* pRdb = pGameObject->AddComponent<RigidBodyComponent>(pTfc, RigidBodyComponent::BodyType::Dynamic, 0.f, 0.1f);
+			RigidBodyComponent* pRdb = pGameObject->AddComponent<RigidBodyComponent>(pTfc, RigidBodyComponent::BodyType::Kinematic);
+			BoxColliderComponent* pBcd = pGameObject->AddComponent<BoxColliderComponent>(pRdb, 0.5f, 0.5f, 0.25f, 0.25f, 0.f, static_cast<int>(ColliderComponent::CollisionGroup::Level));
 			pGameObject->AddComponent<RenderComponent>(pTfc, static_cast<int>(RenderOrder::Burger), m_SpriteSheet);
 			BurgerPartComponent* pBrP = pGameObject->AddComponent<BurgerPartComponent>();
 			pBcd->SetSensor();

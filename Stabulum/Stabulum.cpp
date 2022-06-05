@@ -73,6 +73,7 @@ void Stabulum::Initialize()
 		480,
 		SDL_WINDOW_OPENGL
 	);
+
 	if (m_Window == nullptr) 
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());

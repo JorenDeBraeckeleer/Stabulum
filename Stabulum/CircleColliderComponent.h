@@ -7,7 +7,7 @@ class b2Fixture;
 class CircleColliderComponent final : public ColliderComponent
 {
 public:
-	CircleColliderComponent(RigidBodyComponent* pRigidBodyComponent, float radius, FVec2 point = FVec2{ 0.f, 0.f });
+	CircleColliderComponent(RigidBodyComponent* pRigidBodyComponent, float radius, FVec2 point = FVec2{ 0.f, 0.f }, int groupIndex = 0);
 
 	virtual ~CircleColliderComponent() = default;
 	CircleColliderComponent(const CircleColliderComponent& other) = delete;
@@ -26,4 +26,5 @@ private:
 
 	float m_Radius;
 	FVec2 m_Point;
+	int m_GroupIndex;
 };
