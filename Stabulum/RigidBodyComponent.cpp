@@ -57,25 +57,16 @@ void RigidBodyComponent::Update()
 
 void RigidBodyComponent::UpdatePosition()
 {
-	m_pTransformComponent->SetUnitPosition(m_pPhysicsBody->GetPosition().x, m_pPhysicsBody->GetPosition().y);
+	m_pTransformComponent->SetWorldPosition(m_pPhysicsBody->GetPosition().x, m_pPhysicsBody->GetPosition().y, false);
 
 	//Update childrens position
 	for (GameObject* pChild : GetGameObject()->GetChildren())
 	{
 		if (RigidBodyComponent* pComp = pChild->GetComponent<RigidBodyComponent>())
 		{
-			pComp->UpdateBodyPosition({ m_pPhysicsBody->GetPosition().x, m_pPhysicsBody->GetPosition().y }, m_pTransformComponent->GetUnitPosition());
+			pComp->SetPosition(pChild->GetComponent<TransformComponent>()->GetWorldPosition(false));
 		}
 	}
-}
-
-void RigidBodyComponent::UpdateBodyPosition(const FVec2&, const FVec2&)
-{
-	//m_ChangeTransform = true;
-	//float xOffset{ (m_pTransformComponent->GetUnitPosition() - parentPosition).x };
-	//FVec2 pos{ bodyPosition };
-	//pos.x = pos.x + xOffset;
-	//m_NewPosition = m_NewPosition + pos;
 }
 
 void RigidBodyComponent::SetBodyLinearVelocity(float velocityX, float velocityY)
@@ -88,9 +79,11 @@ void RigidBodyComponent::AddBodyForce(const FVec2& force)
 	m_pPhysicsBody->ApplyForce(b2Vec2{ force.x, force.y }, m_pPhysicsBody->GetWorldCenter(), true);
 }
 
-void RigidBodyComponent::SetGravityScale(float scale)
+void RigidBodyComponent::UpdateGravityScale(float scale)
 {
-	m_pPhysicsBody->SetGravityScale(scale);
+	SetGravityScale(scale);
+	m_pPhysicsBody->SetAwake(true);
+	m_pPhysicsBody->SetGravityScale(m_GravityScale);
 }
 
 void RigidBodyComponent::SetPosition(const FVec2& position)

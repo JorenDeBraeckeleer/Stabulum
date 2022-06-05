@@ -19,9 +19,8 @@ void BurgerPartComponent::OnTriggerEnter(ColliderComponent*)
 {
 	if (!m_IsHit)
 	{
-		FVec2 pos = GetGameObject()->GetComponent<TransformComponent>()->GetUnitPosition();
 		RigidBodyComponent* pBodyComp = GetGameObject()->GetComponent<RigidBodyComponent>();
-		pBodyComp->SetPosition({ pos.x, pos.y + 0.125f });
+		pBodyComp->SetPosition({ 0.f, 0.125f });
 
 		m_IsHit = true;
 	}

@@ -27,7 +27,6 @@ public:
 	virtual void FixedUpdate() override;
 
 	void UpdatePosition();
-	void UpdateBodyPosition(const FVec2& bodyPosition, const FVec2& parentPosition);
 	void SetBodyLinearVelocity(float velocityX, float velocityY);
 	void AddBodyForce(const FVec2& force);
 
@@ -35,8 +34,9 @@ public:
 
 	float GetAngle() { return m_Angle; }
 
+	void SetGravityScale(float scale) { m_GravityScale = scale; }
 	float GetGravityScale() { return m_GravityScale; }
-	void SetGravityScale(float scale);
+	void UpdateGravityScale(float scale);
 
 	bool GetHasFixedRotation() { return m_HasFixedRotation; }
 

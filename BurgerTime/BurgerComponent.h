@@ -3,6 +3,7 @@
 #include "TileComponent.h"
 
 class TransformComponent;
+class RigidBodyComponent;
 class BurgerPartComponent;
 
 class BurgerComponent final : public BaseComponent, public Subject
@@ -27,6 +28,8 @@ private:
 	std::vector<BurgerPartComponent*> m_pBurgerParts;
 
 	TransformComponent* m_pTransformComponent;
+	RigidBodyComponent* m_pRigidBodyComponent;
+
 	Ingredient m_Ingredient;
 	const std::string m_SpriteSheet;
 

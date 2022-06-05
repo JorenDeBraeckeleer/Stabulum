@@ -1,13 +1,12 @@
 #pragma once
 #include "BaseComponent.h"
-
-class Transform;
+#include "Transform.h"
 
 class TransformComponent final : public BaseComponent
 {
 public:
-	TransformComponent(float x = 0.f, float y = 0.f);
-	TransformComponent(const FVec2& pos);
+	TransformComponent(float x = 0.f, float y = 0.f, bool inPixels = true);
+	TransformComponent(const FVec2& pos, bool inPixels = true);
 
 	virtual ~TransformComponent() = default;
 	TransformComponent(const TransformComponent& other) = delete;
@@ -17,17 +16,13 @@ public:
 
 	virtual void Update() override;
 
-	void SetPixelPosition(float x, float y);
-	void SetPixelPosition(const FVec2& pos);
-	FVec2 GetPixelPosition();
-
-	void SetUnitPosition(float x, float y);
-	void SetUnitPosition(const FVec2& pos);
-	FVec2 GetUnitPosition();
-
-	void SetUnit(int pixelsPerUnit) { m_PixelsPerUnit = pixelsPerUnit; }
+	const FVec2 GetWorldPosition(bool inPixels = true) const;
+	const FVec2 GetLocalPosition(bool inPixels = true) const;
+	void SetWorldPosition(float x, float y, bool inPixels = true);
+	void SetWorldPosition(const FVec2& pos, bool inPixels = true);
+	void SetLocalPosition(float x, float y, bool inPixels = true);
+	void SetLocalPosition(const FVec2& pos, bool inPixels = true);
 
 private:
-	FVec2 m_FVec2Pos;
-	int m_PixelsPerUnit;
+	Transform m_Transform;
 };

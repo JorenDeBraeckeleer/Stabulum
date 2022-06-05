@@ -77,7 +77,7 @@ void WorldComponent::AddBody(TransformComponent* pTransformComponent, RigidBodyC
 	m_pRigidBodyComponents.emplace_back(pRigidBodyComponent);
 
 	b2BodyDef bodyDefinition{};
-	bodyDefinition.position.Set(pTransformComponent->GetUnitPosition().x, pTransformComponent->GetUnitPosition().y);
+	bodyDefinition.position.Set(pTransformComponent->GetWorldPosition(false).x, pTransformComponent->GetWorldPosition(false).y);
 	bodyDefinition.angle = pRigidBodyComponent->GetAngle();
 	bodyDefinition.linearVelocity.Set(pRigidBodyComponent->GetLinearVelocity().x, pRigidBodyComponent->GetLinearVelocity().y);
 	bodyDefinition.angularVelocity = pRigidBodyComponent->GetAngularVelocity();

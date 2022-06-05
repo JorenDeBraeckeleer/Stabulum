@@ -4,10 +4,19 @@
 class Transform final
 {
 public:
-	const FVec2 GetPosition() const { return m_Position; }
-	void SetPosition(float x, float y);
-	void SetPosition(const FVec2& pos);
+	Transform(float x, float y, bool inPixels = true);
+	~Transform() = default;
+
+	const FVec2 GetWorldPosition(bool inPixels = true) const;
+	const FVec2 GetLocalPosition(bool inPixels = true) const;
+	void SetWorldPosition(float x, float y, bool inPixels = true);
+	void SetWorldPosition(const FVec2& pos, bool inPixels = true);
+	void SetLocalPosition(float x, float y, bool inPixels = true);
+	void SetLocalPosition(const FVec2& pos, bool inPixels = true);
 
 private:
-	FVec2 m_Position;
+	FVec2 m_WorldPosition;
+	FVec2 m_LocalPosition;
+
+	int m_PixelsPerUnit;
 };

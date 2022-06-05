@@ -1,15 +1,13 @@
 #include "StabulumPCH.h"
 #include "TransformComponent.h"
 
-TransformComponent::TransformComponent(float x, float y)
-	: m_FVec2Pos{ FVec2{ x, y } }
-	, m_PixelsPerUnit{ 16 }
+TransformComponent::TransformComponent(float x, float y, bool inPixels)
+	: m_Transform{ Transform{ x, y, inPixels } }
 {
-	m_FVec2Pos = m_FVec2Pos / m_PixelsPerUnit;
 }
 
-TransformComponent::TransformComponent(const FVec2& pos)
-	: TransformComponent{ pos.x, pos.y }
+TransformComponent::TransformComponent(const FVec2& pos, bool inPixels)
+	: TransformComponent{ pos.x, pos.y, inPixels }
 {
 }
 
@@ -17,34 +15,68 @@ void TransformComponent::Update()
 {
 }
 
-void TransformComponent::SetPixelPosition(float x, float y)
+const FVec2 TransformComponent::GetWorldPosition(bool inPixels) const
 {
-	m_FVec2Pos.x = x / m_PixelsPerUnit;
-	m_FVec2Pos.y = y / m_PixelsPerUnit;
+	return m_Transform.GetWorldPosition(inPixels);
 }
 
-void TransformComponent::SetPixelPosition(const FVec2& pos)
+const FVec2 TransformComponent::GetLocalPosition(bool inPixels) const
 {
-	m_FVec2Pos = pos / m_PixelsPerUnit;
+	return m_Transform.GetLocalPosition(inPixels);
 }
 
-FVec2 TransformComponent::GetPixelPosition()
+void TransformComponent::SetWorldPosition(const float x, const float y, bool inPixels)
 {
-	return m_FVec2Pos * m_PixelsPerUnit;
+	m_Transform.SetWorldPosition(x, y, inPixels);
+
+	if (GameObject* pParent = GetGameObject()->GetParent())
+	{
+		if (TransformComponent* pParentComp = pParent->GetComponent<TransformComponent>())
+		{
+			FVec2 pos = m_Transform.GetWorldPosition(inPixels) - pParentComp->GetWorldPosition(inPixels);
+			m_Transform.SetLocalPosition(pos, inPixels);
+		}
+	}
+
+	for (GameObject* pChild : GetGameObject()->GetChildren())
+	{
+		if (TransformComponent* pChildComp = pChild->GetComponent<TransformComponent>())
+		{
+			FVec2 pos = m_Transform.GetWorldPosition(inPixels) + pChildComp->GetLocalPosition(inPixels);
+			pChildComp->SetWorldPosition(pos, inPixels);
+		}
+	}
 }
 
-void TransformComponent::SetUnitPosition(float x, float y)
+void TransformComponent::SetWorldPosition(const FVec2& pos, bool inPixels)
 {
-	m_FVec2Pos.x = x;
-	m_FVec2Pos.y = y;
+	SetWorldPosition(pos.x, pos.y, inPixels);
 }
 
-void TransformComponent::SetUnitPosition(const FVec2& pos)
+void TransformComponent::SetLocalPosition(const float x, const float y, bool inPixels)
 {
-	m_FVec2Pos = pos;
+	m_Transform.SetLocalPosition(x, y, inPixels);
+
+	if (GameObject* pParent = GetGameObject()->GetParent())
+	{
+		if (TransformComponent* pParentComp = pParent->GetComponent<TransformComponent>())
+		{
+			FVec2 pos = pParentComp->GetWorldPosition(inPixels) + m_Transform.GetLocalPosition(inPixels);
+			m_Transform.SetWorldPosition(pos, inPixels);
+		}
+	}
+
+	for (GameObject* pChild : GetGameObject()->GetChildren())
+	{
+		if (TransformComponent* pChildComp = pChild->GetComponent<TransformComponent>())
+		{
+			FVec2 pos = m_Transform.GetWorldPosition(inPixels) + pChildComp->GetLocalPosition(inPixels);
+			pChildComp->SetWorldPosition(pos, inPixels);
+		}
+	}
 }
 
-FVec2 TransformComponent::GetUnitPosition()
+void TransformComponent::SetLocalPosition(const FVec2& pos, bool inPixels)
 {
-	return m_FVec2Pos;
+	SetLocalPosition(pos.x, pos.y, inPixels);
 }
