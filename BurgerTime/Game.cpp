@@ -263,7 +263,7 @@ void Game::LoadLevel1() const
 	SpriteComponent*			pSprComp{};
 	MovementComponent*			pMvmComp{};
 	RigidBodyComponent*			pRbyComp{};
-	//BoxColliderComponent*		pBcdComp{};
+	LevelComponent*				pLvlComp{};
 	CircleColliderComponent*	pCcdComp{};
 
 	//### World
@@ -275,8 +275,8 @@ void Game::LoadLevel1() const
 	scene.Add(spWorld);
 
 	//### Level
-	m_pLevel->AddComponent<TransformComponent>(8.f, 32.f);
-	m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level3.txt");
+	m_pLevel->AddComponent<TransformComponent>(-8.f, 32.f);
+	pLvlComp = m_pLevel->AddComponent<LevelComponent>("../Resources/Level/Level6.txt");
 
 	m_pLevel->SetParent(spWorld.get());
 
@@ -346,7 +346,7 @@ void Game::LoadLevel1() const
 	scene.Add(spPeppers);
 
 	//### Peter Pepper Sprite
-	pTfmComp = m_pPeterPepper->AddComponent<TransformComponent>(8.f, 64.f);
+	pTfmComp = m_pPeterPepper->AddComponent<TransformComponent>(pLvlComp->GetPlayerPosition() + m_pLevel->GetComponent<TransformComponent>()->GetWorldPosition());
 	pRdrComp = m_pPeterPepper->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::Player), "Textures/BurgerTime/Characters/PeterPepper/Move.png");
 	pTtmComp = m_pPeterPepper->AddComponent<TextureTransformComponent>(0, 0, 0, 0);
 	pSprComp = m_pPeterPepper->AddComponent<SpriteComponent>(pRdrComp, pTtmComp, 4, 3);

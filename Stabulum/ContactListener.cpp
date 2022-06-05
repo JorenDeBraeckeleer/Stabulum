@@ -41,4 +41,13 @@ void ContactListener::EndContact(b2Contact* contact)
 	}
 
 	m_Contacts.emplace_back(Contact{ temp.Type, pContact1, pContact2 });
+
+	if (pContact1->OnTriggerExit != nullptr)
+	{
+		pContact1->OnTriggerExit(pContact2);
+	}
+	if (pContact2->OnTriggerExit != nullptr)
+	{
+		pContact2->OnTriggerExit(pContact1);
+	}
 }

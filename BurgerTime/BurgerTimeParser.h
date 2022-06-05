@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Structs.h"
 
 class GameObject;
 
@@ -15,7 +16,7 @@ public:
 	BurgerTimeParser& operator=(const BurgerTimeParser& other) = delete;
 	BurgerTimeParser& operator=(BurgerTimeParser&& other) = delete;
 
-	bool Parse(const std::string& filePath, std::vector<GameObject*>& levelTiles);
+	bool Parse(const std::string& filePath, std::vector<GameObject*>& levelTiles, FVec2& playerPosition);
 
 private:
 

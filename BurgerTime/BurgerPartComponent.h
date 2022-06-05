@@ -19,7 +19,7 @@ public:
 	void OnTriggerEnter(ColliderComponent* pCollider);
 
 	bool IsHit() { return m_IsHit; }
-	void ResetHit() { m_IsHit = false; }
+	void ResetHit();
 
 private:
 	bool m_IsHit;

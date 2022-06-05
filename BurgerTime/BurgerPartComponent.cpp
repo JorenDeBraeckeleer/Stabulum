@@ -25,3 +25,14 @@ void BurgerPartComponent::OnTriggerEnter(ColliderComponent*)
 		m_IsHit = true;
 	}
 }
+
+void BurgerPartComponent::ResetHit()
+{
+	if (m_IsHit)
+	{
+		RigidBodyComponent* pBodyComp = GetGameObject()->GetComponent<RigidBodyComponent>();
+		pBodyComp->SetPosition({ 0.f, -0.125f });
+	}
+
+	m_IsHit = false;
+}

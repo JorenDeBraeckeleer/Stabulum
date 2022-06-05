@@ -78,6 +78,9 @@
     <ClCompile Include="BurgerPartComponent.cpp">
       <Filter>BurgerTime\Components</Filter>
     </ClCompile>
+    <ClCompile Include="BurgerPlatformComponent.cpp">
+      <Filter>BurgerTime\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="RenderOrder.h">
       <Filter>GameFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="BurgerPlatformComponent.h">
+      <Filter>BurgerTime\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

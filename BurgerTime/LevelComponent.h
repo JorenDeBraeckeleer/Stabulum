@@ -16,11 +16,15 @@ public:
 
 	virtual void Update() override;
 
+	FVec2 GetPlayerPosition() { return m_PlayerPosition; }
+
 private:
 	void InitializeLevel();
 
 	std::vector<GameObject*> m_pTiles;
 	std::vector<GameObject*> m_pIngredients;
+
+	FVec2 m_PlayerPosition;
 
 	bool m_IsUpdateNeeded;
 };

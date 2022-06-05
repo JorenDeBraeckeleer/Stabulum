@@ -6,7 +6,7 @@
 #include "GameObject.h"
 #include "TileComponent.h"
 
-bool BurgerTimeParser::Parse(const std::string& filePath, std::vector<GameObject*>& levelTiles)
+bool BurgerTimeParser::Parse(const std::string& filePath, std::vector<GameObject*>& levelTiles, FVec2& playerPosition)
 {
 	//Open file
 	std::ifstream file(filePath);
@@ -82,6 +82,14 @@ bool BurgerTimeParser::Parse(const std::string& filePath, std::vector<GameObject
 			TileComponent* pEndComp = pEndTile->AddComponent<TileComponent>();
 			pEndComp->SetName(TileName::VoidSingle);
 			levelTiles.emplace_back(pEndTile);
+		}
+		else if (command == "p")
+		{
+			float x{}, y{};
+			file >> x >> y;
+			x = x * 32.f + int(x / 2) * 32.f;
+			y *= 32.f;
+			playerPosition = FVec2{ x - 8.f, y };
 		}
 	}
 

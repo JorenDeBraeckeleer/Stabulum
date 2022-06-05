@@ -8,15 +8,17 @@
 #include "BoxColliderComponent.h"
 #include "RigidBodyComponent.h"
 #include "BurgerComponent.h"
+#include "BurgerPlatformComponent.h"
 #include "RenderOrder.h"
 
 LevelComponent::LevelComponent(const std::string& filePath)
 	: m_pTiles{}
+    , m_PlayerPosition{}
     , m_IsUpdateNeeded{ true }
 {
 	BurgerTimeParser parser{};
 
-	if (!parser.Parse(filePath, m_pTiles))
+	if (!parser.Parse(filePath, m_pTiles, m_PlayerPosition))
 	{
 		std::cerr << "Couldn't read level: " + filePath << std::endl;
 		return;
@@ -56,7 +58,6 @@ void LevelComponent::InitializeLevel()
 
     int tileSize{ 32 };
     FVec2 startOffset{ GetGameObject()->GetComponent<TransformComponent>()->GetWorldPosition() };
-    startOffset.x = startOffset.x - 32.f;
     int xOffset{};
     FVec2 tilePos{};
     int levelCollisionGroup{ static_cast<int>(ColliderComponent::CollisionGroup::Level) };
@@ -64,6 +65,8 @@ void LevelComponent::InitializeLevel()
 
     TransformComponent* pTfmComp{};
     RigidBodyComponent* pRbyComp{};
+    BoxColliderComponent* pBcd{};
+    BurgerPlatformComponent* pBrp{};
 
     for (size_t idx{}; idx < m_pTiles.size(); ++idx)
     {
@@ -106,24 +109,40 @@ void LevelComponent::InitializeLevel()
         case TileName::PlatformDouble:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(0, 32, tileSize * 2, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 64.f / 16.f, 12.f / 16.f, 32.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
-            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 2.f / 16.f, 16.f / 16.f, 26.f / 16.f, 0.f, burgerCollisionGroup);
+            pBcd = m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 1.f / 16.f, 16.f / 16.f, 26.f / 16.f, 0.f, burgerCollisionGroup);
+            pBrp = m_pTiles[idx]->AddComponent<BurgerPlatformComponent>();
+            pBcd->SetSensor();
+            pBcd->OnTriggerEnter = std::bind(&BurgerPlatformComponent::OnTriggerEnter, pBrp, std::placeholders::_1);
+            pBcd->OnTriggerExit = std::bind(&BurgerPlatformComponent::OnTriggerExit, pBrp, std::placeholders::_1);
             break;
         case TileName::PlatformDoubleIngredient:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(0, 32, tileSize * 2, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 64.f / 16.f, 12.f / 16.f, 32.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
-            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 2.f / 16.f, 16.f / 16.f, 26.f / 16.f, 0.f, burgerCollisionGroup);
+            pBcd = m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 1.f / 16.f, 16.f / 16.f, 26.f / 16.f, 0.f, burgerCollisionGroup);
+            pBrp = m_pTiles[idx]->AddComponent<BurgerPlatformComponent>();
+            pBcd->SetSensor();
+            pBcd->OnTriggerEnter = std::bind(&BurgerPlatformComponent::OnTriggerEnter, pBrp, std::placeholders::_1);
+            pBcd->OnTriggerExit = std::bind(&BurgerPlatformComponent::OnTriggerExit, pBrp, std::placeholders::_1);
             break;
         case TileName::PlatformDoubleStair:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(0, 96, tileSize * 2, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 20.f / 16.f, 12.f / 16.f, 11.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 20.f / 16.f, 12.f / 16.f, 54.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
-            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 2.f / 16.f, 16.f / 16.f, 26.f / 16.f, 0.f, burgerCollisionGroup);
+            pBcd = m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 1.f / 16.f, 16.f / 16.f, 26.f / 16.f, 0.f, burgerCollisionGroup);
+            pBrp = m_pTiles[idx]->AddComponent<BurgerPlatformComponent>();
+            pBcd->SetSensor();
+            pBcd->OnTriggerEnter = std::bind(&BurgerPlatformComponent::OnTriggerEnter, pBrp, std::placeholders::_1);
+            pBcd->OnTriggerExit = std::bind(&BurgerPlatformComponent::OnTriggerExit, pBrp, std::placeholders::_1);
             break;
         case TileName::PlatformDoubleStairIngredient:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(0, 96, tileSize * 2, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 20.f / 16.f, 12.f / 16.f, 11.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 20.f / 16.f, 12.f / 16.f, 54.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
-            //m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 2.f / 16.f, 16.f / 16.f, 26.f / 16.f, 0.f, burgerCollisionGroup);
+            pBcd = m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 1.f / 16.f, 16.f / 16.f, 26.f / 16.f, 0.f, burgerCollisionGroup);
+            pBrp = m_pTiles[idx]->AddComponent<BurgerPlatformComponent>();
+            pBcd->SetSensor();
+            pBcd->OnTriggerEnter = std::bind(&BurgerPlatformComponent::OnTriggerEnter, pBrp, std::placeholders::_1);
+            pBcd->OnTriggerExit = std::bind(&BurgerPlatformComponent::OnTriggerExit, pBrp, std::placeholders::_1);
             break;
         case TileName::Plate:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(0, 128, tileSize * 2, tileSize);
