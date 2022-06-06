@@ -24,4 +24,5 @@ private:
 
 	Scene* m_pActiveScene = nullptr;
 	int m_ActiveSceneIndex = 0;
+	bool m_IsFirstTick = true;
 };

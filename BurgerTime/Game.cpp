@@ -45,6 +45,8 @@
 #include "MoveCommand.h"
 #include "NextSceneCommand.h"
 #include "PreviousSceneCommand.h"
+#include "SceneBackwardCommand.h"
+#include "SceneForwardCommand.h"
 
 void Game::Initialize()
 {
@@ -93,10 +95,10 @@ void Game::LoadGame()
 	inputManager.AddBindingToController<QuitCommand>(PS4Controller::Triangle, InputState::Up);
 	inputManager.AddBindingToKeyboard<QuitCommand>(ApplicationKeyboard::Escape, InputState::Up);
 
-	inputManager.AddBindingToController<NextSceneCommand>(PS4Controller::R1, InputState::Up);
-	inputManager.AddBindingToController<PreviousSceneCommand>(PS4Controller::L1, InputState::Up);
-	inputManager.AddBindingToKeyboard<NextSceneCommand>(ApplicationKeyboard::F4, InputState::Up);
-	inputManager.AddBindingToKeyboard<PreviousSceneCommand>(ApplicationKeyboard::F3, InputState::Up);
+	inputManager.AddBindingToController<SceneBackwardCommand>(PS4Controller::R1, InputState::Up);
+	inputManager.AddBindingToController<SceneForwardCommand>(PS4Controller::L1, InputState::Up);
+	inputManager.AddBindingToKeyboard<SceneBackwardCommand>(ApplicationKeyboard::F4, InputState::Up);
+	inputManager.AddBindingToKeyboard<SceneForwardCommand>(ApplicationKeyboard::F3, InputState::Up);
 }
 
 void Game::Cleanup()

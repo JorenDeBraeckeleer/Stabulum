@@ -16,7 +16,9 @@ public:
 
 	virtual void OnNotify(GameObject* pGameObject, const GameEvent& event) override;
 
+	void SetScore(int score) { m_Score = score; }
+	int GetScore() { return m_Score; }
+
 private:
 	int m_Score;
-	bool m_IsUpdateNeeded;
 };

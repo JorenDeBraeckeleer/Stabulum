@@ -4,25 +4,57 @@
 
 void SceneManager::FixedUpdate(float)
 {
-	if (m_pActiveScene)
+	if (m_IsFirstTick)
 	{
-		m_pActiveScene->FixedUpdate();
+		for (std::shared_ptr<Scene> pScene : m_Scenes)
+		{
+			pScene->FixedUpdate();
+		}
+	}
+	else
+	{
+		if (m_pActiveScene)
+		{
+			m_pActiveScene->FixedUpdate();
+		}
 	}
 }
 
 void SceneManager::Update()
 {
-	if (m_pActiveScene)
+	if (m_IsFirstTick)
 	{
-		m_pActiveScene->Update();
+		for (std::shared_ptr<Scene> pScene : m_Scenes)
+		{
+			pScene->Update();
+		}
+	}
+	else
+	{
+		if (m_pActiveScene)
+		{
+			m_pActiveScene->Update();
+		}
 	}
 }
 
 void SceneManager::Render()
 {
-	if (m_pActiveScene)
+	if (m_IsFirstTick)
 	{
-		m_pActiveScene->Render();
+		for (std::shared_ptr<Scene> pScene : m_Scenes)
+		{
+			pScene->Render();
+		}
+
+		m_IsFirstTick = false;
+	}
+	else
+	{
+		if (m_pActiveScene)
+		{
+			m_pActiveScene->Render();
+		}
 	}
 }
 

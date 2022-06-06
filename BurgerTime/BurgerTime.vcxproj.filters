@@ -81,6 +81,12 @@
     <ClCompile Include="BurgerPlatformComponent.cpp">
       <Filter>BurgerTime\Components</Filter>
     </ClCompile>
+    <ClCompile Include="SceneBackwardCommand.cpp">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneForwardCommand.cpp">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -139,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="BurgerPlatformComponent.h">
       <Filter>BurgerTime\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBackwardCommand.h">
+      <Filter>BurgerTime\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneForwardCommand.h">
+      <Filter>BurgerTime\Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

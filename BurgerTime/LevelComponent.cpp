@@ -72,7 +72,12 @@ void LevelComponent::Update()
         {
             m_Completed = true;
 
-            SceneManager::GetInstance().LoadNextScene();
+            //Update scene and score
+            int score = GetGameObject()->GetScene()->FindComponent<ScoreComponent>()->GetScore();
+
+            SceneManager& sceneManager = SceneManager::GetInstance();
+            sceneManager.LoadNextScene();
+            sceneManager.GetActiveScene()->FindComponent<ScoreComponent>()->SetScore(score);
         }
     }
 }

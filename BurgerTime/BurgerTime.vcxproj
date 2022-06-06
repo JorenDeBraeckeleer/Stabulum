@@ -200,6 +200,8 @@
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PeterPepperComponent.cpp" />
+    <ClCompile Include="SceneBackwardCommand.cpp" />
+    <ClCompile Include="SceneForwardCommand.cpp" />
     <ClCompile Include="ScoreComponent.cpp" />
     <ClCompile Include="TileComponent.cpp" />
   </ItemGroup>
@@ -221,6 +223,8 @@
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PeterPepperComponent.h" />
     <ClInclude Include="RenderOrder.h" />
+    <ClInclude Include="SceneBackwardCommand.h" />
+    <ClInclude Include="SceneForwardCommand.h" />
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="TileComponent.h" />
   </ItemGroup>

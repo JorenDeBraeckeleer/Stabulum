@@ -5,18 +5,12 @@
 
 ScoreComponent::ScoreComponent(int score)
 	: m_Score{ score }
-	, m_IsUpdateNeeded{ true }
 {
 }
 
 void ScoreComponent::Update()
 {
-	if (m_IsUpdateNeeded)
-	{
-		m_pGameObject->GetComponent<TextComponent>()->SetText(std::to_string(m_Score));
-
-		m_IsUpdateNeeded = false;
-	}
+	m_pGameObject->GetComponent<TextComponent>()->SetText(std::to_string(m_Score));
 }
 
 void ScoreComponent::OnNotify(GameObject*, const GameEvent& event)
