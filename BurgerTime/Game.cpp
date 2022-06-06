@@ -1,6 +1,8 @@
 #include "BurgerTimePCH.h"
 #include "Game.h"
 
+#include <fstream>
+
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
@@ -81,13 +83,25 @@ void Game::LoadGame()
 	ServiceLocator::GetSoundManager()->Load("Sounds/IngredientWalk.mp3", 1);
 	ServiceLocator::GetSoundManager()->Load("Sounds/Thud.mp3", 2);
 
+	//Load highscore
+	std::string filePath{ "../Resources/Score/HighScore.txt" };
+	std::ifstream inputFile(filePath);
+
+	int highScore{};
+
+	if (inputFile.is_open())
+	{
+		inputFile >> highScore;
+		inputFile.close();
+	}
+
 	//LoadTestScene();
-	LoadLevel("../Resources/Level/Level1.txt", 1);
-	LoadLevel("../Resources/Level/Level2.txt", 2);
-	LoadLevel("../Resources/Level/Level3.txt", 3);
-	LoadLevel("../Resources/Level/Level4.txt", 4);
-	LoadLevel("../Resources/Level/Level5.txt", 5);
-	LoadLevel("../Resources/Level/Level6.txt", 6);
+	LoadLevel("../Resources/Level/Level1.txt", 1, highScore);
+	LoadLevel("../Resources/Level/Level2.txt", 2, highScore);
+	LoadLevel("../Resources/Level/Level3.txt", 3, highScore);
+	LoadLevel("../Resources/Level/Level4.txt", 4, highScore);
+	LoadLevel("../Resources/Level/Level5.txt", 5, highScore);
+	LoadLevel("../Resources/Level/Level6.txt", 6, highScore);
 
 	////--- General Input ---//
 	auto& inputManager = InputManager::GetInstance();
@@ -103,6 +117,9 @@ void Game::LoadGame()
 
 void Game::Cleanup()
 {
+	//Save (high)score
+	HighScore();
+
 	ServiceLocator::RegisterSoundManager(nullptr);
 
 	for (GameObject* pLevel : m_pLevels)
@@ -283,7 +300,7 @@ void Game::LoadTestScene() const
 	inputManager.AddBindingToController<QuitCommand>(PS4Controller::Triangle, InputState::Up);
 }
 
-void Game::LoadLevel(const std::string& levelFile, const int levelIndex)
+void Game::LoadLevel(const std::string& levelFile, const int levelIndex, int highScore)
 {
 	/* Adjust window to level */
 	const float widthReal{ m_LevelSize.x + m_Border * 2.f };
@@ -338,7 +355,7 @@ void Game::LoadLevel(const std::string& levelFile, const int levelIndex)
 	pTfmComp = spHighScore->AddComponent<TransformComponent>(m_Border + 208.f, 28.f);
 	pRdrComp = spHighScore->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
 	pRdrComp->SetAllignment(Renderer::Allign::TopRight);
-	pTxtComp = spHighScore->AddComponent<TextComponent>(pRdrComp, spFont16, beige, "28000");
+	pTxtComp = spHighScore->AddComponent<TextComponent>(pRdrComp, spFont16, beige, std::to_string(highScore));
 
 	scene.Add(spHighScore);
 
@@ -430,4 +447,43 @@ void Game::LoadLevel(const std::string& levelFile, const int levelIndex)
 
 	//inputManager.AddBindingToKeyboard<NextSceneCommand>(ApplicationKeyboard::F4, InputState::Up);
 	//inputManager.AddBindingToKeyboard<PreviousSceneCommand>(ApplicationKeyboard::F3, InputState::Up);
+}
+
+void Game::HighScore()
+{
+	int score = SceneManager::GetInstance().GetActiveScene()->FindComponent<ScoreComponent>()->GetScore();
+
+	std::string filePath{ "../Resources/Score/HighScore.txt" };
+	std::ifstream inputFile(filePath);
+
+	if (!inputFile.is_open())
+	{
+		//write new file
+		std::ofstream outputFile{ filePath };
+
+		if (outputFile.is_open())
+		{
+			outputFile.write(std::to_string(score).c_str(), sizeof(const char*));
+			outputFile.close();
+		}
+	}
+	else
+	{
+		//compare old file
+		int oldScore;
+		inputFile >> oldScore;
+		inputFile.close();
+
+		if (score > oldScore)
+		{
+			//overwrite file
+			std::ofstream outputFile{ filePath };
+
+			if (outputFile.is_open())
+			{
+				outputFile.write(std::to_string(score).c_str(), sizeof(const char*));
+				outputFile.close();
+			}
+		}
+	}
 }

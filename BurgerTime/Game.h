@@ -13,8 +13,10 @@ public:
 	void Run();
 
 private:
+	void HighScore();
+
 	void LoadTestScene() const;
-	void LoadLevel(const std::string& levelFile, const int levelIndex);
+	void LoadLevel(const std::string& levelFile, const int levelIndex, int highScore);
 
 	std::vector<GameObject*> m_pPeterPeppers{};
 	//GameObject* m_pPeterPepper{ new GameObject{} };
