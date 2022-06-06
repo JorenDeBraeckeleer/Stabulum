@@ -55,16 +55,16 @@ void WorldComponent::FixedUpdate()
 		switch (contact.Type)
 		{
 		case ContactListener::Contact::Type::OnSensorBegin:
-			std::cout << "OnSensorBegin" << std::endl;
+			//std::cout << "OnSensorBegin" << std::endl;
 			break;
 		case ContactListener::Contact::Type::OnSensorEnd:
-			std::cout << "OnSensorEnd" << std::endl;
+			//std::cout << "OnSensorEnd" << std::endl;
 			break;
 		case ContactListener::Contact::Type::OnCollisionBegin:
-			std::cout << "OnCollisionBegin" << std::endl;
+			//std::cout << "OnCollisionBegin" << std::endl;
 			break;
 		case ContactListener::Contact::Type::OnCollisionEnd:
-			std::cout << "OnCollisionEnd" << std::endl;
+			//std::cout << "OnCollisionEnd" << std::endl;
 			break;
 		default:
 			break;

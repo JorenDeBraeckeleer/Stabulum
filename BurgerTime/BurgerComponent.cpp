@@ -17,6 +17,7 @@ BurgerComponent::BurgerComponent(TransformComponent* pTransformComponent, const 
 	, m_Ingredient{ ingredient }
 	, m_SpriteSheet{ filename }
 	, m_BurgerAmount{ 4 }
+	, m_IsOverlapping{ false }
 	, m_IsUpdateNeeded{ true }
 {
 }
@@ -37,7 +38,9 @@ void BurgerComponent::Update()
 		//Create burger
 		TransformComponent* pTfcomp = GetGameObject()->AddComponent<TransformComponent>(0.f, 0.f);
 		m_pRigidBodyComponent = GetGameObject()->AddComponent<RigidBodyComponent>(pTfcomp, RigidBodyComponent::BodyType::Dynamic, 0.f, 1.f);
-		GetGameObject()->AddComponent<BoxColliderComponent>(m_pRigidBodyComponent, 4.f, 1.f, 2.f, 0.f, 0.f, static_cast<int>(ColliderComponent::CollisionGroup::Burger));
+		BoxColliderComponent* pBcdComp = GetGameObject()->AddComponent<BoxColliderComponent>(m_pRigidBodyComponent, 4.f, 1.f, 2.f, 0.f, 0.f, static_cast<int>(ColliderComponent::CollisionGroup::Burger));
+		pBcdComp->OnTriggerEnter = std::bind(&BurgerComponent::OnTriggerEnter, GetGameObject()->GetComponent<BurgerComponent>(), std::placeholders::_1);
+		pBcdComp->OnTriggerExit = std::bind(&BurgerComponent::OnTriggerExit, GetGameObject()->GetComponent<BurgerComponent>(), std::placeholders::_1);
 
 		//Create burger parts
 		int width{ 16 };
@@ -118,5 +121,21 @@ void BurgerComponent::ResetParts()
 	for (BurgerPartComponent* pComp : m_pBurgerParts)
 	{
 		pComp->ResetHit();
+	}
+}
+
+void BurgerComponent::OnTriggerEnter(ColliderComponent* pCollider)
+{
+	if (BurgerComponent* pComp = pCollider->GetGameObject()->GetComponent<BurgerComponent>())
+	{
+		m_IsOverlapping = true;
+	}
+}
+
+void BurgerComponent::OnTriggerExit(ColliderComponent* pCollider)
+{
+	if (BurgerComponent* pComp = pCollider->GetGameObject()->GetComponent<BurgerComponent>())
+	{
+		m_IsOverlapping = false;
 	}
 }

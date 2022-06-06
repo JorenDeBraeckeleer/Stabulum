@@ -4,7 +4,7 @@
 class ScoreComponent final : public BaseComponent, public Observer
 {
 public:
-	ScoreComponent();
+	ScoreComponent(int score = 0);
 
 	virtual ~ScoreComponent() = default;
 	ScoreComponent(const ScoreComponent& other) = delete;

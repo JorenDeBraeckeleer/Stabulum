@@ -26,5 +26,6 @@ private:
 
 	FVec2 m_PlayerPosition;
 
+	bool m_Completed;
 	bool m_IsUpdateNeeded;
 };

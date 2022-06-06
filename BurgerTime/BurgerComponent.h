@@ -23,6 +23,11 @@ public:
 
 	void ResetParts();
 
+	void OnTriggerEnter(ColliderComponent* pCollider);
+	void OnTriggerExit(ColliderComponent* pCollider);
+
+	bool GetIsOverlapping() { return m_IsOverlapping; }
+
 private:
 	std::vector<GameObject*> m_pIngredientParts;
 	std::vector<BurgerPartComponent*> m_pBurgerParts;
@@ -35,5 +40,6 @@ private:
 
 	int m_BurgerAmount;
 
+	bool m_IsOverlapping;
 	bool m_IsUpdateNeeded;
 };

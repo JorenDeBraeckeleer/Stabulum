@@ -3,8 +3,8 @@
 
 #include "TextComponent.h"
 
-ScoreComponent::ScoreComponent()
-	: m_Score{ 0 }
+ScoreComponent::ScoreComponent(int score)
+	: m_Score{ score }
 	, m_IsUpdateNeeded{ true }
 {
 }

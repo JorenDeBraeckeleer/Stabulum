@@ -49,7 +49,7 @@ void SceneManager::LoadNextScene()
 	}
 	if (m_ActiveSceneIndex < 0)
 	{
-		m_ActiveSceneIndex = m_Scenes.size() - 1;
+		m_ActiveSceneIndex = int(m_Scenes.size()) - 1;
 	}
 
 	m_pActiveScene = m_Scenes[m_ActiveSceneIndex].get();
@@ -65,7 +65,7 @@ void SceneManager::LoadPreviousScene()
 	}
 	if (m_ActiveSceneIndex < 0)
 	{
-		m_ActiveSceneIndex = m_Scenes.size() - 1;
+		m_ActiveSceneIndex = int(m_Scenes.size()) - 1;
 	}
 
 	m_pActiveScene = m_Scenes[m_ActiveSceneIndex].get();

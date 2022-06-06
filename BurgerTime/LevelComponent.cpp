@@ -17,6 +17,7 @@
 LevelComponent::LevelComponent(const std::string& filePath)
 	: m_pTiles{}
     , m_PlayerPosition{}
+    , m_Completed{}
     , m_IsUpdateNeeded{ true }
 {
 	BurgerTimeParser parser{};
@@ -58,6 +59,21 @@ void LevelComponent::Update()
         pSM->SetBackgroundMusicPlaying();
 
         pSM->Play(10, 5, true);
+    }
+
+    for (size_t idx{}; idx < m_pIngredients.size(); ++idx)
+    {
+        if (!m_pIngredients[idx]->GetComponent<BurgerComponent>()->GetIsOverlapping())
+        {
+            return;
+        }
+
+        if (idx == m_pIngredients.size() - 1 && !m_Completed)
+        {
+            m_Completed = true;
+
+            SceneManager::GetInstance().LoadNextScene();
+        }
     }
 }
 

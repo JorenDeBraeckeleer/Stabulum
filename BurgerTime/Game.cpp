@@ -50,7 +50,8 @@ void Game::Initialize()
 {
 	Stabulum::Initialize();
 
-	ServiceLocator::RegisterSoundManager(new LoggingSoundManager{ new SDLSoundManager{} });
+	//ServiceLocator::RegisterSoundManager(new LoggingSoundManager{ new SDLSoundManager{} });
+	ServiceLocator::RegisterSoundManager(new SDLSoundManager{});
 	ServiceLocator::GetSoundManager()->Init("../Resources/");
 	ResourceManager::GetInstance().Init("../Resources/");
 }
