@@ -172,7 +172,7 @@
       <Filter>Stabulum Extended Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="PreviousSceneCommand.h">
-      <Filter>Stabulum Base Files</Filter>
+      <Filter>Stabulum Extended Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -291,7 +291,7 @@
       <Filter>Stabulum Extended Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="PreviousSceneCommand.cpp">
-      <Filter>Stabulum Extended Files</Filter>
+      <Filter>Stabulum Extended Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

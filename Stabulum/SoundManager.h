@@ -21,8 +21,12 @@ public:
     virtual bool Play(SoundId id, const int volume = 1, bool doesLoop = false) = 0;
     virtual void Load(const std::string& filePath, SoundId id) = 0;
 
+    void SetBackgroundMusicPlaying(bool isPlaying = true) { m_IsBackgroundMusicPlaying = isPlaying; }
+    bool GetBackgroundMusicPlaying() { return m_IsBackgroundMusicPlaying; }
+
 protected:
     std::string m_DataPath;
+    bool m_IsBackgroundMusicPlaying;
 };
 
 class NullSoundManager final : public SoundManager

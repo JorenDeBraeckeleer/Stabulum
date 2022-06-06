@@ -1,6 +1,7 @@
 #include "BurgerTimePCH.h"
 #include "MoveCommand.h"
 
+#include "SceneManager.h"
 #include "MovementComponent.h"
 
 MoveCommand::MoveCommand(GameObject* pGameObject)
@@ -17,9 +18,12 @@ MoveUpCommand::MoveUpCommand(GameObject* pGameObject)
 
 void MoveUpCommand::Execute()
 {
-	if (m_pMovementComp)
+	if (m_pGameObject->GetScene() == SceneManager::GetInstance().GetActiveScene())
 	{
-		m_pMovementComp->SetMoveDirection(MovementComponent::MoveDirection::Up);
+		if (m_pMovementComp)
+		{
+			m_pMovementComp->SetMoveDirection(MovementComponent::MoveDirection::Up);
+		}
 	}
 }
 
@@ -30,9 +34,12 @@ MoveDownCommand::MoveDownCommand(GameObject* pGameObject)
 
 void MoveDownCommand::Execute()
 {
-	if (m_pMovementComp)
+	if (m_pGameObject->GetScene() == SceneManager::GetInstance().GetActiveScene())
 	{
-		m_pMovementComp->SetMoveDirection(MovementComponent::MoveDirection::Down);
+		if (m_pMovementComp)
+		{
+			m_pMovementComp->SetMoveDirection(MovementComponent::MoveDirection::Down);
+		}
 	}
 }
 
@@ -43,9 +50,12 @@ MoveLeftCommand::MoveLeftCommand(GameObject* pGameObject)
 
 void MoveLeftCommand::Execute()
 {
-	if (m_pMovementComp)
+	if (m_pGameObject->GetScene() == SceneManager::GetInstance().GetActiveScene())
 	{
-		m_pMovementComp->SetMoveDirection(MovementComponent::MoveDirection::Left);
+		if (m_pMovementComp)
+		{
+			m_pMovementComp->SetMoveDirection(MovementComponent::MoveDirection::Left);
+		}
 	}
 }
 
@@ -56,8 +66,11 @@ MoveRightCommand::MoveRightCommand(GameObject* pGameObject)
 
 void MoveRightCommand::Execute()
 {
-	if (m_pMovementComp)
+	if (m_pGameObject->GetScene() == SceneManager::GetInstance().GetActiveScene())
 	{
-		m_pMovementComp->SetMoveDirection(MovementComponent::MoveDirection::Right);
+		if (m_pMovementComp)
+		{
+			m_pMovementComp->SetMoveDirection(MovementComponent::MoveDirection::Right);
+		}
 	}
 }

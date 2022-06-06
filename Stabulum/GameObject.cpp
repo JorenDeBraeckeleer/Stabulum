@@ -18,9 +18,18 @@ GameObject::~GameObject()
 {
 	for (BaseComponent* pComp : m_pComponents)
 	{
-		delete pComp;
-		pComp = nullptr;
+		if (pComp)
+		{
+			delete pComp;
+			pComp = nullptr;
+		}
 	}
+
+	//for (GameObject* pObj : m_pChildren)
+	//{
+	//	delete pObj;
+	//	pObj = nullptr;
+	//}
 }
 
 void GameObject::Update()

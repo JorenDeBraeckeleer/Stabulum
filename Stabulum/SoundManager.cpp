@@ -5,6 +5,7 @@
 
 SoundManager::SoundManager()
 	: m_DataPath{}
+	, m_IsBackgroundMusicPlaying{ false }
 {
 }
 

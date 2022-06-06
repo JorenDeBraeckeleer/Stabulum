@@ -18,7 +18,6 @@ LevelComponent::LevelComponent(const std::string& filePath)
 	: m_pTiles{}
     , m_PlayerPosition{}
     , m_IsUpdateNeeded{ true }
-    , m_SoundIsPlaying{ false }
 {
 	BurgerTimeParser parser{};
 
@@ -54,9 +53,11 @@ void LevelComponent::Update()
     }
 
     //Play background music
-    if (!m_SoundIsPlaying)
+    if (SoundManager* pSM = ServiceLocator::GetSoundManager(); !pSM->GetBackgroundMusicPlaying())
     {
-        m_SoundIsPlaying = ServiceLocator::GetSoundManager()->Play(10, 5, true);
+        pSM->SetBackgroundMusicPlaying();
+
+        pSM->Play(10, 5, true);
     }
 }
 
