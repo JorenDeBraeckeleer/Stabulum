@@ -109,6 +109,9 @@
       <AdditionalLibraryDirectories>$(OutputPath);$(SolutionDir)3rdParty\box2d\lib\x86\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Stabulum.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Resources" "$(OutputPath)..\Resources\" /R /Y /E</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -133,6 +136,9 @@
       <AdditionalLibraryDirectories>$(OutputPath);$(SolutionDir)3rdParty\box2d\lib\x86\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Stabulum.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Resources" "$(OutputPath)..\Resources\" /R /Y /E</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -153,6 +159,9 @@
       <AdditionalLibraryDirectories>$(OutputPath);$(SolutionDir)3rdParty\box2d\lib\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Stabulum.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Resources" "$(OutputPath)..\Resources\" /R /Y /E</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -177,6 +186,9 @@
       <AdditionalLibraryDirectories>$(OutputPath);$(SolutionDir)3rdParty\box2d\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Stabulum.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Resources" "$(OutputPath)..\Resources\" /R /Y /E</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BurgerComponent.cpp" />
