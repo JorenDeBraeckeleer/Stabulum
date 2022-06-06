@@ -1,8 +1,8 @@
 #include "BurgerTimePCH.h"
 #include "SceneForwardCommand.h"
 
-#include "SceneManager.h"
 #include "Scene.h"
+#include "SceneManager.h"
 #include "ScoreComponent.h"
 
 SceneForwardCommand::SceneForwardCommand()

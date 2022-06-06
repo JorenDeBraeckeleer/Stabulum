@@ -1,4 +1,5 @@
 #pragma once
+
 #include "BaseComponent.h"
 
 class ColliderComponent;
@@ -7,8 +8,8 @@ class BurgerPartComponent final : public BaseComponent
 {
 public:
 	BurgerPartComponent();
-
 	virtual ~BurgerPartComponent() = default;
+
 	BurgerPartComponent(const BurgerPartComponent& other) = delete;
 	BurgerPartComponent(BurgerPartComponent&& other) = delete;
 	BurgerPartComponent& operator=(const BurgerPartComponent& other) = delete;

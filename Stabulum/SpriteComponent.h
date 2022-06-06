@@ -1,16 +1,17 @@
 #pragma once
+
 #include "BaseComponent.h"
 
-class Texture2D;
 class RenderComponent;
+class Texture2D;
 class TextureTransformComponent;
 
 class SpriteComponent final : public BaseComponent
 {
 public:
 	SpriteComponent(RenderComponent* pRenderComponent, TextureTransformComponent* pTextureTransformComponent, int rows, int collumns);
-
 	virtual ~SpriteComponent() = default;
+
 	SpriteComponent(const SpriteComponent& other) = delete;
 	SpriteComponent(SpriteComponent&& other) = delete;
 	SpriteComponent& operator=(const SpriteComponent& other) = delete;

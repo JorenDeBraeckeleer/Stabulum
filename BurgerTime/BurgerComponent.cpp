@@ -1,13 +1,13 @@
 #include "BurgerTimePCH.h"
 #include "BurgerComponent.h"
 
-#include "TransformComponent.h"
-#include "TextureTransformComponent.h"
-#include "RenderComponent.h"
 #include "BoxColliderComponent.h"
-#include "RigidBodyComponent.h"
 #include "BurgerPartComponent.h"
+#include "RenderComponent.h"
 #include "RenderOrder.h"
+#include "RigidBodyComponent.h"
+#include "TextureTransformComponent.h"
+#include "TransformComponent.h"
 
 BurgerComponent::BurgerComponent(TransformComponent* pTransformComponent, const Ingredient& ingredient, const std::string& filename)
 	: m_pIngredientParts{}

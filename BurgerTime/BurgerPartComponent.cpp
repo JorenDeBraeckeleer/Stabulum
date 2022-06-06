@@ -1,11 +1,11 @@
 #include "BurgerTimePCH.h"
 #include "BurgerPartComponent.h"
 
-#include "TransformComponent.h"
-#include "ColliderComponent.h"
 #include "BoxColliderComponent.h"
+#include "ColliderComponent.h"
 #include "RigidBodyComponent.h"
 #include "ServiceLocator.h"
+#include "TransformComponent.h"
 
 BurgerPartComponent::BurgerPartComponent()
 	: m_IsHit{ false }

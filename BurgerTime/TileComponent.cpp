@@ -9,5 +9,4 @@ TileComponent::TileComponent()
 
 void TileComponent::Update()
 {
-	//...
 }

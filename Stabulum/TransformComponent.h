@@ -1,4 +1,5 @@
 #pragma once
+
 #include "BaseComponent.h"
 #include "Transform.h"
 
@@ -7,8 +8,8 @@ class TransformComponent final : public BaseComponent
 public:
 	TransformComponent(float x = 0.f, float y = 0.f, bool inPixels = true);
 	TransformComponent(const FVec2& pos, bool inPixels = true);
-
 	virtual ~TransformComponent() = default;
+
 	TransformComponent(const TransformComponent& other) = delete;
 	TransformComponent(TransformComponent&& other) = delete;
 	TransformComponent& operator=(const TransformComponent& other) = delete;

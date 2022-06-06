@@ -1,15 +1,16 @@
 #include "StabulumPCH.h"
 #include "GameObject.h"
-#include "ResourceManager.h"
-#include "Renderer.h"
+
 #include "BaseComponent.h"
+#include "ResourceManager.h"
 #include "RenderComponent.h"
+#include "Renderer.h"
 #include "TransformComponent.h"
 
 GameObject::GameObject()
 	: m_pComponents{}
-	, m_pParentObject{}
 	, m_pChildren{}
+	, m_pParentObject{}
 	, m_pScene{}
 {
 }
@@ -24,12 +25,6 @@ GameObject::~GameObject()
 			pComp = nullptr;
 		}
 	}
-
-	//for (GameObject* pObj : m_pChildren)
-	//{
-	//	delete pObj;
-	//	pObj = nullptr;
-	//}
 }
 
 void GameObject::Update()
@@ -118,6 +113,7 @@ void GameObject::AddChild(GameObject* pGameObject)
 	//Set relative transform for child
 	TransformComponent* transformCompParent{ this->GetComponent<TransformComponent>() };
 	TransformComponent* transformCompChild{ pGameObject->GetComponent<TransformComponent>() };
+
 	if (transformCompParent && transformCompChild)
 	{
 		FVec2 transform{ transformCompParent->GetWorldPosition() + transformCompChild->GetLocalPosition() };

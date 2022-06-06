@@ -1,12 +1,13 @@
 #pragma once
+
 #include "BaseComponent.h"
 
 class PeterPepperComponent final : public BaseComponent, public Subject
 {
 public:
 	PeterPepperComponent(int nrLives = 5);
-
 	virtual ~PeterPepperComponent() = default;
+
 	PeterPepperComponent(const PeterPepperComponent& other) = delete;
 	PeterPepperComponent(PeterPepperComponent&& other) = delete;
 	PeterPepperComponent& operator=(const PeterPepperComponent& other) = delete;

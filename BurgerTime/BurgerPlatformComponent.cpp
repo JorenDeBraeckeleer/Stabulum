@@ -1,9 +1,9 @@
 #include "BurgerTimePCH.h"
 #include "BurgerPlatformComponent.h"
 
+#include "BurgerComponent.h"
 #include "ColliderComponent.h"
 #include "RigidBodyComponent.h"
-#include "BurgerComponent.h"
 #include "ServiceLocator.h"
 
 void BurgerPlatformComponent::Update()

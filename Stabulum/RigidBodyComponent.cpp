@@ -1,10 +1,10 @@
 #include "StabulumPCH.h"
 #include "RigidBodyComponent.h"
 
-#include "WorldComponent.h"
-#include "TransformComponent.h"
-
 #include "b2_body.h"
+
+#include "TransformComponent.h"
+#include "WorldComponent.h"
 
 RigidBodyComponent::RigidBodyComponent(TransformComponent* pTransformComponent, BodyType bodyType, float angle, float gravityScale, bool hasFixedRotation)
 	: BaseComponent()
@@ -22,8 +22,8 @@ RigidBodyComponent::RigidBodyComponent(TransformComponent* pTransformComponent, 
 	, m_IsEnabled{ true }
 	, m_BodyType{ bodyType }
 	, m_pPhysicsBody{}
-	, m_ChangeTransform{}
 	, m_NewPosition{}
+	, m_ChangeTransform{}
 	, m_IsUpdateNeeded{ true }
 {
 }
@@ -51,8 +51,6 @@ void RigidBodyComponent::Update()
 			m_IsUpdateNeeded = false;
 		}
 	}
-
-	//std::cout << m_pTransformComponent->GetPixelPosition().x << ", " << m_pTransformComponent->GetPixelPosition().y << std::endl;
 }
 
 void RigidBodyComponent::UpdatePosition()

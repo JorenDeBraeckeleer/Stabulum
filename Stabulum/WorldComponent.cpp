@@ -1,21 +1,19 @@
 #include "StabulumPCH.h"
 #include "WorldComponent.h"
 
-#include "../BurgerTime/MovementComponent.h"
-
-#include "TimeManager.h"
-#include "RigidBodyComponent.h"
-#include "TransformComponent.h"
-#include "BoxColliderComponent.h"
-#include "CircleColliderComponent.h"
-#include "ContactListener.h"
-
 #include "b2_world.h"
 #include "b2_body.h"
 #include "b2_contact.h"
 #include "b2_polygon_shape.h"
 #include "b2_circle_shape.h"
 #include "b2_fixture.h"
+
+#include "BoxColliderComponent.h"
+#include "CircleColliderComponent.h"
+#include "ContactListener.h"
+#include "RigidBodyComponent.h"
+#include "TimeManager.h"
+#include "TransformComponent.h"
 
 WorldComponent::WorldComponent()
 	: BaseComponent()

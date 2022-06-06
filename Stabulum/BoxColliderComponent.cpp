@@ -1,8 +1,6 @@
 #include "StabulumPCH.h"
 #include "BoxColliderComponent.h"
 
-//#include "b2_fixture.h"
-
 #include "WorldComponent.h"
 
 BoxColliderComponent::BoxColliderComponent(RigidBodyComponent* pRigidBodyComponent, float width, float height, float centerX, float centerY, float angle, int groupIndex)

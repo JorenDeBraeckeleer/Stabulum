@@ -1,4 +1,5 @@
 #pragma once
+
 #include "BaseComponent.h"
 
 #include "Structs.h"
@@ -11,8 +12,8 @@ class TextComponent final : public BaseComponent
 public:
 	TextComponent(RenderComponent* pRenderComponent, const std::shared_ptr<Font>& font, const RGBColor color = { 255, 255, 255 }, const std::string& text = "");
 	TextComponent(RenderComponent* pRenderComponent, const std::string& fontFilename, unsigned int fontSize, const RGBColor color = { 255, 255, 255 }, const std::string& text = "");
-
 	virtual ~TextComponent() = default;
+
 	TextComponent(const TextComponent& other) = delete;
 	TextComponent(TextComponent&& other) = delete;
 	TextComponent& operator=(const TextComponent& other) = delete;

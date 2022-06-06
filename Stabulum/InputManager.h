@@ -1,14 +1,15 @@
 #pragma once
-#include "Singleton.h"
+
 #include "Controller.h"
 #include "Keyboard.h"
+#include "Singleton.h"
 
 class InputManager final : public Singleton<InputManager>
 {
 public:
 	InputManager();
-
 	~InputManager();
+
 	InputManager(const InputManager& other) = delete;
 	InputManager(InputManager&& other) = delete;
 	InputManager& operator=(const InputManager& other) = delete;

@@ -2,6 +2,7 @@
 #include "ContactListener.h"
 
 #include "b2_contact.h"
+
 #include "ColliderComponent.h"
 
 void ContactListener::BeginContact(b2Contact* contact)

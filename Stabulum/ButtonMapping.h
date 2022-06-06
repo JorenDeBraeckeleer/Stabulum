@@ -1,6 +1,8 @@
 #pragma once
+
 #include <vector>
 #include <memory>
+
 #include "BaseCommand.h"
 
 enum class InputState

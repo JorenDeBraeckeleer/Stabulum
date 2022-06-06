@@ -45,8 +45,6 @@
 #include "BurgerDroppedCommand.h"
 #include "EnemyDiedCommand.h"
 #include "MoveCommand.h"
-#include "NextSceneCommand.h"
-#include "PreviousSceneCommand.h"
 #include "SceneBackwardCommand.h"
 #include "SceneForwardCommand.h"
 
@@ -54,8 +52,10 @@ void Game::Initialize()
 {
 	Stabulum::Initialize();
 
-	//ServiceLocator::RegisterSoundManager(new LoggingSoundManager{ new SDLSoundManager{} });
+	//Normal or logging sound manager
 	ServiceLocator::RegisterSoundManager(new SDLSoundManager{});
+
+	//Initialize data location
 	ServiceLocator::GetSoundManager()->Init("../Resources/");
 	ResourceManager::GetInstance().Init("../Resources/");
 }
@@ -103,7 +103,7 @@ void Game::LoadGame()
 	LoadLevel("../Resources/Level/Level5.txt", 5, highScore);
 	LoadLevel("../Resources/Level/Level6.txt", 6, highScore);
 
-	////--- General Input ---//
+	//--- General Input ---//
 	auto& inputManager = InputManager::GetInstance();
 
 	inputManager.AddBindingToController<QuitCommand>(PS4Controller::Triangle, InputState::Up);
@@ -120,8 +120,10 @@ void Game::Cleanup()
 	//Save (high)score
 	HighScore();
 
+	//Destroy sound manager
 	ServiceLocator::RegisterSoundManager(nullptr);
 
+	//Delete gameobjects
 	for (GameObject* pLevel : m_pLevels)
 	{
 		if (pLevel)
@@ -150,154 +152,6 @@ void Game::Run()
 	Stabulum::Run();
 
 	Cleanup();
-}
-
-void Game::LoadTestScene() const
-{
-	//Scene
-	Scene& scene = SceneManager::GetInstance().CreateScene("FPS");
-
-	//Components
-	TransformComponent* pTfmComp{};
-	RenderComponent* pRdrComp{};
-	TextComponent* pTxtComp{};
-	FpsComponent* pFpsComp{};
-	HealthComponent* pHltComp{};
-	ScoreComponent* pScrComp{};
-	PeterPepperComponent* pPtpComp{};
-	//BurgerComponent* pBgrComp{};
-	EnemyComponent* pEnmComp{};
-
-	//Background
-	auto spBackground = std::make_shared<GameObject>();
-
-	pTfmComp = spBackground->AddComponent<TransformComponent>();
-	pRdrComp = spBackground->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::Level), "Textures/Minigin/background.jpg");
-
-	scene.Add(spBackground);
-
-	//Logo
-	auto spLogo = std::make_shared<GameObject>();
-
-	pTfmComp = spLogo->AddComponent<TransformComponent>(216.f, 180.f);
-	pRdrComp = spLogo->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI), "Textures/Minigin/logo.png");
-
-	scene.Add(spLogo);
-
-	//Title
-	auto spFont = ResourceManager::GetInstance().LoadFont("Fonts/Lingua.otf", 36);
-	auto spTitle = std::make_shared<GameObject>();
-
-	pTfmComp = spTitle->AddComponent<TransformComponent>(80.f, 20.f);
-	pRdrComp = spTitle->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
-	pTxtComp = spTitle->AddComponent<TextComponent>(pRdrComp, spFont, RGBColor{ 255, 255, 255 }, "Programming 4 Assignment");
-
-	scene.Add(spTitle);
-
-	//Fps
-	auto fps = std::make_shared<GameObject>();
-
-	pTfmComp = fps->AddComponent<TransformComponent>(10.f, 10.f);
-	pRdrComp = fps->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::UI));
-	pTxtComp = fps->AddComponent<TextComponent>(pRdrComp, "Fonts/Lingua.otf", 20, RGBColor{ 0, 150, 0 });
-	pFpsComp = fps->AddComponent<FpsComponent>(pTxtComp);
-
-	scene.Add(fps);
-
-	//HealthDisplay 1
-	auto spHealthDisplay1 = std::make_shared<GameObject>();
-	pHltComp = spHealthDisplay1->AddComponent<HealthComponent>();
-	pTfmComp = spHealthDisplay1->AddComponent<TransformComponent>(10.f, 100.f);
-	pRdrComp = spHealthDisplay1->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::HUD));
-	pTxtComp = spHealthDisplay1->AddComponent<TextComponent>(pRdrComp, spFont, RGBColor{ 255, 150, 0 });
-
-	scene.Add(spHealthDisplay1);
-
-	//Scoreboard 1
-	auto spScoreboard1 = std::make_shared<GameObject>();
-	pScrComp = spScoreboard1->AddComponent<ScoreComponent>();
-	pTfmComp = spScoreboard1->AddComponent<TransformComponent>(10.f, 200.f);
-	pRdrComp = spScoreboard1->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::HUD));
-	pTxtComp = spScoreboard1->AddComponent<TextComponent>(pRdrComp, spFont, RGBColor{ 0, 150, 255 });
-
-	scene.Add(spScoreboard1);
-
-	//PeterPepper 1
-	auto spPeterPepper1 = std::make_shared<GameObject>();
-	pPtpComp = spPeterPepper1->AddComponent<PeterPepperComponent>();
-	pPtpComp->AddObserver(pHltComp);
-
-	scene.Add(spPeterPepper1);
-
-	////Burger 1
-	//auto spBurger1 = std::make_shared<GameObject>();
-	//pBgrComp = spBurger1->AddComponent<BurgerComponent>();
-	//pBgrComp->AddObserver(pScrComp);
-
-	//scene.Add(spBurger1);
-
-	//Enemy 1
-	auto spEnemy1 = std::make_shared<GameObject>();
-	pEnmComp = spEnemy1->AddComponent<EnemyComponent>();
-	pEnmComp->AddObserver(pScrComp);
-
-	scene.Add(spEnemy1);
-
-	//HealthDisplay 2
-	auto spHealthDisplay2 = std::make_shared<GameObject>();
-	pHltComp = spHealthDisplay2->AddComponent<HealthComponent>();
-	pTfmComp = spHealthDisplay2->AddComponent<TransformComponent>(100.f, 100.f);
-	pRdrComp = spHealthDisplay2->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::HUD));
-	pTxtComp = spHealthDisplay2->AddComponent<TextComponent>(pRdrComp, spFont, RGBColor{ 255, 150, 0 });
-
-	scene.Add(spHealthDisplay2);
-
-	//Scoreboard 2
-	auto spScoreboard2 = std::make_shared<GameObject>();
-	pScrComp = spScoreboard2->AddComponent<ScoreComponent>();
-	pTfmComp = spScoreboard2->AddComponent<TransformComponent>(100.f, 200.f);
-	pRdrComp = spScoreboard2->AddComponent<RenderComponent>(pTfmComp, static_cast<int>(RenderOrder::HUD));
-	pTxtComp = spScoreboard2->AddComponent<TextComponent>(pRdrComp, spFont, RGBColor{ 0, 150, 255 });
-
-	scene.Add(spScoreboard2);
-
-	//PeterPepper 2
-	auto spPeterPepper2 = std::make_shared<GameObject>();
-	pPtpComp = spPeterPepper2->AddComponent<PeterPepperComponent>(10);
-	pPtpComp->AddObserver(pHltComp);
-
-	scene.Add(spPeterPepper2);
-
-	////Burger 2
-	//auto spBurger2 = std::make_shared<GameObject>();
-	//pBgrComp = spBurger2->AddComponent<BurgerComponent>();
-	//pBgrComp->AddObserver(pScrComp);
-
-	//scene.Add(spBurger2);
-
-	//Enemy 2
-	auto spEnemy2 = std::make_shared<GameObject>();
-	pEnmComp = spEnemy2->AddComponent<EnemyComponent>();
-	pEnmComp->AddObserver(pScrComp);
-
-	scene.Add(spEnemy2);
-
-	//Input
-	auto& inputManager = InputManager::GetInstance();
-
-	inputManager.AddBindingToController(std::make_shared<LoseLifeCommand>(spPeterPepper1.get()), PS4Controller::Cross, InputState::Down, 0);
-	//inputManager.AddBindingToController(std::make_shared<BurgerDroppedCommand>(spBurger1.get()), PS4Controller::R1, InputState::Down, 0);
-	inputManager.AddBindingToController(std::make_shared<EnemyDiedCommand>(spEnemy1.get()), PS4Controller::L1, InputState::Pressed, 0);
-
-	inputManager.AddBindingToKeyboard(std::make_shared<LoseLifeCommand>(spPeterPepper2.get()), ApplicationKeyboard::Space, InputState::Down);
-	//inputManager.AddBindingToKeyboard(std::make_shared<BurgerDroppedCommand>(spBurger2.get()), ApplicationKeyboard::Q, InputState::Down);
-	inputManager.AddBindingToKeyboard(std::make_shared<EnemyDiedCommand>(spEnemy2.get()), ApplicationKeyboard::E, InputState::Pressed);
-
-	inputManager.AddBindingToController(std::make_shared<LoseLifeCommand>(spPeterPepper2.get()), PS4Controller::Cross, InputState::Down, 1);
-	//inputManager.AddBindingToController(std::make_shared<BurgerDroppedCommand>(spBurger2.get()), PS4Controller::R1, InputState::Down, 1);
-	inputManager.AddBindingToController(std::make_shared<EnemyDiedCommand>(spEnemy2.get()), PS4Controller::L1, InputState::Pressed, 1);
-
-	inputManager.AddBindingToController<QuitCommand>(PS4Controller::Triangle, InputState::Up);
 }
 
 void Game::LoadLevel(const std::string& levelFile, const int levelIndex, int highScore)
@@ -441,12 +295,6 @@ void Game::LoadLevel(const std::string& levelFile, const int levelIndex, int hig
 	inputManager.AddBindingToKeyboard(std::make_shared<MoveDownCommand>(pPeterPepper2), ApplicationKeyboard::ArrowDown, InputState::Pressed);
 	inputManager.AddBindingToKeyboard(std::make_shared<MoveLeftCommand>(pPeterPepper2), ApplicationKeyboard::ArrowLeft, InputState::Pressed);
 	inputManager.AddBindingToKeyboard(std::make_shared<MoveRightCommand>(pPeterPepper2), ApplicationKeyboard::ArrowRight, InputState::Pressed);
-
-	//inputManager.AddBindingToController<QuitCommand>(PS4Controller::Triangle, InputState::Up);
-	//inputManager.AddBindingToKeyboard<QuitCommand>(ApplicationKeyboard::Escape, InputState::Up);
-
-	//inputManager.AddBindingToKeyboard<NextSceneCommand>(ApplicationKeyboard::F4, InputState::Up);
-	//inputManager.AddBindingToKeyboard<PreviousSceneCommand>(ApplicationKeyboard::F3, InputState::Up);
 }
 
 void Game::HighScore()

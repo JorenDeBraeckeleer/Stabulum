@@ -29,7 +29,7 @@ void RenderComponent::Update()
 		}
 	}
 }
-#include "../BurgerTime/BurgerPartComponent.h"
+
 void RenderComponent::Render() const
 {
 	if (m_spTexture)

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "ButtonMapping.h"
 
 //This is not the real pImpl, this class can be foward declared here
@@ -8,8 +9,8 @@ class Controller final
 {
 public:
 	Controller(int id);
-
 	~Controller();
+
 	Controller(const Controller& other) = delete;
 	Controller(Controller&& other) = delete;
 	Controller& operator=(const Controller& other) = delete;

@@ -4,8 +4,8 @@ class SceneObject
 {
 public:
 	SceneObject() = default;
-
 	virtual ~SceneObject() = default;
+
 	SceneObject(const SceneObject& other) = delete;
 	SceneObject(SceneObject&& other) = delete;
 	SceneObject& operator=(const SceneObject& other) = delete;
@@ -16,4 +16,5 @@ public:
 	virtual void Render() const = 0;
 
 private:
+
 };

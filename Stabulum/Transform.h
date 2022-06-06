@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Structs.h"
 
 class Transform final
@@ -6,6 +7,11 @@ class Transform final
 public:
 	Transform(float x, float y, bool inPixels = true);
 	~Transform() = default;
+
+	Transform(const Transform&) = delete;
+	Transform(Transform&&) = delete;
+	Transform& operator= (const Transform&) = delete;
+	Transform& operator= (const Transform&&) = delete;
 
 	const FVec2 GetWorldPosition(bool inPixels = true) const;
 	const FVec2 GetLocalPosition(bool inPixels = true) const;

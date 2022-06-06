@@ -1,15 +1,16 @@
 #pragma once
+
 #include "BaseComponent.h"
 
-class SpriteComponent;
 class RigidBodyComponent;
+class SpriteComponent;
 
 class MovementComponent final : public BaseComponent
 {
 public:
 	MovementComponent(SpriteComponent* pSpriteComponent, RigidBodyComponent* pRigidBodyComponent);
-
 	virtual ~MovementComponent() = default;
+
 	MovementComponent(const MovementComponent& other) = delete;
 	MovementComponent(MovementComponent&& other) = delete;
 	MovementComponent& operator=(const MovementComponent& other) = delete;
@@ -27,10 +28,6 @@ public:
 	virtual void Update() override;
 
 	void SetMoveDirection(const MoveDirection& moveDirection) { m_MoveDirection = moveDirection; m_HasUpdatedMovement = true; }
-
-	void CheckBlockDirection(const FVec2& characterPosition, const FVec2& otherPosition);
-	void CheckUnBlockDirection(const FVec2& characterPosition, const FVec2& otherPosition);
-	void BlockDirection(const MoveDirection& moveDirection, bool block = true);
 
 private:
 	MoveDirection m_MoveDirection;

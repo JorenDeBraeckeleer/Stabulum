@@ -1,14 +1,17 @@
 #pragma once
-#include "BaseComponent.h"
+
 #include <functional>
+
+#include "BaseComponent.h"
+
 class b2Fixture;
 
 class ColliderComponent : public BaseComponent
 {
 public:
 	ColliderComponent();
-
 	virtual ~ColliderComponent() = default;
+
 	ColliderComponent(const ColliderComponent& other) = delete;
 	ColliderComponent(ColliderComponent&& other) = delete;
 	ColliderComponent& operator=(const ColliderComponent& other) = delete;

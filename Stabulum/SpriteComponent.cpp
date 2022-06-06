@@ -1,8 +1,8 @@
 #include "StabulumPCH.h"
 #include "SpriteComponent.h"
 
-#include "Texture2D.h"
 #include "RenderComponent.h"
+#include "Texture2D.h"
 #include "TextureTransformComponent.h"
 #include "TimeManager.h"
 

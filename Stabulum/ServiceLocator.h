@@ -9,9 +9,6 @@ public:
     static SoundManager* GetSoundManager() { return m_pSoundManager; }
 
 private:
-    //ServiceLocator() = default;
-    //~ServiceLocator();
-
     ServiceLocator() = delete;
     ~ServiceLocator() = delete;
 

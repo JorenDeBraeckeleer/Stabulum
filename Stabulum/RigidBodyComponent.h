@@ -1,4 +1,5 @@
 #pragma once
+
 #include "BaseComponent.h"
 
 class b2Body;
@@ -16,8 +17,8 @@ public:
 	};
 
 	RigidBodyComponent(TransformComponent* pTransformComponent, BodyType bodyType = BodyType::Static, float angle = 0.f, float gravityScale = 0.f, bool hasFixedRotation = true);
-
 	virtual ~RigidBodyComponent() = default;
+
 	RigidBodyComponent(const RigidBodyComponent& other) = delete;
 	RigidBodyComponent(RigidBodyComponent&& other) = delete;
 	RigidBodyComponent& operator=(const RigidBodyComponent& other) = delete;
@@ -78,11 +79,9 @@ private:
 	TransformComponent* m_pTransformComponent;
 
 	BodyType m_BodyType;
-
 	b2Body* m_pPhysicsBody;
 
-	bool m_ChangeTransform;
 	FVec2 m_NewPosition;
-
+	bool m_ChangeTransform;
 	bool m_IsUpdateNeeded;
 };

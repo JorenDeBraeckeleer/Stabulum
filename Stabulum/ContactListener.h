@@ -8,6 +8,12 @@ class ContactListener final : public b2ContactListener
 {
 public:
 	ContactListener() = default;
+	~ContactListener() = default;
+
+	ContactListener(const ContactListener&) = delete;
+	ContactListener(ContactListener&&) = delete;
+	ContactListener& operator= (const ContactListener&) = delete;
+	ContactListener& operator= (const ContactListener&&) = delete;
 
 	struct Contact
 	{

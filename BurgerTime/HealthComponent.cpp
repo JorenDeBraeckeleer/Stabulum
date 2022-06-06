@@ -1,8 +1,8 @@
 #include "BurgerTimePCH.h"
 #include "HealthComponent.h"
 
-#include "TextComponent.h"
 #include "PeterPepperComponent.h"
+#include "TextComponent.h"
 
 HealthComponent::HealthComponent()
 	: m_pTextComp{ nullptr }

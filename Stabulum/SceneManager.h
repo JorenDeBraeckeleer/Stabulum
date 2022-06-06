@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Singleton.h"
 
 class Scene;
@@ -6,6 +7,12 @@ class Scene;
 class SceneManager final : public Singleton<SceneManager>
 {
 public:
+	virtual ~SceneManager() override = default;
+	SceneManager(const SceneManager& other) = delete;
+	SceneManager(SceneManager&& other) noexcept = delete;
+	SceneManager& operator=(const SceneManager& other) = delete;
+	SceneManager& operator=(SceneManager&& other) noexcept = delete;
+
 	Scene& CreateScene(const std::string& name);
 
 	void FixedUpdate(float fixedDeltaTime);

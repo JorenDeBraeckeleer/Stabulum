@@ -1,8 +1,10 @@
 #pragma once
-#include "Transform.h"
-#include "SceneObject.h"
+
 #include <type_traits>
 #include <typeinfo>
+
+#include "SceneObject.h"
+#include "Transform.h"
 
 class BaseComponent;
 class RigidBodyComponent;
@@ -14,8 +16,8 @@ class GameObject final : public SceneObject
 {
 public:
 	GameObject();
-
 	virtual ~GameObject();
+
 	GameObject(const GameObject& other) = delete;
 	GameObject(GameObject&& other) = delete;
 	GameObject& operator=(const GameObject& other) = delete;
@@ -60,22 +62,20 @@ public:
 		return pComponent;
 	}
 
-	////Not tested yet
-	//template<typename myType>
-	//myType* GetComponentInChildren() const
-	//{
-	//	//Search for existing component
-	//	myType* pComp{};
+	template<typename myType>
+	myType* GetComponentInChildren() const
+	{
+		//Search for existing component
+		myType* pComp{};
 
-	//	for (size_t idx{}; idx < m_pChildren.size() && !pComp; ++idx)
-	//	{
-	//		pComp = dynamic_cast<myType*>(m_pChildren[idx]->GetComponent<myType>());
-	//	}
+		for (size_t idx{}; idx < m_pChildren.size() && !pComp; ++idx)
+		{
+			pComp = dynamic_cast<myType*>(m_pChildren[idx]->GetComponent<myType>());
+		}
 
-	//	return pComp;
-	//};
+		return pComp;
+	};
 
-	//Not tested yet
 	template<typename myType>
 	myType* GetComponentInParents() const
 	{
@@ -124,37 +124,10 @@ public:
 		return pComponents;
 	};
 
-	template <typename myType>
-	void RemoveComponent()
-	{
-		//Search for existing component
-		myType* pComp{};
-
-		for (size_t idx{}; idx < m_pComponents.size() && !pComp; ++idx)
-		{
-			pComp = dynamic_cast<myType*>(m_pComponents[idx]);
-		}
-
-		//Delete found component
-		if (pComp)
-		{
-			m_pComponents.erase(std::remove(m_pComponents.begin(), m_pComponents.end(), pComp));
-
-			pComp->SetGameObject(nullptr);
-
-			//Signal parent of lost child
-			//...
-
-			delete pComp;
-			pComp = nullptr;
-		}
-	}
-
 private:
 	std::vector<BaseComponent*> m_pComponents;
-
-	GameObject* m_pParentObject;
 	std::vector<GameObject*> m_pChildren;
+	GameObject* m_pParentObject;
 
 	Scene* m_pScene;
 };

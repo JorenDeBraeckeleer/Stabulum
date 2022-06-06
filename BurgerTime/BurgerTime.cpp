@@ -6,11 +6,10 @@
 #endif
 #endif
 
-#include "Stabulum.h"
 #include "Game.h"
 
-int main(int, char* []) {
-	//Stabulum engine;
+int main(int, char* [])
+{
 	Game engine;
 	engine.Run();
 	return 0;

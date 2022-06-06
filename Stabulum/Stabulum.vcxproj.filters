@@ -165,15 +165,6 @@
     <ClInclude Include="CircleColliderComponent.h">
       <Filter>Stabulum Extended Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="TriggerComponent.h">
-      <Filter>Stabulum Extended Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="NextSceneCommand.h">
-      <Filter>Stabulum Extended Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="PreviousSceneCommand.h">
-      <Filter>Stabulum Extended Files\Commands</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stabulum.cpp">
@@ -283,15 +274,6 @@
     </ClCompile>
     <ClCompile Include="CircleColliderComponent.cpp">
       <Filter>Stabulum Extended Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="TriggerComponent.cpp">
-      <Filter>Stabulum Extended Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="NextSceneCommand.cpp">
-      <Filter>Stabulum Extended Files\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="PreviousSceneCommand.cpp">
-      <Filter>Stabulum Extended Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

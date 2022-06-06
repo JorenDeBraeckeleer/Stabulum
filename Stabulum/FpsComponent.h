@@ -1,4 +1,5 @@
 #pragma once
+
 #include "BaseComponent.h"
 
 class TextComponent;
@@ -7,8 +8,8 @@ class FpsComponent final : public BaseComponent
 {
 public:
 	FpsComponent(TextComponent* pTextComponent);
-
 	virtual ~FpsComponent() = default;
+
 	FpsComponent(const FpsComponent& other) = delete;
 	FpsComponent(FpsComponent&& other) = delete;
 	FpsComponent& operator=(const FpsComponent& other) = delete;

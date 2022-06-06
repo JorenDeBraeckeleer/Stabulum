@@ -1,12 +1,19 @@
 #pragma once
 
-#include "Stabulum.h"
-
 #include "GameObject.h"
+#include "Stabulum.h"
 
 class Game final : public Stabulum
 {
 public:
+	Game() = default;
+	~Game() = default;
+
+	Game(const Game&) = delete;
+	Game(Game&&) = delete;
+	Game& operator= (const Game&) = delete;
+	Game& operator= (const Game&&) = delete;
+
 	void Initialize();
 	void LoadGame();
 	void Cleanup();
@@ -15,13 +22,10 @@ public:
 private:
 	void HighScore();
 
-	void LoadTestScene() const;
 	void LoadLevel(const std::string& levelFile, const int levelIndex, int highScore);
 
 	std::vector<GameObject*> m_pPeterPeppers{};
-	//GameObject* m_pPeterPepper{ new GameObject{} };
 	std::vector<GameObject*> m_pLevels{};
-	//GameObject* m_pLevel{ new GameObject{} };
 
 	FVec2 m_LevelSize{ 416.f, 400.f};
 	float m_Border{ 16.f };

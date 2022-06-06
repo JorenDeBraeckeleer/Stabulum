@@ -1,4 +1,5 @@
 #pragma once
+
 #include "ButtonMapping.h"
 
 class ControllerImplementation final
@@ -6,6 +7,11 @@ class ControllerImplementation final
 public:
 	ControllerImplementation(int id);
 	~ControllerImplementation();
+
+	ControllerImplementation(const ControllerImplementation& other) = delete;
+	ControllerImplementation(ControllerImplementation&& other) = delete;
+	ControllerImplementation& operator=(const ControllerImplementation& other) = delete;
+	ControllerImplementation& operator=(ControllerImplementation&& other) = delete;
 
 	using XInputController = unsigned int;
 

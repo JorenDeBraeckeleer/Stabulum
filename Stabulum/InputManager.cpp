@@ -1,7 +1,9 @@
 #include "StabulumPCH.h"
 #include "InputManager.h"
-#include "Application.h"
+
 #include <set>
+
+#include "Application.h"
 
 InputManager::InputManager()
 	: m_ControllerCount{ 4 }

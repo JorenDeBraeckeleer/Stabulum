@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Singleton.h"
 
 class Texture2D;
@@ -33,6 +34,14 @@ private:
 class Renderer final : public Singleton<Renderer>
 {
 public:
+	Renderer() = default;
+	~Renderer() = default;
+
+	Renderer(const Renderer&) = delete;
+	Renderer(Renderer&&) = delete;
+	Renderer& operator= (const Renderer&) = delete;
+	Renderer& operator= (const Renderer&&) = delete;
+
 	void Init(SDL_Window* window);
 	void Render() const;
 	void Destroy();

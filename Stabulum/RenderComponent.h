@@ -4,15 +4,15 @@
 #include "Renderer.h"
 
 class Texture2D;
-class TransformComponent;
 class TextureTransformComponent;
+class TransformComponent;
 
 class RenderComponent final : public BaseComponent
 {
 public:
 	RenderComponent(TransformComponent* pTransformComponent, const int layer = 0, const std::string& filename = "");
-
 	virtual ~RenderComponent() = default;
+
 	RenderComponent(const RenderComponent& other) = delete;
 	RenderComponent(RenderComponent&& other) = delete;
 	RenderComponent& operator=(const RenderComponent& other) = delete;

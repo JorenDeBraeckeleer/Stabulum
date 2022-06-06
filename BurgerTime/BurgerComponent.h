@@ -1,17 +1,18 @@
 #pragma once
+
 #include "BaseComponent.h"
 #include "TileComponent.h"
 
-class TransformComponent;
-class RigidBodyComponent;
 class BurgerPartComponent;
+class RigidBodyComponent;
+class TransformComponent;
 
 class BurgerComponent final : public BaseComponent, public Subject
 {
 public:
 	BurgerComponent(TransformComponent* pTransformComponent, const Ingredient& ingredient, const std::string& filename = "");
-
 	virtual ~BurgerComponent();
+
 	BurgerComponent(const BurgerComponent& other) = delete;
 	BurgerComponent(BurgerComponent&& other) = delete;
 	BurgerComponent& operator=(const BurgerComponent& other) = delete;

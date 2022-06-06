@@ -1,6 +1,7 @@
 #pragma once
-#include "SceneManager.h"
+
 #include "GameObject.h"
+#include "SceneManager.h"
 
 class SceneObject;
 
@@ -59,7 +60,7 @@ public:
 private: 
 	explicit Scene(const std::string& name);
 
-	std::string m_Name;
+	const std::string m_Name;
 	std::vector <std::shared_ptr<SceneObject>> m_Objects{};
 
 	static unsigned int m_IdCounter; 

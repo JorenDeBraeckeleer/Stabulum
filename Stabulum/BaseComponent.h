@@ -1,14 +1,15 @@
 #pragma once
+
 #include "GameObject.h"
-#include "Subject.h"
 #include "Observer.h"
+#include "Subject.h"
 
 class BaseComponent
 {
 public:
 	BaseComponent();
-
 	virtual ~BaseComponent() = default;
+
 	BaseComponent(const BaseComponent& other) = delete;
 	BaseComponent(BaseComponent&& other) = delete;
 	BaseComponent& operator=(const BaseComponent& other) = delete;

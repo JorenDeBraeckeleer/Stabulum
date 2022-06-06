@@ -1,5 +1,7 @@
 #include "StabulumPCH.h"
+
 #include <SDL_ttf.h>
+
 #include "Font.h"
 
 Font::Font(const std::string& fullPath, unsigned int size)

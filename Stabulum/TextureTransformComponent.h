@@ -1,4 +1,5 @@
 #pragma once
+
 #include "BaseComponent.h"
 
 class Transform;
@@ -8,8 +9,8 @@ class TextureTransformComponent final : public BaseComponent
 public:
 	TextureTransformComponent(int x, int y, int width, int height);
 	TextureTransformComponent(SDL_Rect* pSrcRect);
-
 	virtual ~TextureTransformComponent();
+
 	TextureTransformComponent(const TextureTransformComponent& other) = delete;
 	TextureTransformComponent(TextureTransformComponent&& other) = delete;
 	TextureTransformComponent& operator=(const TextureTransformComponent& other) = delete;

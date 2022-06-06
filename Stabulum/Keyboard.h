@@ -1,12 +1,13 @@
 #pragma once
+
 #include "ButtonMapping.h"
 
 class Keyboard final
 {
 public:
 	Keyboard();
-
 	~Keyboard();
+
 	Keyboard(const Keyboard& other) = delete;
 	Keyboard(Keyboard&& other) = delete;
 	Keyboard& operator=(const Keyboard& other) = delete;

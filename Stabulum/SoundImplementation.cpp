@@ -97,26 +97,21 @@ class SoundImplementation::Implementation final
 public:
     Implementation()
     {
-        //Open audio
         Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 512);
 
-        //Start sound thread
         m_SoundThread = std::thread(&Implementation::SoundLoop, this);
     }
 
     ~Implementation()
     {
-        //Close audio
         Mix_CloseAudio();
 
         {
-            //Lock bool
             std::lock_guard<std::mutex> lg(m_SoundMutex);
 
             //Prepare to quit sound thread
             m_Quit = true;
 
-            //Delete sounds
             for (auto x : m_pSounds)
             {
                 delete x;
@@ -139,10 +134,8 @@ public:
     bool Play(unsigned short id, const int volume, bool doesLoop = false)
     {
         {
-            //Lock queue
             std::lock_guard<std::mutex> lg(m_SoundMutex);
 
-            //Find sound clip
             if (m_Ids.contains(id))
             {
                 for (SoundClip* pClip : m_pSounds)
@@ -171,10 +164,8 @@ public:
     void Load(const std::string& filePath, unsigned short id)
     {
         {
-            //Lock queue
             std::lock_guard<std::mutex> lg(m_SoundMutex);
 
-            //Unique id check
             if (m_Ids.contains(id))
             {
                 return;
@@ -184,7 +175,6 @@ public:
                 m_Ids.insert(id);
             }
 
-            //Add sound clip
             m_pLoadQueue.push(new SoundClip{ filePath, id });
         }
 
@@ -210,34 +200,25 @@ private:
             //Spurious wakeup check
             if (!m_pPlayQueue.empty())
             {
-                //Get clip, check load, play it
                 SoundClip* pClip = m_pPlayQueue.front();
 
-                //Delete sound from queue
                 m_pPlayQueue.pop();
 
-                //Unlock the lock
                 lock.unlock();
 
-                //Do stuff
                 pClip->Load();
                 pClip->Play();
             }
             else if (!m_pLoadQueue.empty())
             {
-                //Get clip, load it
                 SoundClip* pClip = m_pLoadQueue.front();
 
-                //Delete sound from queue
                 m_pLoadQueue.pop();
 
-                //Unlock the lock
                 lock.unlock();
 
-                //Do stuff
                 pClip->Load();
 
-                //Add to sounds
                 m_pSounds.push_back(pClip);
             }
         }

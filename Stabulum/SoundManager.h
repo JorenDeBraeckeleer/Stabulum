@@ -35,6 +35,11 @@ public:
     NullSoundManager() = default;
     virtual ~NullSoundManager() override = default;
 
+    NullSoundManager(const NullSoundManager& other) = delete;
+    NullSoundManager(NullSoundManager&& other) noexcept = delete;
+    NullSoundManager& operator=(const NullSoundManager& other) = delete;
+    NullSoundManager& operator=(NullSoundManager&& other) noexcept = delete;
+
     virtual bool Play(SoundId, const int, bool) override { return false; }
     virtual void Load(const std::string&, SoundId) override {  }
 };
@@ -44,6 +49,11 @@ class SDLSoundManager final : public SoundManager
 public:
     SDLSoundManager();
     virtual ~SDLSoundManager() override;
+
+    SDLSoundManager(const SDLSoundManager& other) = delete;
+    SDLSoundManager(SDLSoundManager&& other) noexcept = delete;
+    SDLSoundManager& operator=(const SDLSoundManager& other) = delete;
+    SDLSoundManager& operator=(SDLSoundManager&& other) noexcept = delete;
 
     virtual bool Play(SoundId id, const int volume = 1, bool doesLoop = false) override;
     virtual void Load(const std::string& filePath, SoundId id) override;
@@ -57,6 +67,11 @@ class LoggingSoundManager final : public SoundManager
 public:
     LoggingSoundManager(SoundManager* pSoundManager);
     virtual ~LoggingSoundManager() override;
+
+    LoggingSoundManager(const LoggingSoundManager& other) = delete;
+    LoggingSoundManager(LoggingSoundManager&& other) noexcept = delete;
+    LoggingSoundManager& operator=(const LoggingSoundManager& other) = delete;
+    LoggingSoundManager& operator=(LoggingSoundManager&& other) noexcept = delete;
 
     virtual bool Play(SoundId id, const int volume = 1, bool doesLoop = false) override;
     virtual void Load(const std::string& filePath, SoundId id) override;

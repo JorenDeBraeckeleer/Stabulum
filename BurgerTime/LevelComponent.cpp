@@ -1,18 +1,19 @@
 #include "BurgerTimePCH.h"
 #include "LevelComponent.h"
-#include "BurgerTimeParser.h"
-#include "TileComponent.h"
-#include "TextureTransformComponent.h"
-#include "TransformComponent.h"
-#include "RenderComponent.h"
+
 #include "BoxColliderComponent.h"
-#include "RigidBodyComponent.h"
 #include "BurgerComponent.h"
 #include "BurgerPlatformComponent.h"
+#include "BurgerTimeParser.h"
+#include "RenderComponent.h"
 #include "RenderOrder.h"
+#include "RigidBodyComponent.h"
 #include "Scene.h"
 #include "ScoreComponent.h"
 #include "ServiceLocator.h"
+#include "TextureTransformComponent.h"
+#include "TileComponent.h"
+#include "TransformComponent.h"
 
 LevelComponent::LevelComponent(const std::string& filePath)
 	: m_pTiles{}
@@ -86,7 +87,6 @@ void LevelComponent::InitializeLevel()
 {
     const std::string ingredientSpriteSheet{ "Textures/BurgerTime/Items/Burger.png" };
     const std::string normalSpriteSheet{ "Textures/BurgerTime/Level/Tiles.png" };
-    //const std::string alphaSpriteSheet{ "Textures/Level/AlphaTiles.png" };
 
     int tileSize{ 32 };
     FVec2 startOffset{ GetGameObject()->GetComponent<TransformComponent>()->GetWorldPosition() };
@@ -180,22 +180,18 @@ void LevelComponent::InitializeLevel()
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(0, 128, tileSize * 2, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 64.f / 16.f, 32.f / 16.f, 32.f / 16.f, 12.f / 16.f, 0.f, levelCollisionGroup);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 8.f / 16.f, 16.f / 16.f, 10.f / 16.f, 0.f, burgerCollisionGroup);
-            //...
             break;
         case TileName::PlateStart:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(64, 128, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 32.f / 16.f, 16.f / 16.f, 12.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::PlateMiddle:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(96, 128, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 32.f / 16.f, 16.f / 16.f, 12.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::PlateEnd:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(128, 128, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 32.f / 16.f, 16.f / 16.f, 12.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::FloatingSingleStair:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(128, 0, tileSize, tileSize);
@@ -211,52 +207,43 @@ void LevelComponent::InitializeLevel()
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(64, 32, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 03.f / 16.f, 12.f / 16.f, 0.f, levelCollisionGroup);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 30.f / 16.f, 12.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::FloatingSingleStairMiddle:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(96, 32, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 03.f / 16.f, 12.f / 16.f, 0.f, levelCollisionGroup);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 30.f / 16.f, 12.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::FloatingSingleStairEnd:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(128, 32, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 03.f / 16.f, 12.f / 16.f, 0.f, levelCollisionGroup);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 32.f / 16.f, 30.f / 16.f, 12.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::PlatformSingleStart:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(64, 96, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 12.f / 16.f, 16.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::PlatformSingleMiddle:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(96, 96, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 12.f / 16.f, 16.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::PlatformSingleEnd:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(128, 96, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 32.f / 16.f, 12.f / 16.f, 16.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::PlatformSingleStairStart:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(64, 64, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 03.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 30.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::PlatformSingleStairMiddle:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(96, 64, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 03.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 30.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         case TileName::PlatformSingleStairEnd:
             m_pTiles[idx]->AddComponent<TextureTransformComponent>(128, 64, tileSize, tileSize);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 03.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
             m_pTiles[idx]->AddComponent<BoxColliderComponent>(pRbyComp, 4.f / 16.f, 12.f / 16.f, 30.f / 16.f, 2.f / 16.f, 0.f, levelCollisionGroup);
-            //...
             break;
         default:
             break;

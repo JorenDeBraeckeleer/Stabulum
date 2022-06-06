@@ -1,4 +1,5 @@
 #pragma once
+
 #include <SDL_stdinc.h>
 
 struct IVec2

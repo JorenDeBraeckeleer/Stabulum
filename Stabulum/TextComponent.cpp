@@ -1,12 +1,14 @@
 #include "StabulumPCH.h"
-#include <SDL_ttf.h>
 #include "TextComponent.h"
-#include "Renderer.h"
+
+#include <SDL_ttf.h>
+
 #include "Font.h"
-#include "Texture2D.h"
-#include "TransformComponent.h"
 #include "RenderComponent.h"
 #include "ResourceManager.h"
+#include "Renderer.h"
+#include "Texture2D.h"
+#include "TransformComponent.h"
 
 TextComponent::TextComponent(RenderComponent* pRenderComponent, const std::shared_ptr<Font>& font, const RGBColor color, const std::string& text)
 	: m_pRenderComponent{ pRenderComponent }

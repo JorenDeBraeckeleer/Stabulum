@@ -2,21 +2,22 @@
 #include "BaseComponent.h"
 
 #include "b2_math.h"
+
 class b2World;
 class b2Shape;
 
-class ContactListener;
-class TransformComponent;
-class RigidBodyComponent;
 class BoxColliderComponent;
 class CircleColliderComponent;
+class ContactListener;
+class RigidBodyComponent;
+class TransformComponent;
 
 class WorldComponent final : public BaseComponent
 {
 public:
 	WorldComponent();
-
 	virtual ~WorldComponent();
+
 	WorldComponent(const WorldComponent& other) = delete;
 	WorldComponent(WorldComponent&& other) = delete;
 	WorldComponent& operator=(const WorldComponent& other) = delete;
@@ -33,10 +34,10 @@ public:
 	void AddToBodyColliderCircle(RigidBodyComponent* pRigidBodyComponent, CircleColliderComponent* pCircleColliderComponent, int16 groupIndex = 0);
 
 private:
+	b2Vec2 GetVecb2(FVec2 vec) { return b2Vec2{ vec.x, vec.y }; }
+	FVec2 GetFVec(b2Vec2 vec) { return FVec2{ vec.x, vec.y }; }
+
 	b2World* m_pWorld;
 	ContactListener* m_pContactListener;
 	std::vector<RigidBodyComponent*> m_pRigidBodyComponents;
-
-	b2Vec2 GetVecb2(FVec2 vec) { return b2Vec2{ vec.x, vec.y }; }
-	FVec2 GetFVec(b2Vec2 vec) { return FVec2{ vec.x, vec.y }; }
 };
